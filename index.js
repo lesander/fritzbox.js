@@ -4,6 +4,7 @@
  */
 
 const request = require('request-promise')
+const csvjson = require('csvjson')
 let fritz = {}
 
 
@@ -18,6 +19,11 @@ fritz.request = (path, method, options) => {
   return new Promise(function(resolve, reject) {
 
     options.protocol = options.protocol || 'GET'
+
+    // Add SID to path if one has been given to us.
+    if (options.sid) {
+      path += '&sid=' + options.sid
+    }
 
     // Set the options for the request.
     const requestOptions = {
@@ -80,6 +86,48 @@ fritz.getSessionID = (options) => {
   })
 }
 
+
+/**
+ * Get a list of telephone calls.
+ * @param  {object} options Options object
+ * @return {Promise}        Object with telephony calls.
+ */
+fritz.getCalls = (options) => {
+  return new Promise(function(resolve, reject) {
+
+    fritz.getSessionID(options)
+
+    // Request all Fritz!Fon calls.
+    .then((sid) => {
+      options.sid = sid
+      return fritz.request('/fon_num/foncalls_list.lua?csv=', 'GET', options)
+    })
+
+    // Check response.
+    .then((response) => {
+      // TODO: check body response.
+      return response
+    })
+
+    // Format returned csv.
+    .then((response) => {
+      let csv = response.body
+                .replace('sep=;', '')
+                .replace('Extension;Telephone number', 'Extension;NumberSelf')
+                .replace('Telephone number', 'Number')
+                .trim()
+      let formattedBody = csvjson.toObject(csv, {delimiter: ';'})
+      return resolve(formattedBody)
+    })
+
+    // Catch errors.
+    .catch((error) => {
+      console.log('[FritzBox.js] getCalls failed.', error)
+      return reject(error)
+    })
+
+  })
+}
 
 /**
  * Export Fritz.
