@@ -129,6 +129,160 @@ fritz.getCalls = (options) => {
   })
 }
 
+
+/**
+ * Get all smart devices and groups.
+ * @param  {object} options
+ * @return {Promise}
+ */
+fritz.getSmartDevices = (options) => {
+  return new Promise(function(resolve, reject) {
+
+    fritz.getSessionID(options)
+
+    // Request all Fritz!Fon calls.
+    .then((sid) => {
+      options.sid = sid
+      return fritz.request('/myfritz/areas/homeauto.lua?ajax_id=1&cmd=getData', 'GET', options)
+    })
+
+    // Check response.
+    .then((response) => {
+      // TODO: check body response.
+      return response
+    })
+
+    .then((response) => {
+      return resolve(response.body)
+    })
+
+    // Catch errors.
+    .catch((error) => {
+      console.log('[FritzBox.js] getSmartDevices failed.', error)
+      return reject(error)
+    })
+
+  })
+}
+
+
+/**
+ * Toggle a Fritz DECT switch on or off.
+ * @param  {integer} deviceID
+ * @param  {integer} value    1 (on) or 0 (off)
+ * @param  {object} options
+ * @return {Promise}
+ */
+fritz.toggleSwitch = (deviceID, value, options) => {
+  return new Promise(function(resolve, reject) {
+
+    fritz.getSessionID(options)
+
+    // Request all Fritz!Fon calls.
+    .then((sid) => {
+      options.sid = sid
+      let path = '/myfritz/areas/homeauto.lua?ajax_id='+Math.floor(Math.random()*1000,2)+'&cmd=switchChange&cmdValue=' +
+                 value + '&deviceId=' + deviceID
+      return fritz.request(path, 'GET', options)
+    })
+
+    // Check response.
+    .then((response) => {
+      // TODO: check body response.
+      return response
+    })
+
+    .then((response) => {
+      return resolve(response.body)
+    })
+
+    // Catch errors.
+    .catch((error) => {
+      console.log('[FritzBox.js] toggleSwitch failed.', error)
+      return reject(error)
+    })
+
+  })
+}
+
+
+/**
+ * Get Telephone Answering Machine (TAM) Messages.
+ * @param  {object} options Options object
+ * @return {Promise}        Object with messages
+ */
+fritz.getTamMessages = (options) => {
+  return new Promise(function(resolve, reject) {
+
+    fritz.getSessionID(options)
+
+    // Request all Fritz!Fon calls.
+    .then((sid) => {
+      options.sid = sid
+      return fritz.request('/myfritz/areas/answer.lua?ajax_id=1', 'GET', options)
+    })
+
+    // Check response.
+    .then((response) => {
+      // TODO: check body response.
+      return response
+    })
+
+    .then((response) => {
+      return resolve(response.body)
+    })
+
+    // Catch errors.
+    .catch((error) => {
+      console.log('[FritzBox.js] getTamMessages failed.', error)
+      return reject(error)
+    })
+
+  })
+}
+
+
+/**
+ * Download a message from the Telephone Answering Machine (TAM).
+ * @param  {string} messagePath
+ * @param  {object} options
+ * @return {Promise}
+ */
+fritz.downloadTamMessage = (messagePath, options) => {
+  return new Promise(function(resolve, reject) {
+
+    fritz.getSessionID(options)
+
+    // Request all Fritz!Fon calls.
+    .then((sid) => {
+      options.sid = sid
+      const path = '/myfritz/cgi-bin/luacgi_notimeout' +
+                   '?cmd=tam&script=/http_file_download.lua' +
+                   '&cmd_files=' + messagePath
+      return fritz.request(path, 'GET', options)
+    })
+
+    // Check response.
+    .then((response) => {
+      // TODO: check body response.
+      return response
+    })
+
+    .then((response) => {
+      return resolve(response)
+    })
+
+    // Catch errors.
+    .catch((error) => {
+      console.log('[FritzBox.js] getTamMessages failed.', error)
+      return reject(error)
+    })
+
+  })
+
+}
+
+
 /**
  * Export Fritz.
  */
