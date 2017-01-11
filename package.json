@@ -1,0 +1,32 @@
+{
+  "name": "fritzbox-api",
+  "version": "1.0.0",
+  "author": "Sander Laarhoven <sanderlaarhoven@gmail.com>",
+  "description": "The most powerful Fritz!Box API.",
+  "homepage": "https://git.io/fritzbox",
+  "license": "MIT",
+  "contributors": [],
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lesander/fritzbox-api.git"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "standard"
+  },
+  "dependencies": {
+    "request": "*",
+    "request-promise": "*",
+    "csvjson": "*"
+  },
+  "devDependencies": {
+    "standard": "*"
+  },
+  "options": {
+    "protocol": "http",
+    "server": "fritz.box",
+    "user": "xxx",
+    "password": "xxx"
+  }
+}
