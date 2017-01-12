@@ -16,13 +16,13 @@
     "test": "standard"
   },
   "dependencies": {
-    "request": "*",
-    "request-promise": "*",
-    "csvjson": "*",
-    "crypto": "*"
+    "request": "^2.79.0",
+    "request-promise": "^4.1.1",
+    "csvjson": "^3.0.0",
+    "crypto": "^0.0.3"
   },
   "devDependencies": {
-    "standard": "*"
+    "standard": "^8.6.0"
   },
   "options": {
     "protocol": "http",
