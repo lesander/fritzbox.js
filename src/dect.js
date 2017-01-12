@@ -10,7 +10,6 @@ let fritzDect = {}
 const fritzLogin = require('./login.js')
 const fritzRequest = require('./request.js')
 
-
 /**
  * Get all smart devices and groups.
  * @param  {object} options
@@ -40,7 +39,6 @@ fritzDect.getSmartDevices = (options) => {
     })
   })
 }
-
 
 /**
  * Toggle a Fritz DECT switch on or off.
@@ -74,8 +72,6 @@ fritzDect.toggleSwitch = (deviceID, value, options) => {
     })
   })
 }
-
-
 
 /**
  * Export fritzDect.

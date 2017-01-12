@@ -12,7 +12,6 @@ const fritzRequest = require('./request.js')
 
 const csvjson = require('csvjson')
 
-
 /**
  * Get the history of telephone calls.
  * @param  {object} options Options object
@@ -49,7 +48,6 @@ fritzFon.getCalls = (options) => {
   })
 }
 
-
 /**
  * Get Telephone Answering Machine (TAM) Messages.
  * @param  {object} options Options object
@@ -78,7 +76,6 @@ fritzFon.getTamMessages = (options) => {
     })
   })
 }
-
 
 /**
  * Download a message from the Telephone Answering Machine (TAM).
@@ -112,7 +109,6 @@ fritzFon.downloadTamMessage = (messagePath, options) => {
     })
   })
 }
-
 
 /**
  * Export fritzFon.
