@@ -1,12 +1,28 @@
 {
-  "name": "fritzbox-api",
+  "name": "fritzbox.js",
   "version": "1.0.0",
   "author": "Sander Laarhoven <sanderlaarhoven@gmail.com>",
-  "description": "The most powerful Fritz!Box API.",
+  "description": "The most powerful Fritz!Box API for NodeJS.",
   "homepage": "https://git.io/fritzbox",
   "license": "MIT",
   "contributors": [],
-  "keywords": [],
+  "keywords": [
+    "Fritz!Box",
+    "Fritz!DECT",
+    "Fritz!Powerline",
+    "FritzBox",
+    "FritzBox.js",
+    "Fritz Box",
+    "Comet!DECT",
+    "Comet DECT",
+    "Dect 100",
+    "Dect 200",
+    "Dect 210",
+    "SmartHome",
+    "SmartFritz",
+    "AHA",
+    "API"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/lesander/fritzbox-api.git"
