@@ -19,6 +19,7 @@ fritzDect.getSmartDevices = (options) => {
   return new Promise(function (resolve, reject) {
     fritzLogin.getSessionID(options)
 
+    // Use the session id to obtain the list of registered smart devices.
     .then((sid) => {
       options.sid = sid
       return fritzRequest.request('/myfritz/areas/homeauto.lua?ajax_id=1&cmd=getData', 'GET', options)

@@ -58,6 +58,8 @@ fritzFon.getCalls = (options) => {
 fritzFon.getTamMessages = (options) => {
   return new Promise(function (resolve, reject) {
     fritzLogin.getSessionID(options)
+
+    // Use the session id to get a list of the last TAM messages.
     .then((sid) => {
       options.sid = sid
       return fritzRequest.request('/myfritz/areas/answer.lua?ajax_id=1', 'GET', options)
