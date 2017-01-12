@@ -30,6 +30,14 @@ fritzLogin.getSessionID = (options) => {
       return fritzRequest.request(path, 'GET', options)
     })
 
+    // Check the response.
+    .then((response) => {
+      if (response.statusCode !== 200) {
+        return reject(fritzRequest.findFailCause(response))
+      }
+      return response
+    })
+
     // Obtain the SID.
     .then((response) => {
       const sessionID = response.body.match('<SID>(.*?)</SID>')[1]

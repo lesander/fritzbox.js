@@ -25,7 +25,9 @@ fritzDect.getSmartDevices = (options) => {
     })
 
     .then((response) => {
-      // TODO: check body response.
+      if (response.statusCode !== 200) {
+        return reject(fritzRequest.findFailCause(response))
+      }
       return response
     })
 
@@ -59,7 +61,9 @@ fritzDect.toggleSwitch = (deviceID, value, options) => {
     })
 
     .then((response) => {
-      // TODO: check body response.
+      if (response.statusCode !== 200) {
+        return reject(fritzRequest.findFailCause(response))
+      }
       return response
     })
 
@@ -68,7 +72,7 @@ fritzDect.toggleSwitch = (deviceID, value, options) => {
     })
 
     .catch((error) => {
-      console.log('[FritzBox.js] toggleSwitch failed.', error)
+      console.log('[FritzDect] toggleSwitch failed.', error)
       return reject(error)
     })
   })

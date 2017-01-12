@@ -38,10 +38,33 @@ fritzRequest.request = (path, method, options) => {
       return resolve(response)
     })
     .catch((error) => {
-      console.log('[FritzBox.js] Request failed.', error)
+      console.log('[FritzRequest] Request failed.', error)
       return reject(error)
     })
   })
+}
+
+/**
+ * Find the cause of a failed request.
+ * @param  {object} response HTTP request response
+ * @return {string}          Detailed error message
+ */
+fritzRequest.findFailCause = (response) => {
+  console.log('[FritzRequest] HTTP response code was ' + response.statusCode)
+
+  if (response.statusCode === 403) {
+    return 'Not authenticated correctly for communication with Fritz!Box.'
+  }
+
+  if (response.statusCode === 500) {
+    return 'The Fritz!Box encountered an internal server error.'
+  }
+
+  if (response.statusCode === 404) {
+    return 'Requested page does not exist on the Fritz!Box.'
+  }
+
+  return 'Encountered an unexpected error.'
 }
 
 /**

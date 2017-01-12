@@ -27,7 +27,9 @@ fritzFon.getCalls = (options) => {
     })
 
     .then((response) => {
-      // TODO: check body response.
+      if (response.statusCode !== 200) {
+        return reject(fritzRequest.findFailCause(response))
+      }
       return response
     })
 
@@ -62,7 +64,9 @@ fritzFon.getTamMessages = (options) => {
     })
 
     .then((response) => {
-      // TODO: check body response.
+      if (response.statusCode !== 200) {
+        return reject(fritzRequest.findFailCause(response))
+      }
       return response
     })
 
@@ -95,7 +99,9 @@ fritzFon.downloadTamMessage = (messagePath, options) => {
     })
 
     .then((response) => {
-      // TODO: check body response.
+      if (response.statusCode !== 200) {
+        return reject(fritzRequest.findFailCause(response))
+      }
       return response
     })
 
