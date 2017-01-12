@@ -50,6 +50,7 @@ fritzDect.getSmartDevices = (options) => {
 fritzDect.toggleSwitch = (deviceID, value, options) => {
   return new Promise(function (resolve, reject) {
     fritzLogin.getSessionID(options)
+
     .then((sid) => {
       options.sid = sid
       let path = '/myfritz/areas/homeauto.lua?ajax_id=' + Math.floor(Math.random() * 1000, 2) + '&cmd=switchChange&cmdValue=' +
