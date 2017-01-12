@@ -45,5 +45,6 @@
     "server": "fritz.box",
     "username": "xxx",
     "password": "xxx"
+    "debug": false
   }
 }
