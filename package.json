@@ -18,7 +18,8 @@
   "dependencies": {
     "request": "*",
     "request-promise": "*",
-    "csvjson": "*"
+    "csvjson": "*",
+    "crypto": "*"
   },
   "devDependencies": {
     "standard": "*"
