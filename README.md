@@ -13,7 +13,7 @@ This module is written in ECMAscript 2015 [ES6](https://github.com/mjavascript/p
 npm install fritzbox.js
 ```
 
-A simple example showing how to get the history of calls made with a [Fritz!Fon]().
+A simple example showing how to get the history of calls made with a [Fritz!Fon](https://en.avm.de/products/fritzfon) can be seen below.
 
 ```js
 const fritz = require('fritzbox.js')
