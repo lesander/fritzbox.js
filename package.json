@@ -44,7 +44,7 @@
     "protocol": "http",
     "server": "fritz.box",
     "username": "xxx",
-    "password": "xxx"
+    "password": "xxx",
     "debug": false
   }
 }
