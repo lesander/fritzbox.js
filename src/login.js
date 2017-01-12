@@ -36,7 +36,6 @@ fritzLogin.getSessionID = (options) => {
 
       if (sessionID === '0000000000000000') {
         throw new Error('Could not login to Fritz!Box. Invalid login?')
-        return false
       }
 
       return resolve(sessionID)
