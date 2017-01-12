@@ -2,7 +2,7 @@
 [![GitHub release](https://img.shields.io/github/release/lesander/fritzbox.js.svg?maxAge=2592000&cache=plz)]()
 [![Code Climate](https://codeclimate.com/github/lesander/fritzbox.js/badges/gpa.svg)](https://codeclimate.com/github/lesander/fritzbox.js)
 [![BCH compliance](https://bettercodehub.com/edge/badge/lesander/fritzbox.js?cache=plz)](https://bettercodehub.com)
-[![Build Status](https://travis-ci.org/lesander/fritzbox.js.svg?branch=master)](https://travis-ci.org/lesander/fritzbox.js)
+[![Build Status](https://travis-ci.org/lesander/fritzbox.js.svg?branch=master&cache=pls)](https://travis-ci.org/lesander/fritzbox.js)
 
 
 The most powerful, simple and complete AVM Fritz!Box API in Node.js

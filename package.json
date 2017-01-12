@@ -29,7 +29,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "standard"
+    "test": "standard && test/ci.sh"
   },
   "dependencies": {
     "request": "^2.79.0",
