@@ -41,7 +41,7 @@
     "standard": "^8.6.0"
   },
   "options": {
-    "protocol": "http",
+    "protocol": "https",
     "server": "fritz.box",
     "username": "xxx",
     "password": "xxx",

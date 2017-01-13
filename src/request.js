@@ -29,7 +29,8 @@ fritzRequest.request = (path, method, options) => {
     const requestOptions = {
       uri: options.protocol + '://' + options.server + path,
       method: method || 'GET',
-      resolveWithFullResponse: true
+      resolveWithFullResponse: true,
+      rejectUnauthorized: false
     }
 
     // Execute HTTP(S) request.
