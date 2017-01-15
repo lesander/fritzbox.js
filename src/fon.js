@@ -114,6 +114,68 @@ fritzFon.downloadTamMessage = (messagePath, localPath, options) => {
 }
 
 /**
+ * Mark a message as read.
+ * @param  {number} messageID
+ * @param  {object} options
+ * @param  {number} [tamID=0]
+ * @return {promise}
+ */
+fritzFon.markTamMessageAsRead = (messageID, options, tamID = 0) => {
+  return new Promise(function (resolve, reject) {
+    fritzLogin.getSessionID(options)
+    .then((sid) => {
+      options.sid = sid
+      const path = '/fon_devices/tam_list.lua?useajax=1' +
+                   '&TamNr=' + tamID +
+                   '&idx=' + messageID
+      return fritzRequest.request(path, 'GET', options)
+    })
+
+    .then((response) => {
+      if (response.body === '{"state":1,"cur_idx":1}') {
+        return resolve(true)
+      } else {
+        return reject(false)
+      }
+    })
+
+    .catch((error) => {
+      console.log('[FritzFon] markTamMessageAsRead failed.', error)
+      return reject(error)
+    })
+  })
+}
+
+/**
+ * Dial the given number.
+ * @param  {number} phoneNumber
+ * @return {promise}
+ */
+fritzFon.dialNumber = (phoneNumber, options) => {
+  return new Promise(function (resolve, reject) {
+    fritzLogin.getSessionID(options)
+    .then((sid) => {
+      options.sid = sid
+      const path = '/fon_num/foncalls_list.lua?xhr=1' +
+                   '&dial=' + phoneNumber
+      return fritzRequest.request(path, 'GET', options)
+    })
+
+    .then((response) => {
+      if (JSON.parse(response.body).err === 0) {
+        return resolve('Ringing.. Please pick up your designated handset now.')
+      }
+      return reject('An error occured while ringing the number.')
+    })
+
+    .catch((error) => {
+      console.log('[FritzFon] dialNumber failed.', error)
+      return reject(error)
+    })
+  })
+}
+
+/**
  * Export fritzFon.
  */
 
