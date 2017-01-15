@@ -90,7 +90,7 @@ fritzFon.getTamMessages = (options) => {
  * @param  {object} options
  * @return {Promise}
  */
-fritzFon.downloadTamMessage = (messagePath, options) => {
+fritzFon.downloadTamMessage = (messagePath, localPath, options) => {
   return new Promise(function (resolve, reject) {
     fritzLogin.getSessionID(options)
     .then((sid) => {
@@ -98,14 +98,7 @@ fritzFon.downloadTamMessage = (messagePath, options) => {
       const path = '/myfritz/cgi-bin/luacgi_notimeout' +
                    '?cmd=tam&script=/http_file_download.lua' +
                    '&cmd_files=' + messagePath
-      return fritzRequest.request(path, 'GET', options)
-    })
-
-    .then((response) => {
-      if (response.statusCode !== 200) {
-        return reject(fritzRequest.findFailCause(response))
-      }
-      return response
+      return fritzRequest.request(path, 'GET', options, localPath)
     })
 
     .then((response) => {
