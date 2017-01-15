@@ -18,19 +18,18 @@ fritzFormat.calls = (calls) => {
   let formattedCalls = []
   for (var i in calls) {
     formattedCalls[i] = {
-      type: fritzFormat.callType( calls[i].Type ),
-      date: fritzFormat.date( calls[i].Date ),
+      type: fritzFormat.callType(calls[i].Type),
+      date: fritzFormat.date(calls[i].Date),
       name: calls[i].Name,
       duration: calls[i].Duration,
       number: calls[i].Number,
       numberSelf: calls[i].NumberSelf,
-      extension: calls[i].Extension,
+      extension: calls[i].Extension
 
     }
   }
   return formattedCalls
 }
-
 
 /**
  * Format calls CSV to object.
@@ -53,7 +52,6 @@ fritzFormat.callsCsvToJson = (csvData) => {
  * @return {[type]}          [description]
  */
 fritzFormat.tamMessages = (messages) => {
-
   formattedMessages = []
   for (var i in messages) {
     formattedMessages[i] = {
@@ -67,11 +65,9 @@ fritzFormat.tamMessages = (messages) => {
       inPhoneBook: fritzFormat.boolean(messages[i].inBook),
       new: messages[i].new
     }
-
   }
   return formattedMessages
 }
-
 
 /**
  * Get the human-understandable type of a call.
@@ -86,14 +82,12 @@ fritzFormat.callType = (type) => {
          .replace('4', 'outgoing')
 }
 
-
 /**
  * Format dd.mm.yy hh:mm to a Date string.
  * @param  {string} rawDate
  * @return {string}
  */
 fritzFormat.date = (rawDate) => {
-
   // get vars from dd.mm.yy hh:mm format.
   let parts = rawDate.split(' ')
   let date = parts[0]
@@ -102,7 +96,7 @@ fritzFormat.date = (rawDate) => {
   let dateParts = date.split('.')
   let day = dateParts[0]
   let month = dateParts[1]
-  let year = '20'+dateParts[2]
+  let year = '20' + dateParts[2]
 
   let timeParts = time.split(':')
   let hours = timeParts[0]
@@ -116,7 +110,6 @@ fritzFormat.boolean = (number) => {
   if (number === 1) return true
   return false
 }
-
 
 /**
  * Export fritzFon.

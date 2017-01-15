@@ -37,7 +37,7 @@ fritzFon.getCalls = (options) => {
     })
 
     .then((calls) => {
-      return resolve( fritzFormat.calls(calls) )
+      return resolve(fritzFormat.calls(calls))
     })
 
     .catch((error) => {
@@ -70,7 +70,7 @@ fritzFon.getTamMessages = (options) => {
     })
 
     .then((response) => {
-      return fritzFormat.tamMessages( JSON.parse(response.body).tamcalls )
+      return fritzFormat.tamMessages(JSON.parse(response.body).tamcalls)
     })
 
     .then((messages) => {
