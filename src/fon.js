@@ -9,8 +9,7 @@ let fritzFon = {}
 
 const fritzLogin = require('./login.js')
 const fritzRequest = require('./request.js')
-
-const csvjson = require('csvjson')
+const fritzFormat = require('./format.js')
 
 /**
  * Get the history of telephone calls.
@@ -34,13 +33,11 @@ fritzFon.getCalls = (options) => {
     })
 
     .then((response) => {
-      let csv = response.body
-      .replace('sep=;', '')
-      .replace('Extension;Telephone number', 'Extension;NumberSelf')
-      .replace('Telephone number', 'Number')
-      .trim()
-      let formattedBody = csvjson.toObject(csv, {delimiter: ';'})
-      return resolve(formattedBody)
+      return fritzFormat.callsCsvToJson(response.body)
+    })
+
+    .then((calls) => {
+      return resolve( fritzFormat.calls(calls) )
     })
 
     .catch((error) => {
@@ -73,7 +70,11 @@ fritzFon.getTamMessages = (options) => {
     })
 
     .then((response) => {
-      return resolve(response.body)
+      return fritzFormat.tamMessages( JSON.parse(response.body).tamcalls )
+    })
+
+    .then((messages) => {
+      return resolve(messages)
     })
 
     .catch((error) => {
