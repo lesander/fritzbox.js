@@ -22,6 +22,12 @@ fritzRequest.request = (path, method, options, pipe = false) => {
   return new Promise(function (resolve, reject) {
     options.protocol = options.protocol || 'GET'
 
+    // Make sure we have the required options.
+    if (!options.server || options.server === '') {
+      // We should probably check for more config settings..
+      return reject('Missing login config.')
+    }
+
     // Add SID to path if one has been given to us.
     if (options.sid) {
       path += '&sid=' + options.sid
