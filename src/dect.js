@@ -56,7 +56,9 @@ fritzDect.toggleSwitch = (deviceID, value, options) => {
 
     .then((sid) => {
       options.sid = sid
-      let path = '/myfritz/areas/homeauto.lua?ajax_id=' + Math.floor(Math.random() * 1000, 2) + '&cmd=switchChange&cmdValue=' +
+      let path = '/myfritz/areas/homeauto.lua?ajax_id=' +
+                 Math.floor(Math.random() * 1000, 2) +
+                 '&cmd=switchChange&cmdValue=' +
                  value + '&deviceId=' + deviceID
       return fritzRequest.request(path, 'GET', options)
     })

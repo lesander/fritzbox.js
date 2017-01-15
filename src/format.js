@@ -25,7 +25,6 @@ fritzFormat.calls = (calls) => {
       number: calls[i].Number,
       numberSelf: calls[i].NumberSelf,
       extension: calls[i].Extension
-
     }
   }
   return formattedCalls
@@ -106,6 +105,11 @@ fritzFormat.date = (rawDate) => {
   return formattedDate
 }
 
+/**
+ * Convert 1's and 0's to booleans.
+ * @param  {number} number
+ * @return {boolean}
+ */
 fritzFormat.boolean = (number) => {
   if (number === 1) return true
   return false
