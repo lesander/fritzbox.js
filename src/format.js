@@ -52,7 +52,7 @@ fritzFormat.callsCsvToJson = (csvData) => {
  * @return {[type]}          [description]
  */
 fritzFormat.tamMessages = (messages) => {
-  formattedMessages = []
+  let formattedMessages = []
   for (var i in messages) {
     formattedMessages[i] = {
       index: messages[i].index,
@@ -102,7 +102,7 @@ fritzFormat.date = (rawDate) => {
   let hours = timeParts[0]
   let minutes = timeParts[1]
 
-  formattedDate = new Date(year, month, day, hours, minutes).toString()
+  const formattedDate = new Date(year, month, day, hours, minutes).toString()
   return formattedDate
 }
 
