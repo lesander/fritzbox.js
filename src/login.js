@@ -43,7 +43,7 @@ fritzLogin.getSessionID = (options) => {
       const sessionID = response.body.match('<SID>(.*?)</SID>')[1]
 
       if (sessionID === '0000000000000000') {
-        throw new Error('Could not login to Fritz!Box. Invalid login?')
+        return reject('Could not login to Fritz!Box. Invalid login?')
       }
 
       return resolve(sessionID)
@@ -51,7 +51,7 @@ fritzLogin.getSessionID = (options) => {
 
     // Catch errors.
     .catch((error) => {
-      console.log('[FritzBox.js] getSessionID failed.', error)
+      console.log('[FritzLogin] getSessionID failed.', error)
       return reject(error)
     })
   })
