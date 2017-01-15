@@ -37,7 +37,7 @@ fritz.getCalls(options)
 
 ## Documentation
 
-Every call to a `fritz` function should include the `options` object. The domain (or IP address) can differ with your local network setup.
+Every call to a `fritz` function should include the `options` object. The domain (or IP address) can differ with your local network setup. If your Fritz!Box does not require a username while logging in, you can simply leave that field blank.
 ```
 {
   username: '',
