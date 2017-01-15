@@ -6,6 +6,8 @@
  */
 
 const request = require('request-promise')
+const requestNoPromise = require('request')
+const fs = require('fs')
 
 let fritzRequest = {}
 
@@ -16,7 +18,7 @@ let fritzRequest = {}
  * @param  {object} options Options object
  * @return {promise}        Body of response
  */
-fritzRequest.request = (path, method, options) => {
+fritzRequest.request = (path, method, options, pipe = false) => {
   return new Promise(function (resolve, reject) {
     options.protocol = options.protocol || 'GET'
 
@@ -31,6 +33,14 @@ fritzRequest.request = (path, method, options) => {
       method: method || 'GET',
       resolveWithFullResponse: true,
       rejectUnauthorized: false
+    }
+
+    // Pipe a file to disk.
+    if (pipe) {
+      let stream = requestNoPromise(requestOptions).pipe(fs.createWriteStream(pipe))
+      stream.on('finish', () => {
+        return resolve('File has been saved to ' + pipe)
+      })
     }
 
     // Execute HTTP(S) request.
