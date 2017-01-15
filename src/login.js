@@ -16,6 +16,14 @@ let fritzLogin = {}
  */
 fritzLogin.getSessionID = (options) => {
   return new Promise(function (resolve, reject) {
+
+    // Do we have a options.sid value?
+    if (options.sid) {
+      // SIDs _do_ expire!
+      return resolve(options.sid)
+    }
+
+
     // Request a challenge.
     fritzRequest.request('/login_sid.lua', 'GET', options)
 
