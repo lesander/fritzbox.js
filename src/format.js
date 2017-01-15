@@ -54,7 +54,8 @@ fritzFormat.tamMessages = (messages) => {
   let formattedMessages = []
   for (var i in messages) {
     formattedMessages[i] = {
-      index: messages[i].index,
+      tamID: messages[i].tam,
+      messageID: messages[i].index,
       date: fritzFormat.date(messages[i].date),
       name: messages[i].name,
       duration: messages[i].duration,
