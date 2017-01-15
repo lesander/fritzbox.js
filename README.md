@@ -9,6 +9,8 @@ The most powerful, simple and complete AVM Fritz!Box API in Node.js
 
 ## Getting Started
 This module is written in ECMAscript 2015 [ES6](https://github.com/mjavascript/practical-es6) and is promise-based. You should use the latest version (`^7.0.0`) of NodeJS.
+
+This package was tested on Fritz!Box 7390 and 7490 with firmware version `6.53`.
 ```
 npm install fritzbox.js
 ```
