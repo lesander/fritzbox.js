@@ -78,7 +78,7 @@ fritzFon.getTamMessages = (options) => {
     })
 
     .catch((error) => {
-      console.log('[FritzBox.js] getTamMessages failed.', error)
+      console.log('[FritzFon] getTamMessages failed.', error)
       return reject(error)
     })
   })
