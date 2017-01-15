@@ -87,6 +87,7 @@ fritzFon.getTamMessages = (options) => {
 /**
  * Download a message from the Telephone Answering Machine (TAM).
  * @param  {string} messagePath
+ * @param  {string} localPath
  * @param  {object} options
  * @return {Promise}
  */
