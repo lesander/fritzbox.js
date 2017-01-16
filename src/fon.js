@@ -176,6 +176,43 @@ fritzFon.dialNumber = (phoneNumber, options) => {
 }
 
 /**
+ * Download the given telephone book.
+ * @param  {number} phonebookID
+ * @param  {object} options
+ * @return {promise}
+ */
+fritzFon.downloadPhonebook = (phonebookID, localPath, options) => {
+  return new Promise(function(resolve, reject) {
+    fritzLogin.getSessionID(options)
+    .then((sid) => {
+      options.sid = sid
+      options.removeSidFromUri = true
+      const formData = {
+        sid: options.sid,
+        PhonebookId: phonebookID,
+        PhonebookExportName: 'Phonebook',
+        PhonebookExport: ''
+      }
+      const rand = Math.floor( Math.random() *10000000 )
+      return fritzRequest.request('/cgi-bin/firmwarecfg', 'POST', options, false, formData)
+    })
+
+    .then((response) => {
+      return fritzFormat.xmlToJson(response.body, localPath)
+    })
+
+    .then((object) => {
+      return resolve(fritzFormat.phonebook(object.phonebooks.phonebook[0].contact))
+    })
+
+    .catch((error) => {
+      console.log('[FritzFon] dialNumber failed.')
+      return reject(error)
+    })
+  })
+}
+
+/**
  * Export fritzFon.
  */
 

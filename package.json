@@ -35,7 +35,8 @@
     "request": "^2.79.0",
     "request-promise": "^4.1.1",
     "csvjson": "^3.0.0",
-    "crypto": "^0.0.3"
+    "crypto": "^0.0.3",
+    "xml2js": "^0.4.17"
   },
   "devDependencies": {
     "standard": "^8.6.0"

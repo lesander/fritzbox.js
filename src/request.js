@@ -18,7 +18,7 @@ let fritzRequest = {}
  * @param  {object} options Options object
  * @return {promise}        Body of response
  */
-fritzRequest.request = (path, method, options, pipe = false) => {
+fritzRequest.request = (path, method, options, pipe = false, formData = false) => {
   return new Promise(function (resolve, reject) {
     options.protocol = options.protocol || 'GET'
 
@@ -28,17 +28,25 @@ fritzRequest.request = (path, method, options, pipe = false) => {
       return reject('Missing login config.')
     }
 
+    if (typeof options.removeSidFromUri === 'undefined') {
+      options.removeSidFromUri = false
+    }
+
     // Add SID to path if one has been given to us.
-    if (options.sid) {
+    if (options.sid && !options.removeSidFromUri) {
       path += '&sid=' + options.sid
     }
 
     // Set the options for the request.
-    const requestOptions = {
+    let requestOptions = {
       uri: options.protocol + '://' + options.server + path,
       method: method || 'GET',
       resolveWithFullResponse: true,
       rejectUnauthorized: false
+    }
+
+    if (formData) {
+      requestOptions.formData = formData
     }
 
     // Pipe a file to disk.
