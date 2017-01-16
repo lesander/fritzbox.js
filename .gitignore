@@ -38,3 +38,7 @@ jspm_packages
 
 # NPM-STIV backup file
 bck_package.json
+
+# Ignore test generated files.
+tam.json
+calls.json
