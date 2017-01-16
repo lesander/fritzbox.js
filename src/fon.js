@@ -181,7 +181,7 @@ fritzFon.dialNumber = (phoneNumber, options) => {
  * @param  {object} options
  * @return {promise}
  */
-fritzFon.downloadPhonebook = (phonebookID, options) => {
+fritzFon.downloadPhonebook = (phonebookID = 0, options) => {
   return new Promise(function (resolve, reject) {
     fritzLogin.getSessionID(options)
     .then((sid) => {

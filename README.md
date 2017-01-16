@@ -152,6 +152,42 @@ Get all Telephone Answering Machine (TAM) messages. Function returns an array of
 Download a Telephone Answering Machine (TAM) message in `.wav` format to disk. The `path` variable must
 be obtained using the `fritz.getTamMessages()` function. `localPath` can be something like `./my_tam.wav`.
 
+### fritz.markTamMessageAsRead(*messageID*, *options*, *tamID=0*)
+Mark a Telephone Answering Machine (TAM) message as read (or heard). The default `tamID` is `0`.
+
+### fritz.dialNumber(*phoneNumber*, *options*)
+Dial a number. Once the other party picks up the phone, your preconfigured handset will start ringing.
+Requires you to set up *Click to Dial* in the Fritz!Box (can be found under `Telephony > Calls`).
+
+### fritz.downloadPhonebook(*phonebookID=0*, *options*)
+Download all contacts in the given phonebook. Default `phonebookID` is `0`.
+Result returns an array of objects.
+```json
+[
+  {
+    "uniqueID": "13",
+    "name": "John Doe",
+    "numbers": [
+      {
+        "number": "0612345678",
+        "type": "mobile",
+        "priority": "1"
+      },
+      {
+        "number": "0201234567",
+        "type": "home",
+        "priority": "0"
+      }
+    ],
+    "category": "1",
+    "email": "example@domain.com",
+    "lastModified": "1484585116",
+    "ringtone": "19"
+  },
+  { ... }
+]
+```
+
 ## Contributing
 If you'd like to contribute to FritzBox.js, or file a bug or feature request,
 please head over to [the issue tracker](/issues) or [open a pull request](/pulls).
