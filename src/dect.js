@@ -37,7 +37,7 @@ fritzDect.getSmartDevices = (options) => {
     })
 
     .catch((error) => {
-      console.log('[FritzDect] getSmartDevices failed.', error)
+      console.log('[FritzDect] getSmartDevices failed.')
       return reject(error)
     })
   })
@@ -75,7 +75,7 @@ fritzDect.toggleSwitch = (deviceID, value, options) => {
     })
 
     .catch((error) => {
-      console.log('[FritzDect] toggleSwitch failed.', error)
+      console.log('[FritzDect] toggleSwitch failed.')
       return reject(error)
     })
   })

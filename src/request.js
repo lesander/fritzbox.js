@@ -63,7 +63,7 @@ fritzRequest.request = (path, method, options, pipe = false, formData = false) =
       return resolve(response)
     })
     .catch((error) => {
-      console.log('[FritzRequest] Request failed.', error)
+      console.log('[FritzRequest] Request failed.')
       return reject(error)
     })
   })
