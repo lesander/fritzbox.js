@@ -8,6 +8,7 @@
 let fritzFormat = {}
 
 const csvjson = require('csvjson')
+const parseString = require('xml2js').parseString
 
 /**
  * Format a raw calls array to a more readable array.
@@ -114,6 +115,63 @@ fritzFormat.date = (rawDate) => {
 fritzFormat.boolean = (number) => {
   if (number === 1) return true
   return false
+}
+
+/**
+ * Convert XML to JSON object.
+ * @param  {string} tmpPath
+ * @param  {string} localPath
+ * @return {promise}
+ */
+fritzFormat.xmlToJson = (xml, localPath) => {
+  return new Promise(function(resolve, reject) {
+    parseString(xml, (error, result) => {
+      if (error) return reject(error)
+      return resolve(result)
+    })
+  })
+}
+
+/**
+ * Format an ugly phonebook object to a sane object.
+ * @param  {object} object
+ * @return {object}
+ */
+fritzFormat.phonebook = (phonebook) => {
+  let formattedPhonebook = []
+  for (var i in phonebook) {
+
+    formattedPhonebook[i] = {
+      uniqueid: phonebook[i].uniqueid[0],
+      name: phonebook[i].person[0].realName[0],
+      numbers: [],
+      category: phonebook[i].category[0]
+    }
+
+    const numbers = phonebook[i].telephony[0].number
+    for (var n in numbers) {
+      let number = numbers[n]
+      formattedPhonebook[i].numbers[n] = {
+        number: number._,
+        type: number.$.type,
+        priority: number.$.prio,
+        quickdial: number.$.quickdial
+      }
+    }
+
+    if (phonebook[i].services[0].email) {
+      formattedPhonebook[i].email = phonebook[i].services[0].email[0]._
+    }
+    if (phonebook[i].mod_time) {
+      formattedPhonebook[i].lastModified = phonebook[i].mod_time[0]
+    }
+    if (phonebook[i].setup[0].ringTone) {
+      formattedPhonebook[i].ringtone = phonebook[i].setup[0].ringTone[0]
+    }
+    
+  }
+
+  return formattedPhonebook
 }
 
 /**
