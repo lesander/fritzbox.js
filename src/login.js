@@ -57,7 +57,7 @@ fritzLogin.getSessionID = (options) => {
 
     // Catch errors.
     .catch((error) => {
-      console.log('[FritzLogin] getSessionID failed.', error)
+      console.log('[FritzLogin] getSessionID failed.')
       return reject(error)
     })
   })
