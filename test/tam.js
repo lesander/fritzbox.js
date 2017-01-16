@@ -1,7 +1,6 @@
 const fritz = require('../index.js')
 const options = require('../package.json').options
 const fs = require('fs')
-console.log(options)
 fritz.getTamMessages(options)
 .then((messages) => {
   console.log('Got ', messages.length, ' TAM messages.')
