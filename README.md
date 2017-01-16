@@ -1,16 +1,19 @@
 # FritzBox.js
-[![GitHub release](https://img.shields.io/github/release/lesander/fritzbox.js.svg?maxAge=1&cache=plz)]()
+[![GitHub release](https://img.shields.io/github/release/lesander/fritzbox.js.svg?maxAge=1)]()
+[![Build Status](https://travis-ci.org/lesander/fritzbox.js.svg?branch=master&cache=pls)](https://travis-ci.org/lesander/fritzbox.js)
+[![npm](https://img.shields.io/npm/dt/fritzbox.js.svg?maxAge=1)]()
+
 [![Code Climate](https://codeclimate.com/github/lesander/fritzbox.js/badges/gpa.svg)](https://codeclimate.com/github/lesander/fritzbox.js)
 [![BCH compliance](https://bettercodehub.com/edge/badge/lesander/fritzbox.js?cache=ugh)](https://bettercodehub.com)
-[![Build Status](https://travis-ci.org/lesander/fritzbox.js.svg?branch=master&cache=pls)](https://travis-ci.org/lesander/fritzbox.js)
 
 
-The most powerful, simple and complete AVM Fritz!Box API in Node.js
+
+The most powerful, simple and complete AVM Fritz!Box API. Under continuous development. Written in Node.js
 
 ## Getting Started
 This module is written in ECMAscript 2015 [ES6](https://github.com/mjavascript/practical-es6) and is promise-based. You should use the latest version (`^7.0.0`) of NodeJS.
 
-This package was tested on Fritz!Box 7390 and 7490 with firmware version `6.53`.
+This package was tested on Fritz!Box 7390 and 7490 with firmware versions `6.53` and `6.51`.
 ```
 npm install fritzbox.js
 ```
@@ -37,7 +40,7 @@ fritz.getCalls(options)
 
 ## Documentation
 
-Every call to a `fritz` function should include the `options` object. The domain (or IP address) can differ with your local network setup. If your Fritz!Box does not require a username while logging in, you can simply leave that field blank.
+Every call to any `fritz` function should include the `options` object. The domain (or IP address) can differ with your local network setup. If your Fritz!Box does not require a username while logging in, you can simply leave that field blank.
 ```js
 {
   username: '',
@@ -47,7 +50,7 @@ Every call to a `fritz` function should include the `options` object. The domain
 }
 ```
 
-All functions of the FritzBox.js API are [Promise]()-based.
+All functions of the FritzBox.js API are [Promise](http://www.datchley.name/es6-promises)-based.
 ```js
 fritz.functionName(parameter1, parameter2, ...)
 .then((result) => {
