@@ -38,7 +38,7 @@ fritz.getCalls(options)
 ## Documentation
 
 Every call to a `fritz` function should include the `options` object. The domain (or IP address) can differ with your local network setup. If your Fritz!Box does not require a username while logging in, you can simply leave that field blank.
-```
+```js
 {
   username: '',
   password: '',
@@ -66,7 +66,7 @@ All functions in FritzBox.js utilize this function if no `options.sid` value is 
 
 ### fritz.getCalls(*options*)
 Get the full history of all calls made or received in the network. The returned value is an array containing objects.
-```
+```json
 [
   {
     "type": "incoming/outgoing/unknown/missed",
@@ -86,7 +86,7 @@ Get all DECT Smart Home devices registered on the network. Function returns an a
 
 *The objects returned by the Fritz!Box are very messy.*
 
-```
+```json
 [
   {
     "PollTimeout": 420,
@@ -131,7 +131,7 @@ Either `1` or `0` must be set as a `value`.
 ### fritz.getTamMessages(*options*)
 Get all Telephone Answering Machine (TAM) messages. Function returns an array of objects.
 
-```
+```json
 [
   {
     "index": 14,
