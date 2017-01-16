@@ -18,7 +18,7 @@ const fritzFormat = require('./format.js')
  */
 fritzFon.getCalls = (options) => {
   return new Promise(function (resolve, reject) {
-    fritzLogin.getSessionID(options)
+    fritzLogin.getSessionId(options)
 
     .then((sid) => {
       options.sid = sid
@@ -54,7 +54,7 @@ fritzFon.getCalls = (options) => {
  */
 fritzFon.getTamMessages = (options) => {
   return new Promise(function (resolve, reject) {
-    fritzLogin.getSessionID(options)
+    fritzLogin.getSessionId(options)
 
     // Use the session id to get a list of the last TAM messages.
     .then((sid) => {
@@ -93,7 +93,7 @@ fritzFon.getTamMessages = (options) => {
  */
 fritzFon.downloadTamMessage = (messagePath, localPath, options) => {
   return new Promise(function (resolve, reject) {
-    fritzLogin.getSessionID(options)
+    fritzLogin.getSessionId(options)
     .then((sid) => {
       options.sid = sid
       const path = '/myfritz/cgi-bin/luacgi_notimeout' +
@@ -115,19 +115,19 @@ fritzFon.downloadTamMessage = (messagePath, localPath, options) => {
 
 /**
  * Mark a message as read.
- * @param  {number} messageID
+ * @param  {number} messageId
  * @param  {object} options
- * @param  {number} [tamID=0]
+ * @param  {number} [tamId=0]
  * @return {promise}
  */
-fritzFon.markTamMessageAsRead = (messageID, options, tamID = 0) => {
+fritzFon.markTamMessageAsRead = (messageId, options, tamId = 0) => {
   return new Promise(function (resolve, reject) {
-    fritzLogin.getSessionID(options)
+    fritzLogin.getSessionId(options)
     .then((sid) => {
       options.sid = sid
       const path = '/fon_devices/tam_list.lua?useajax=1' +
-                   '&TamNr=' + tamID +
-                   '&idx=' + messageID
+                   '&TamNr=' + tamId +
+                   '&idx=' + messageId
       return fritzRequest.request(path, 'GET', options)
     })
 
@@ -153,7 +153,7 @@ fritzFon.markTamMessageAsRead = (messageID, options, tamID = 0) => {
  */
 fritzFon.dialNumber = (phoneNumber, options) => {
   return new Promise(function (resolve, reject) {
-    fritzLogin.getSessionID(options)
+    fritzLogin.getSessionId(options)
     .then((sid) => {
       options.sid = sid
       const path = '/fon_num/foncalls_list.lua?xhr=1' +
@@ -177,19 +177,19 @@ fritzFon.dialNumber = (phoneNumber, options) => {
 
 /**
  * Download the given telephone book.
- * @param  {number} phonebookID
+ * @param  {number} phonebookId
  * @param  {object} options
  * @return {promise}
  */
-fritzFon.downloadPhonebook = (phonebookID = 0, options) => {
+fritzFon.downloadPhonebook = (phonebookId = 0, options) => {
   return new Promise(function (resolve, reject) {
-    fritzLogin.getSessionID(options)
+    fritzLogin.getSessionId(options)
     .then((sid) => {
       options.sid = sid
       options.removeSidFromUri = true
       const formData = {
         sid: options.sid,
-        PhonebookId: phonebookID,
+        PhonebookId: phonebookId,
         PhonebookExportName: 'Phonebook',
         PhonebookExport: ''
       }

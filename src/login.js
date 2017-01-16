@@ -10,11 +10,11 @@ const fritzRequest = require('./request.js')
 let fritzLogin = {}
 
 /**
- * Login to the Fritz!Box and obtain a sessionID.
+ * Login to the Fritz!Box and obtain a sessionId.
  * @param  {object} options Options object
- * @return {string}         sessionID
+ * @return {string}         sessionId
  */
-fritzLogin.getSessionID = (options) => {
+fritzLogin.getSessionId = (options) => {
   return new Promise(function (resolve, reject) {
     // Do we have a options.sid value?
     if (options.sid) {
@@ -46,18 +46,18 @@ fritzLogin.getSessionID = (options) => {
 
     // Obtain the SID.
     .then((response) => {
-      const sessionID = response.body.match('<SID>(.*?)</SID>')[1]
+      const sessionId = response.body.match('<SID>(.*?)</SID>')[1]
 
-      if (sessionID === '0000000000000000') {
+      if (sessionId === '0000000000000000') {
         return reject('Could not login to Fritz!Box. Invalid login?')
       }
 
-      return resolve(sessionID)
+      return resolve(sessionId)
     })
 
     // Catch errors.
     .catch((error) => {
-      console.log('[FritzLogin] getSessionID failed.')
+      console.log('[FritzLogin] getSessionId failed.')
       return reject(error)
     })
   })

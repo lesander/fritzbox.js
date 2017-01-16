@@ -55,16 +55,16 @@ fritzFormat.tamMessages = (messages) => {
   let formattedMessages = []
   for (var i in messages) {
     formattedMessages[i] = {
-      tamID: messages[i].tam,
-      messageID: messages[i].index,
+      tamId: messages[i].tam,
+      messageId: messages[i].index,
       date: fritzFormat.date(messages[i].date),
       name: messages[i].name,
       duration: messages[i].duration,
       number: messages[i].number,
       numberSelf: messages[i].called_pty,
       path: messages[i].path,
-      inPhoneBook: fritzFormat.boolean(messages[i].inBook),
-      new: messages[i].new
+      inPhonebook: fritzFormat.boolean(messages[i].inBook),
+      isNewMessage: messages[i].new
     }
   }
   return formattedMessages
@@ -140,7 +140,7 @@ fritzFormat.phonebook = (phonebook) => {
   let formattedPhonebook = []
   for (var i in phonebook) {
     formattedPhonebook[i] = {
-      uniqueID: phonebook[i].uniqueid[0],
+      uniqueId: phonebook[i].uniqueid[0],
       name: phonebook[i].person[0].realName[0],
       numbers: [],
       category: phonebook[i].category[0]

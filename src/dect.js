@@ -17,7 +17,7 @@ const fritzRequest = require('./request.js')
  */
 fritzDect.getSmartDevices = (options) => {
   return new Promise(function (resolve, reject) {
-    fritzLogin.getSessionID(options)
+    fritzLogin.getSessionId(options)
 
     // Use the session id to obtain the list of registered smart devices.
     .then((sid) => {
@@ -45,21 +45,21 @@ fritzDect.getSmartDevices = (options) => {
 
 /**
  * Toggle a Fritz DECT switch on or off.
- * @param  {integer} deviceID
+ * @param  {integer} deviceId
  * @param  {integer} value    1 (on) or 0 (off)
  * @param  {object} options
  * @return {Promise}
  */
-fritzDect.toggleSwitch = (deviceID, value, options) => {
+fritzDect.toggleSwitch = (deviceId, value, options) => {
   return new Promise(function (resolve, reject) {
-    fritzLogin.getSessionID(options)
+    fritzLogin.getSessionId(options)
 
     .then((sid) => {
       options.sid = sid
       let path = '/myfritz/areas/homeauto.lua?ajax_id=' +
                  Math.floor(Math.random() * 1000, 2) +
                  '&cmd=switchChange&cmdValue=' +
-                 value + '&deviceId=' + deviceID
+                 value + '&deviceId=' + deviceId
       return fritzRequest.request(path, 'GET', options)
     })
 

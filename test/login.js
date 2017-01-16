@@ -1,7 +1,7 @@
 const fritz = require('../index.js')
 const options = require('../package.json').options
 console.log(options)
-fritz.getSessionID(options)
+fritz.getSessionId(options)
 .then((sid) => {
   console.log('SID:', sid)
 })
