@@ -160,7 +160,7 @@ Mark a Telephone Answering Machine (TAM) message as read (or heard). The default
 Dial a number. Once the other party picks up the phone, your preconfigured handset will start ringing.
 Requires you to set up *Click to Dial* in the Fritz!Box (can be found under `Telephony > Calls`).
 
-### fritz.downloadPhonebook(*phonebookId=0*, *options*)
+### fritz.getPhonebook(*phonebookId=0*, *options*)
 Download all contacts in the given phonebook. Default `phonebookId` is `0`.
 Result returns an array of objects.
 ```json
