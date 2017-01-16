@@ -58,7 +58,7 @@ fritz.functionName(parameter1, parameter2, ...)
 })
 ```
 
-### fritz.getSessionID(*options*)
+### fritz.getSessionId(*options*)
 Get a session ID (`sid`) in exchange for the login credentials. The `sid` is always a 16 character-long string.
 
 All functions in FritzBox.js utilize this function if no `options.sid` value is manually set.
@@ -123,7 +123,7 @@ Get all DECT Smart Home devices registered on the network. Function returns an a
 ]
 ```
 
-### fritz.toggleSwitch(*id*, *value*, *options*)
+### fritz.toggleSwitch(*deviceId*, *value*, *options*)
 Toggle a DECT Smart Home switch's state. The `id` of the device will remain the same
 until it is de-registered with the Fritz!Box, and can be found using `fritz.getSmartDevices()`.
 Either `1` or `0` must be set as a `value`.
@@ -134,14 +134,15 @@ Get all Telephone Answering Machine (TAM) messages. Function returns an array of
 ```json
 [
   {
-    "index": 14,
+    "tamId": 0,
+    "messageId": 14,
     "date": "Wed Feb 15 2017 19:09:00 GMT+0100 (CET)",
     "name": "Name found in Phonebook / Empty",
     "duration": "0:01",
     "number": "0612345678",
     "numberSelf": "0201234567",
     "path": "/data/tam/rec/rec.0.014",
-    "inPhoneBook": true,
+    "inPhonebook": true,
     "new": true
   },
   { ... }
@@ -152,20 +153,20 @@ Get all Telephone Answering Machine (TAM) messages. Function returns an array of
 Download a Telephone Answering Machine (TAM) message in `.wav` format to disk. The `path` variable must
 be obtained using the `fritz.getTamMessages()` function. `localPath` can be something like `./my_tam.wav`.
 
-### fritz.markTamMessageAsRead(*messageID*, *options*, *tamID=0*)
-Mark a Telephone Answering Machine (TAM) message as read (or heard). The default `tamID` is `0`.
+### fritz.markTamMessageAsRead(*messageId*, *options*, *tamId=0*)
+Mark a Telephone Answering Machine (TAM) message as read (or heard). The default `tamId` is `0`.
 
 ### fritz.dialNumber(*phoneNumber*, *options*)
 Dial a number. Once the other party picks up the phone, your preconfigured handset will start ringing.
 Requires you to set up *Click to Dial* in the Fritz!Box (can be found under `Telephony > Calls`).
 
-### fritz.downloadPhonebook(*phonebookID=0*, *options*)
-Download all contacts in the given phonebook. Default `phonebookID` is `0`.
+### fritz.downloadPhonebook(*phonebookId=0*, *options*)
+Download all contacts in the given phonebook. Default `phonebookId` is `0`.
 Result returns an array of objects.
 ```json
 [
   {
-    "uniqueID": "13",
+    "uniqueId": "13",
     "name": "John Doe",
     "numbers": [
       {
