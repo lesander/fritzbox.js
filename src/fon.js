@@ -181,7 +181,7 @@ fritzFon.dialNumber = (phoneNumber, options) => {
  * @param  {object} options
  * @return {promise}
  */
-fritzFon.downloadPhonebook = (phonebookId = 0, options) => {
+fritzFon.getPhonebook = (phonebookId = 0, options) => {
   return new Promise(function (resolve, reject) {
     fritzLogin.getSessionId(options)
     .then((sid) => {
@@ -205,7 +205,7 @@ fritzFon.downloadPhonebook = (phonebookId = 0, options) => {
     })
 
     .catch((error) => {
-      console.log('[FritzFon] downloadPhonebook failed.')
+      console.log('[FritzFon] getPhonebook failed.')
       return reject(error)
     })
   })
