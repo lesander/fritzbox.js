@@ -182,7 +182,7 @@ fritzFon.dialNumber = (phoneNumber, options) => {
  * @return {promise}
  */
 fritzFon.downloadPhonebook = (phonebookID, options) => {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     fritzLogin.getSessionID(options)
     .then((sid) => {
       options.sid = sid
@@ -193,7 +193,6 @@ fritzFon.downloadPhonebook = (phonebookID, options) => {
         PhonebookExportName: 'Phonebook',
         PhonebookExport: ''
       }
-      const rand = Math.floor( Math.random() *10000000 )
       return fritzRequest.request('/cgi-bin/firmwarecfg', 'POST', options, false, formData)
     })
 

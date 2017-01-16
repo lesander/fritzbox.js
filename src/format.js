@@ -123,7 +123,7 @@ fritzFormat.boolean = (number) => {
  * @return {promise}
  */
 fritzFormat.xmlToJson = (xml) => {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     parseString(xml, (error, result) => {
       if (error) return reject(error)
       return resolve(result)
@@ -139,7 +139,6 @@ fritzFormat.xmlToJson = (xml) => {
 fritzFormat.phonebook = (phonebook) => {
   let formattedPhonebook = []
   for (var i in phonebook) {
-
     formattedPhonebook[i] = {
       uniqueid: phonebook[i].uniqueid[0],
       name: phonebook[i].person[0].realName[0],
@@ -167,7 +166,6 @@ fritzFormat.phonebook = (phonebook) => {
     if (phonebook[i].setup[0].ringTone) {
       formattedPhonebook[i].ringtone = phonebook[i].setup[0].ringTone[0]
     }
-
   }
 
   return formattedPhonebook
