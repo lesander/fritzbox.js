@@ -1,6 +1,5 @@
 const fritz = require('../index.js')
 const options = require('../package.json').options
-console.log(options)
 
 function toggle (id, value) {
   fritz.toggleSwitch(id, value, options)
