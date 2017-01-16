@@ -140,7 +140,7 @@ fritzFormat.phonebook = (phonebook) => {
   let formattedPhonebook = []
   for (var i in phonebook) {
     formattedPhonebook[i] = {
-      uniqueid: phonebook[i].uniqueid[0],
+      uniqueID: phonebook[i].uniqueid[0],
       name: phonebook[i].person[0].realName[0],
       numbers: [],
       category: phonebook[i].category[0]
