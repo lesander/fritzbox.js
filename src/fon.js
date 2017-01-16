@@ -41,7 +41,7 @@ fritzFon.getCalls = (options) => {
     })
 
     .catch((error) => {
-      console.log('[FritzFon] getCalls failed.', error)
+      console.log('[FritzFon] getCalls failed.')
       return reject(error)
     })
   })
@@ -78,7 +78,7 @@ fritzFon.getTamMessages = (options) => {
     })
 
     .catch((error) => {
-      console.log('[FritzFon] getTamMessages failed.', error)
+      console.log('[FritzFon] getTamMessages failed.')
       return reject(error)
     })
   })
@@ -107,7 +107,7 @@ fritzFon.downloadTamMessage = (messagePath, localPath, options) => {
     })
 
     .catch((error) => {
-      console.log('[FritzFon] getTamMessages failed.', error)
+      console.log('[FritzFon] getTamMessages failed.')
       return reject(error)
     })
   })
@@ -140,7 +140,7 @@ fritzFon.markTamMessageAsRead = (messageID, options, tamID = 0) => {
     })
 
     .catch((error) => {
-      console.log('[FritzFon] markTamMessageAsRead failed.', error)
+      console.log('[FritzFon] markTamMessageAsRead failed.')
       return reject(error)
     })
   })
@@ -169,7 +169,7 @@ fritzFon.dialNumber = (phoneNumber, options) => {
     })
 
     .catch((error) => {
-      console.log('[FritzFon] dialNumber failed.', error)
+      console.log('[FritzFon] dialNumber failed.')
       return reject(error)
     })
   })
