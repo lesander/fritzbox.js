@@ -33,7 +33,7 @@ fritzDect.getSmartDevices = (options) => {
     })
 
     .then((response) => {
-      return resolve(response.body)
+      return resolve(JSON.parse(response.body).devices)
     })
 
     .catch((error) => {
