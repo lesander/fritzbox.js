@@ -1,6 +1,8 @@
 # FritzBox.js
 [![GitHub release](https://img.shields.io/github/release/lesander/fritzbox.js.svg?maxAge=1)]()
+[![Completion Status](https://img.shields.io/badge/completion-45%25-yellowgreen.svg)]()
 [![Build Status](https://travis-ci.org/lesander/fritzbox.js.svg?branch=master&cache=pls)](https://travis-ci.org/lesander/fritzbox.js)
+
 [![npm](https://img.shields.io/npm/dt/fritzbox.js.svg?maxAge=1)]()
 
 [![Code Climate](https://codeclimate.com/github/lesander/fritzbox.js/badges/gpa.svg)](https://codeclimate.com/github/lesander/fritzbox.js)
@@ -146,7 +148,7 @@ Get all Telephone Answering Machine (TAM) messages. Function returns an array of
     "numberSelf": "0201234567",
     "path": "/data/tam/rec/rec.0.014",
     "inPhonebook": true,
-    "new": true
+    "isNewMessage": true
   },
   { ... }
 ]
