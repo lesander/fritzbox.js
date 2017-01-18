@@ -1,6 +1,6 @@
 const fritz = require('../index.js')
 const options = require('../package.json').options
-const number = '***REMOVED***'
+const number = '0633863887'
 fritz.dialNumber(number, options)
 .then((status) => {
   console.log('Now calling.', status)
