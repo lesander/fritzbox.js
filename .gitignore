@@ -45,3 +45,6 @@ calls.json
 
 # Ignore research files.
 research/
+
+# Ignore lib file.
+lib/
