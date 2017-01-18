@@ -29,7 +29,8 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "standard"
+    "test": "standard",
+    "build": "babel src -d lib"
   },
   "dependencies": {
     "request": "^2.79.0",
@@ -39,6 +40,7 @@
     "xml2js": "^0.4.17"
   },
   "devDependencies": {
+    "babel-cli": "^6.18.0",
     "standard": "^8.6.0"
   },
   "options": {
