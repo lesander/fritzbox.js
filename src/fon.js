@@ -176,6 +176,42 @@ fritzFon.dialNumber = (phoneNumber, options) => {
 }
 
 /**
+ * Get any active calls.
+ * @param  {object} options
+ * @return {prototype}
+ */
+fritzFon.getActiveCalls = (options) => {
+  return new Promise(function(resolve, reject) {
+    fritzLogin.getSessionId(options)
+    .then((sid) => {
+      options.sid = sid
+      options.removeSidFromUri = true
+      const form = {
+        page: 'overview',
+        sid: options.sid
+      }
+      return fritzRequest.request('/data.lua', 'POST', options, false, false, form)
+    })
+
+    .then((response) => {
+      if (response.statusCode !== 200) {
+        return reject(fritzRequest.findFailCause(response))
+      }
+      return response
+    })
+
+    .then((response) => {
+      return resolve(JSON.parse(response.body).data.foncalls.activecalls)
+    })
+
+    .catch((error) => {
+      console.log('[FritzFon] activeCalls')
+      return reject(error)
+    })
+  })
+}
+
+/**
  * Download the given telephone book.
  * @param  {number} phonebookId
  * @param  {object} options
