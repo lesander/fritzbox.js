@@ -181,7 +181,7 @@ fritzFon.dialNumber = (phoneNumber, options) => {
  * @return {prototype}
  */
 fritzFon.getActiveCalls = (options) => {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     fritzLogin.getSessionId(options)
     .then((sid) => {
       options.sid = sid
