@@ -1,6 +1,9 @@
 const fritz = require('../index.js')
 const options = require('../package.json').options
 
+const id = process.argv[2]
+const state = process.argv[3]
+
 function toggle (id, value) {
   fritz.toggleSwitch(id, value, options)
   .then((result) => {
@@ -10,15 +13,4 @@ function toggle (id, value) {
     console.log('Error:', error)
   })
 }
-
-function on () {
-  toggle(16, 1)
-}
-
-function off () {
-  toggle(16, 0)
-}
-
-setTimeout(off, 2000)
-setTimeout(on, 2000)
-setTimeout(off, 2000)
+toggle(id, state)
