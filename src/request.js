@@ -18,7 +18,7 @@ let fritzRequest = {}
  * @param  {object} options Options object
  * @return {promise}        Body of response
  */
-fritzRequest.request = (path, method, options, pipe = false, formData = false) => {
+fritzRequest.request = (path, method, options, pipe = false, formData = false, formUrlEncoded = false) => {
   return new Promise(function (resolve, reject) {
     options.protocol = options.protocol || 'GET'
 
@@ -47,6 +47,10 @@ fritzRequest.request = (path, method, options, pipe = false, formData = false) =
 
     if (formData) {
       requestOptions.formData = formData
+    }
+
+    if (formUrlEncoded) {
+      requestOptions.form = formUrlEncoded
     }
 
     // Pipe a file to disk.
