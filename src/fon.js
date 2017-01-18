@@ -233,6 +233,13 @@ fritzFon.getPhonebook = (phonebookId = 0, options) => {
     })
 
     .then((response) => {
+      if (response.statusCode !== 200) {
+        return reject(fritzRequest.findFailCause(response))
+      }
+      return response
+    })
+
+    .then((response) => {
       return fritzFormat.xmlToJson(response.body)
     })
 
