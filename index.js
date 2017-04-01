@@ -21,4 +21,9 @@ const fritz = Object.assign(
   fritzFon, fritzDect, fritzWlan
 )
 
+process.on('unhandledRejection', function(reason, r) {
+  console.log("[FritzBox.js] Encountered unhandled Promise rejection")
+  console.log(reason, r)
+});
+
 module.exports = fritz
