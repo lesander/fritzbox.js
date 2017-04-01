@@ -1,9 +1,13 @@
 const fritz = require('../index.js')
 const options = require('../package.json').options
-fritz.getSessionId(options)
-.then((sid) => {
-  console.log('SID:', sid)
-})
-.catch((error) => {
-  console.log('Error:', error)
-})
+
+async function login() {
+  const sessionId = await fritz.getSessionId(options)
+  if (sessionId.error) {
+    console.log('Error:', sessionId.error.message)
+    process.exit(1)
+  } else {
+    console.log('SID:', sessionId)
+  }
+}
+login()

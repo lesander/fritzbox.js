@@ -1,9 +1,13 @@
 const fritz = require('../index.js')
 const options = require('../package.json').options
-fritz.getSmartDevices(options)
-.then((devices) => {
-  console.log('Got ', devices.length, ' DECT Smart Home devices.')
-})
-.catch((error) => {
-  console.log('Error:', error)
-})
+
+async function devices() {
+  const devices = await fritz.getSmartDevices(options)
+  if (devices.error) {
+    console.log('Error:', devices.error.message)
+    process.exit(1)
+  }
+  console.log('Got ' + devices.length + ' DECT Smart Home devices.')
+}
+
+devices()

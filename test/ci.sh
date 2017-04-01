@@ -4,15 +4,23 @@ pwd
 
 # Check for runtime errors.
 echo '   Checking index.js for runtime errors..'
-node index.js
+node --harmony-async-await index.js
 echo ' ✓ No syntax errors found.'
 
 # Test some features.
 echo '   Running test scripts..'
-node test/login.js
-node test/calls.js
-node test/smartdevices.js
-node test/tam.js
-node test/phonebook.js
+node --harmony-async-await test/version.js      # async ready
+node --harmony-async-await test/login.js        # async ready
+node --harmony-async-await test/calls.js        # async ready
+node --harmony-async-await test/smartdevices.js # async ready
+node --harmony-async-await test/tam.js          # async ready
+node --harmony-async-await test/phonebook.js    # async ready
+
+node --harmony-async-await test/activecalls.js  #
+node --harmony-async-await test/dial.js         #
+node --harmony-async-await test/markread.js     #
+node --harmony-async-await test/tamdownload.js  #
+node --harmony-async-await test/toggleswitch.js # 
+
 
 echo " ✓ Finished with tests."
