@@ -39,6 +39,7 @@
     "csvjson": "^3.0.0",
     "request": "^2.79.0",
     "request-promise": "^4.1.1",
+    "xml-to-json-promise": "*",
     "xml2js": "^0.4.17"
   },
   "devDependencies": {

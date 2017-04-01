@@ -13,7 +13,8 @@
 let fritzFormat = {}
 
 const csvjson = require('csvjson')
-const parseString = require('xml2js').parseString
+//const parseString = require('xml2js').parseString
+const convert = require('xml-to-json-promise')
 
 /**
  * Format a raw calls array to a more readable array.
@@ -127,13 +128,9 @@ fritzFormat.boolean = (number) => {
  * @param  {string} tmpPath
  * @return {promise}
  */
-fritzFormat.xmlToJson = (xml) => {
-  return new Promise(function (resolve, reject) {
-    parseString(xml, (error, result) => {
-      if (error) return reject(error)
-      return resolve(result)
-    })
-  })
+fritzFormat.xmlToObject = async (xml) => {
+  const object = await convert.xmlDataToJSON(xml)
+  return object
 }
 
 /**
