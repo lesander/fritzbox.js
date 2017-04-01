@@ -13,14 +13,28 @@
 The most powerful, simple and complete AVM Fritz!Box API. **This project is still a work in progress.** Written in Node.js
 
 ## Getting Started
-This module is written in ECMAscript 2015 [ES6](https://github.com/mjavascript/practical-es6) and is promise-based. You should use the latest version (`^7.0.0`) of NodeJS.
+This module is future-proof and uses async/await promises.
 
-This package was tested on Fritz!Box 7390 and 7490 with firmware versions `6.53` and `6.51`.
+Until NodeJS supports ES6's async/await natively (which will be very soon), we have to use the harmony flag `--harmony-async-await`.
+You should use the latest version (`^7.8.0`) of NodeJS and use that flag, or use the [BabelJS](https://babeljs.io/) compiled module.
+
+This package was tested on Fritz!Box 7390 and 7490 with firmware versions `6.53`, `6.51` and `6.83`.
+
+## Installing
+
+FritzBox.js is available on the following platforms.
+- NodeJS server-side
+- Javascript browser-side with browserify
+
 ```
 npm install fritzbox.js
 ```
 
+*More information on how to set up with browserify is coming soon.*
+
 A simple example showing how to get the history of calls made with a [Fritz!Fon](https://en.avm.de/products/fritzfon) can be seen below.
+
+## Example
 
 ```js
 const fritz = require('fritzbox.js')
@@ -30,13 +44,14 @@ const options = {
   server: 'fritz.box',
   protocol: 'https' }
 
-fritz.getCalls(options)
-.then((callHistory) => {
-  console.log(callHistory)
-})
-.catch((error) => {
-  console.log(error)
-})
+async function calls(options) {
+  const calls = await fritz.getCalls(options)
+  if (calls.error) {
+    return console.log(calls.error)
+  }
+  console.log('Got ' + calls.length + 'calls.')
+}
+calls(options)
 
 ```
 
