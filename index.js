@@ -10,11 +10,12 @@ const fritzConfig = {
   debug: require('./package.json').options.debug
 }
 
-const fritzRequest = require('./src/request.js')
-const fritzLogin = require('./src/login.js')
-const fritzFon = require('./src/fon.js')
-const fritzDect = require('./src/dect.js')
-const fritzWlan = require('./src/wlan.js')
+const dir = 'src'
+const fritzRequest = require('./'+dir+'/request.js')
+const fritzLogin = require('./'+dir+'/login.js')
+const fritzFon = require('./'+dir+'/fon.js')
+const fritzDect = require('./'+dir+'/dect.js')
+const fritzWlan = require('./'+dir+'/wlan.js')
 
 const fritz = Object.assign(
   {}, fritzConfig, fritzRequest, fritzLogin,
