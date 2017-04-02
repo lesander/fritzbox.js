@@ -30,6 +30,7 @@
   "main": "index.js",
   "scripts": {
     "test": "standard",
+    "local-test": "test/ci.sh",
     "build": "babel src -d lib",
     "prepublish": "npm run build"
   },
@@ -39,12 +40,12 @@
     "csvjson": "^3.0.0",
     "request": "^2.79.0",
     "request-promise": "^4.1.1",
-    "xml-to-json-promise": "*",
+    "xml-to-json-promise": "^0.0.3",
     "xml2js": "^0.4.17"
   },
   "devDependencies": {
-    "babel-core": "*",
-    "babel-polyfill": "*",
+    "babel-core": "^6.21.0",
+    "babel-polyfill": "^6.20.0",
     "babel-plugin-transform-runtime": "^6.15.0",
     "standard": "^8.6.0"
   },
