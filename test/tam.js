@@ -11,6 +11,18 @@ async function tam() {
   }
 
   console.log('Got ', messages.length, ' TAM messages.')
+
+  let newTam = 0
+
+  for (var tam in messages) {
+    if (messages[tam].isNewMessage) {
+      newTam++
+      console.log(messages[tam])
+    }
+  }
+
+  console.log('There are/is ', newTam, ' new TAM message(s).')
+
   fs.writeFileSync('tam.json', JSON.stringify(messages, null, 2))
 
 }

@@ -16,11 +16,10 @@ node --harmony-async-await test/smartdevices.js # async ready
 node --harmony-async-await test/tam.js          # async ready
 node --harmony-async-await test/phonebook.js    # async ready
 
-node --harmony-async-await test/activecalls.js  #
-node --harmony-async-await test/dial.js         #
-node --harmony-async-await test/markread.js     #
-node --harmony-async-await test/tamdownload.js  #
-node --harmony-async-await test/toggleswitch.js # 
-
+node --harmony-async-await test/activecalls.js  # async ready
+node --harmony-async-await test/dial.js         # async ready
+node --harmony-async-await test/markread.js     # async ready
+node --harmony-async-await test/tamdownload.js  # async ready
+node --harmony-async-await test/toggleswitch.js # async ready
 
 echo " ✓ Finished with tests."
