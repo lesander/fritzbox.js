@@ -22,6 +22,7 @@ const convert = require('xml-to-json-promise')
  * @return {array}
  */
 fritzFormat.calls = (calls) => {
+
   let formattedCalls = []
   for (var i in calls) {
     formattedCalls[i] = {
@@ -58,7 +59,9 @@ fritzFormat.callsCsvToJson = (csvData) => {
  * @return {[type]}          [description]
  */
 fritzFormat.tamMessages = (messages) => {
+
   let formattedMessages = []
+
   for (var i in messages) {
     formattedMessages[i] = {
       tamId: messages[i].tam,
@@ -73,6 +76,7 @@ fritzFormat.tamMessages = (messages) => {
       isNewMessage: messages[i].new
     }
   }
+
   return formattedMessages
 }
 

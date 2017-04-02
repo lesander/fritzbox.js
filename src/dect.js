@@ -18,34 +18,16 @@ const fritzRequest = require('./request.js')
 /**
  * Get all smart devices and groups.
  * @param  {object} options
- * @return {Promise}
+ * @return {object}
  */
-fritzDect.getSmartDevices = (options) => {
-  return new Promise(function (resolve, reject) {
-    fritzLogin.getSessionId(options)
+fritzDect.getSmartDevices = async (options) => {
 
-    // Use the session id to obtain the list of registered smart devices.
-    .then((sid) => {
-      options.sid = sid
-      return fritzRequest.request('/myfritz/areas/homeauto.lua?ajax_id=1&cmd=getData', 'GET', options)
-    })
+  const path = '/myfritz/areas/homeauto.lua?ajax_id=1&cmd=getData'
+  const response = await fritzRequest.request(path, 'GET', options)
 
-    .then((response) => {
-      if (response.statusCode !== 200) {
-        return reject(fritzRequest.findFailCause(response))
-      }
-      return response
-    })
+  if (response.error) return response
 
-    .then((response) => {
-      return resolve(JSON.parse(response.body).devices)
-    })
-
-    .catch((error) => {
-      console.log('[FritzDect] getSmartDevices failed.')
-      return reject(error)
-    })
-  })
+  return JSON.parse(response.body).devices
 }
 
 /**
@@ -53,37 +35,55 @@ fritzDect.getSmartDevices = (options) => {
  * @param  {integer} deviceId
  * @param  {integer} value    1 (on) or 0 (off)
  * @param  {object} options
- * @return {Promise}
+ * @return {object}
  */
-fritzDect.toggleSwitch = (deviceId, value, options) => {
-  return new Promise(function (resolve, reject) {
-    fritzLogin.getSessionId(options)
+fritzDect.toggleSwitch = async (deviceId, value, options) => {
 
-    .then((sid) => {
-      options.sid = sid
-      let path = '/myfritz/areas/homeauto.lua?ajax_id=' +
-                 Math.floor(Math.random() * 1000, 2) +
-                 '&cmd=switchChange&cmdValue=' +
-                 value + '&deviceId=' + deviceId
-      return fritzRequest.request(path, 'GET', options)
-    })
+  const version = await fritzLogin.getVersionNumber(options)
+  if (version.error) return version
 
-    .then((response) => {
-      if (response.statusCode !== 200) {
-        return reject(fritzRequest.findFailCause(response))
-      }
-      return response
-    })
+  let response
 
-    .then((response) => {
-      return resolve(response.body)
-    })
+  if (version >= 683) {
 
-    .catch((error) => {
-      console.log('[FritzDect] toggleSwitch failed.')
-      return reject(error)
-    })
-  })
+    // Post 06.83 uses a POST request.
+
+    if (!options.sid) {
+      options.sid = await fritzLogin.getSessionId(options)
+      if (options.sid.error) return options.sid
+    }
+
+    const path = '/myfritz/areas/homeauto.lua'
+    const form = {
+      sid: options.sid,
+      ajax_id: Math.floor(Math.random() * 10000, 2),
+      cmd: 'switchChange',
+      cmdValue: value,
+      deviceId: deviceId
+    }
+    response = await fritzRequest.request(path, 'POST', options, false, false, form)
+
+  } else {
+
+    // Pre 06.83 used a GET request.
+    const path = '/myfritz/areas/homeauto.lua?ajax_id=' +
+               Math.floor(Math.random() * 10000, 2) +
+               '&cmd=switchChange&cmdValue=' +
+               value + '&deviceId=' + deviceId
+    response = await fritzRequest.request(path, 'GET', options)
+
+  }
+
+  if (response.error) return response
+
+  const responseObject = JSON.parse(response.body)
+
+  if (responseObject.status !== 'switchStateChangedSend') {
+    return { error: { message: 'Switch state not changed.' } }
+  }
+
+  return { message: 'Set switch to given state.', deviceId: responseObject.deviceId }
+
 }
 
 /**

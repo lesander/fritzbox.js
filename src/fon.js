@@ -19,74 +19,82 @@ const fritzFormat = require('./format.js')
 /**
  * Get the history of telephone calls.
  * @param  {object} options Options object
- * @return {Promise}        Object with telephony calls.
+ * @return {object}        Object with telephony calls.
  */
-fritzFon.getCalls = (options) => {
-  return new Promise(function (resolve, reject) {
-    fritzLogin.getSessionId(options)
+fritzFon.getCalls = async (options) => {
 
-    .then((sid) => {
-      options.sid = sid
-      return fritzRequest.request('/fon_num/foncalls_list.lua?csv=', 'GET', options)
-    })
+  const path = '/fon_num/foncalls_list.lua?csv='
+  const response = await fritzRequest.request(path, 'GET', options)
 
-    .then((response) => {
-      if (response.statusCode !== 200) {
-        return reject(fritzRequest.findFailCause(response))
-      }
-      return response
-    })
+  if (response.error) return response
 
-    .then((response) => {
-      return fritzFormat.callsCsvToJson(response.body)
-    })
+  const csvCalls = response.body
+  const jsonCalls = await fritzFormat.callsCsvToJson(csvCalls)
 
-    .then((calls) => {
-      return resolve(fritzFormat.calls(calls))
-    })
+  const formattedCalls = fritzFormat.calls(jsonCalls)
 
-    .catch((error) => {
-      console.log('[FritzFon] getCalls failed.')
-      return reject(error)
-    })
-  })
+  return formattedCalls
 }
 
 /**
  * Get Telephone Answering Machine (TAM) Messages.
  * @param  {object} options Options object
- * @return {Promise}        Object with messages
+ * @return {object}        Object with messages
  */
-fritzFon.getTamMessages = (options) => {
-  return new Promise(function (resolve, reject) {
-    fritzLogin.getSessionId(options)
+fritzFon.getTamMessages = async (options) => {
 
-    // Use the session id to get a list of the last TAM messages.
-    .then((sid) => {
-      options.sid = sid
-      return fritzRequest.request('/myfritz/areas/answer.lua?ajax_id=1', 'GET', options)
-    })
+  const version = await fritzLogin.getVersionNumber(options)
 
-    .then((response) => {
-      if (response.statusCode !== 200) {
-        return reject(fritzRequest.findFailCause(response))
+  if (version.error) return version
+
+  let tamMessages
+
+  /* The following works with Fritz!Box OS 6.83 and newer. */
+  if (version >= 683) {
+
+    // Get a session ID for the POST request first.
+    if (!options.sid) {
+      options.sid = await fritzLogin.getSessionId(options)
+      if (options.sid.error) return options.sid
+    }
+
+    // Prepare request options
+    options.removeSidFromUri = true
+    const path = '/myfritz/areas/calls.lua'
+    const form = {
+      sid: options.sid,
+      ajax_id: 1234
+    }
+
+    const response = await fritzRequest.request(path, 'POST', options, false, false, form)
+    if (response.error) return response
+    calls = JSON.parse(response.body).calls
+
+    // Filter only TAM messages.
+    tamMessages = []
+    for (var call in calls) {
+      if (calls[call].tam_data) {
+        tamMessages.push(calls[call].tam_data)
       }
-      return response
-    })
+    }
+  }
 
-    .then((response) => {
-      return fritzFormat.tamMessages(JSON.parse(response.body).tamcalls)
-    })
+  /* The following works with Fritz!Box OS 6.53 and lower. */
+  else {
 
-    .then((messages) => {
-      return resolve(messages)
-    })
+    const path = '/myfritz/areas/answer.lua?ajax_id=1'
+    const response = await fritzRequest.request(path, 'GET', options)
+    if (response.error) return response
 
-    .catch((error) => {
-      console.log('[FritzFon] getTamMessages failed.')
-      return reject(error)
-    })
-  })
+    tamMessages = JSON.parse(response.body).tamcalls
+
+  }
+
+  // Fortunately, the returned objects remain somewhat the same.
+  const formtattedTamMessages = fritzFormat.tamMessages(tamMessages)
+
+  return formtattedTamMessages
+
 }
 
 /**
@@ -94,28 +102,22 @@ fritzFon.getTamMessages = (options) => {
  * @param  {string} messagePath
  * @param  {string} localPath
  * @param  {object} options
- * @return {Promise}
+ * @return {string}
  */
-fritzFon.downloadTamMessage = (messagePath, localPath, options) => {
-  return new Promise(function (resolve, reject) {
-    fritzLogin.getSessionId(options)
-    .then((sid) => {
-      options.sid = sid
-      const path = '/myfritz/cgi-bin/luacgi_notimeout' +
-                   '?cmd=tam&script=/http_file_download.lua' +
-                   '&cmd_files=' + messagePath
-      return fritzRequest.request(path, 'GET', options, localPath)
-    })
+fritzFon.downloadTamMessage = async (messagePath, localPath, options) => {
 
-    .then((response) => {
-      return resolve(response)
-    })
+  const path = '/myfritz/cgi-bin/luacgi_notimeout' +
+               '?cmd=tam&script=/http_file_download.lua' +
+               '&cmd_files=' + messagePath
+  const response = await fritzRequest.request(path, 'GET', options, localPath)
 
-    .catch((error) => {
-      console.log('[FritzFon] getTamMessages failed.')
-      return reject(error)
-    })
-  })
+  if (response.error) return response
+
+  if (response.headers['content-type'] !== 'audio/x-wav') {
+    return { error: { message: 'Did not receive wav audio file', raw: response } }
+  }
+
+  return { message: 'Saved tam message to ' + localPath }
 }
 
 /**
@@ -123,61 +125,43 @@ fritzFon.downloadTamMessage = (messagePath, localPath, options) => {
  * @param  {number} messageId
  * @param  {object} options
  * @param  {number} [tamId=0]
- * @return {promise}
+ * @return {boolean}
  */
-fritzFon.markTamMessageAsRead = (messageId, options, tamId = 0) => {
-  return new Promise(function (resolve, reject) {
-    fritzLogin.getSessionId(options)
-    .then((sid) => {
-      options.sid = sid
-      const path = '/fon_devices/tam_list.lua?useajax=1' +
-                   '&TamNr=' + tamId +
-                   '&idx=' + messageId
-      return fritzRequest.request(path, 'GET', options)
-    })
+fritzFon.markTamMessageAsRead = async (messageId, options, tamId = 0) => {
 
-    .then((response) => {
-      if (response.body === '{"state":1,"cur_idx":1}') {
-        return resolve(true)
-      } else {
-        return reject(false)
-      }
-    })
+  const path = '/fon_devices/tam_list.lua?useajax=1' +
+               '&TamNr=' + tamId +
+               '&idx=' + messageId
+  const response = await fritzRequest.request(path, 'GET', options)
 
-    .catch((error) => {
-      console.log('[FritzFon] markTamMessageAsRead failed.')
-      return reject(error)
-    })
-  })
+  if (response.error) return response
+
+  if (response.body !== '{"state":1,"cur_idx":1}') {
+    return { error: { message: 'Message not marked as read.', raw: response.body } }
+  }
+
+  return true
+
 }
 
 /**
  * Dial the given number.
  * @param  {number} phoneNumber
- * @return {promise}
+ * @return {object}
  */
-fritzFon.dialNumber = (phoneNumber, options) => {
-  return new Promise(function (resolve, reject) {
-    fritzLogin.getSessionId(options)
-    .then((sid) => {
-      options.sid = sid
-      const path = '/fon_num/foncalls_list.lua?xhr=1' +
-                   '&dial=' + phoneNumber
-      return fritzRequest.request(path, 'GET', options)
-    })
+fritzFon.dialNumber = async (phoneNumber, options) => {
 
-    .then((response) => {
-      if (JSON.parse(response.body).err === 0) {
-        return resolve('Ringing.. Please pick up your designated handset now.')
-      }
-      return reject('An error occured while ringing the number.')
-    })
+  const path = '/fon_num/foncalls_list.lua?xhr=1' +
+               '&dial=' + phoneNumber
+  const response = await fritzRequest.request(path, 'GET', options)
 
-    .catch((error) => {
-      console.log('[FritzFon] dialNumber failed.')
-      return reject(error)
-    })
-  })
+  if (response.error) return response
+
+  if (JSON.parse(response.body).err !== 0) {
+    return { error: 'An error occured while ringing the number.' }
+  }
+
+  return { message: 'Ringing. Please pick up your designated handset now.' }
 }
 
 /**
@@ -185,35 +169,25 @@ fritzFon.dialNumber = (phoneNumber, options) => {
  * @param  {object} options
  * @return {prototype}
  */
-fritzFon.getActiveCalls = (options) => {
-  return new Promise(function(resolve, reject) {
-    fritzLogin.getSessionId(options)
-    .then((sid) => {
-      options.sid = sid
-      options.removeSidFromUri = true
-      const form = {
-        page: 'overview',
-        sid: options.sid
-      }
-      return fritzRequest.request('/data.lua', 'POST', options, false, false, form)
-    })
+fritzFon.getActiveCalls = async (options) => {
 
-    .then((response) => {
-      if (response.statusCode !== 200) {
-        return reject(fritzRequest.findFailCause(response))
-      }
-      return response
-    })
+  if (!options.sid) {
+    options.sid = await fritzLogin.getSessionId(options)
+    if (options.sid.error) return options.sid
+  }
 
-    .then((response) => {
-      return resolve(JSON.parse(response.body).data.foncalls.activecalls)
-    })
+  options.removeSidFromUri = true
+  const form = {
+    page: 'overview',
+    sid: options.sid
+  }
+  const response = await fritzRequest.request('/data.lua', 'POST', options, false, false, form)
+  if (response.error) return response
 
-    .catch((error) => {
-      console.log('[FritzFon] activeCalls')
-      return reject(error)
-    })
-  })
+  const activeCalls = JSON.parse(response.body).data.foncalls.activecalls
+
+  return activeCalls
+
 }
 
 /**
@@ -222,41 +196,32 @@ fritzFon.getActiveCalls = (options) => {
  * @param  {object} options
  * @return {promise}
  */
-fritzFon.getPhonebook = (phonebookId = 0, options) => {
-  return new Promise(function (resolve, reject) {
-    fritzLogin.getSessionId(options)
-    .then((sid) => {
-      options.sid = sid
-      options.removeSidFromUri = true
-      const formData = {
-        sid: options.sid,
-        PhonebookId: phonebookId,
-        PhonebookExportName: 'Phonebook',
-        PhonebookExport: ''
-      }
-      return fritzRequest.request('/cgi-bin/firmwarecfg', 'POST', options, false, formData)
-    })
+fritzFon.getPhonebook = async (phonebookId = 0, options) => {
 
-    .then((response) => {
-      if (response.statusCode !== 200) {
-        return reject(fritzRequest.findFailCause(response))
-      }
-      return response
-    })
+  if (!options.sid) {
+    options.sid = await fritzLogin.getSessionId(options)
+    if (options.sid.error) return options.sid
+  }
 
-    .then((response) => {
-      return fritzFormat.xmlToJson(response.body)
-    })
+  options.removeSidFromUri = true
+  const formData = {
+    sid: options.sid,
+    PhonebookId: phonebookId,
+    PhonebookExportName: 'Phonebook',
+    PhonebookExport: ''
+  }
+  const path = '/cgi-bin/firmwarecfg'
+  const response = await fritzRequest.request(path, 'POST', options, false, formData)
 
-    .then((object) => {
-      return resolve(fritzFormat.phonebook(object.phonebooks.phonebook[0].contact))
-    })
+  if (response.error) return response
 
-    .catch((error) => {
-      console.log('[FritzFon] getPhonebook failed.')
-      return reject(error)
-    })
-  })
+  const contacts = response.body
+  const contactsJson = await fritzFormat.xmlToObject(contacts)
+
+  const contactsObject = contactsJson.phonebooks.phonebook[0].contact
+  const formattedContacts = fritzFormat.phonebook(contactsObject)
+
+  return formattedContacts
 }
 
 /**
