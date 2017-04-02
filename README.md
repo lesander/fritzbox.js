@@ -1,6 +1,6 @@
 # FritzBox.js
 [![GitHub release](https://img.shields.io/github/release/lesander/fritzbox.js.svg?maxAge=1)]()
-[![Completion Status](https://img.shields.io/badge/completion-45%25-yellowgreen.svg)]()
+[![Completion Status](https://img.shields.io/badge/completion-60%25-yellowgreen.svg)]()
 [![Build Status](https://travis-ci.org/lesander/fritzbox.js.svg?branch=master&cache=pls)](https://travis-ci.org/lesander/fritzbox.js)
 
 [![npm](https://img.shields.io/npm/dt/fritzbox.js.svg?maxAge=1)]()
@@ -18,7 +18,7 @@ This module is future-proof and uses async/await promises.
 Until NodeJS supports ES6's async/await natively (which will be very soon), we have to use the harmony flag `--harmony-async-await`.
 You should use the latest version (`^7.8.0`) of NodeJS and use that flag, or use the [BabelJS](https://babeljs.io/) compiled module.
 
-This package was tested on Fritz!Box 7390 and 7490 with firmware versions `6.53`, `6.51` and `6.83`.
+This package was tested on Fritz!Box 7390 and 7490, with firmware versions `6.53`, `6.51` and `6.83`.
 
 ## Installing
 
