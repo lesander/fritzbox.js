@@ -53,6 +53,7 @@
     "server": "fritz.box",
     "username": "xxx",
     "password": "xxx",
+    "callmonitorport": "1012",
     "debug": false
   }
 }
