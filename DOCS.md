@@ -1,5 +1,7 @@
 # Documentation
 
+**Documentation is outdated and still a work in progress. This is expected to be finished by release v2.1.0**
+
 Every call to any `fritz` function should include the `options` object. The domain (or IP address) can differ with your local network setup. If your Fritz!Box does not require a username while logging in, you can simply leave that field blank.
 ```js
 {
