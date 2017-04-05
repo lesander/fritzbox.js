@@ -3,8 +3,7 @@ const options = require('../package.json').options
 const messagePath = '/data/tam/rec/rec.0.020'
 const localPath = './test/rec20.wav'
 
-async function download() {
-
+async function download () {
   const status = await fritz.downloadTamMessage(messagePath, localPath, options)
 
   if (status.error) {
@@ -13,6 +12,5 @@ async function download() {
   }
 
   console.log(status.message)
-
 }
 download()

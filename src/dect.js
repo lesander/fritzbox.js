@@ -21,7 +21,6 @@ const fritzRequest = require('./request.js')
  * @return {object}
  */
 fritzDect.getSmartDevices = async (options) => {
-
   const path = '/myfritz/areas/homeauto.lua?ajax_id=1&cmd=getData'
   const response = await fritzRequest.request(path, 'GET', options)
 
@@ -38,14 +37,12 @@ fritzDect.getSmartDevices = async (options) => {
  * @return {object}
  */
 fritzDect.toggleSwitch = async (deviceId, value, options) => {
-
   const version = await fritzLogin.getVersionNumber(options)
   if (version.error) return version
 
   let response
 
   if (version >= 683) {
-
     // Post 06.83 uses a POST request.
 
     if (!options.sid) {
@@ -62,16 +59,13 @@ fritzDect.toggleSwitch = async (deviceId, value, options) => {
       deviceId: deviceId
     }
     response = await fritzRequest.request(path, 'POST', options, false, false, form)
-
   } else {
-
     // Pre 06.83 used a GET request.
     const path = '/myfritz/areas/homeauto.lua?ajax_id=' +
                Math.floor(Math.random() * 10000, 2) +
                '&cmd=switchChange&cmdValue=' +
                value + '&deviceId=' + deviceId
     response = await fritzRequest.request(path, 'GET', options)
-
   }
 
   if (response.error) return response
@@ -83,7 +77,6 @@ fritzDect.toggleSwitch = async (deviceId, value, options) => {
   }
 
   return { message: 'Set switch to given state.', deviceId: responseObject.deviceId }
-
 }
 
 /**

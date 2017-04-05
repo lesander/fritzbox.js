@@ -17,7 +17,7 @@ const events = require('events')
 
 /**
  * Implementation of Thorsten Basse's Fritz!Box Call Monitor
- * 
+ *
  * Licensed under the MIT License
  * Copyright (c) 2013 Thorsten Basse <himself@tagedieb.com>
  * https://github.com/tbasse/fritzbox-callmonitor

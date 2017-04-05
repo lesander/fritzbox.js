@@ -19,7 +19,6 @@ module.exports = fritzLogin
  * @return {string}         sessionId
  */
 fritzLogin.getSessionId = async (options) => {
-
   // If a session ID is already set, we return that value!
   if (options.sid) return options.sid
 
@@ -57,7 +56,6 @@ fritzLogin.getSessionId = async (options) => {
  * @return {String}  '06.83'
  */
 fritzLogin.getVersion = async (options) => {
-
   options.noAuth = true
   const rawXml = await fritzRequest.request('/jason_boxinfo.xml', 'GET', options)
   if (rawXml.error) return rawXml
@@ -78,7 +76,7 @@ fritzLogin.getVersion = async (options) => {
 fritzLogin.getVersionNumber = async (options) => {
   const version = await fritzLogin.getVersion(options)
   if (version.error) return version
-  const versionNumber = parseInt( version.replace('.', '') )
+  const versionNumber = parseInt(version.replace('.', ''))
   return versionNumber
 }
 
@@ -87,5 +85,5 @@ fritzLogin.getVersionNumber = async (options) => {
  * https://stackoverflow.com/a/32428290/1878974
  */
 const fritzRequest = require('./request.js')
-const fritzFormat  = require('./format.js')
+const fritzFormat = require('./format.js')
 const util = require('util')

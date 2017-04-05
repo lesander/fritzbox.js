@@ -28,7 +28,6 @@ module.exports = fritzRequest
  * @return {object}           Request response object
  */
 fritzRequest.request = async (path, method, options, pipe = false, formData = false, formUrlEncoded = false) => {
-
   options.protocol = options.protocol || 'https'
 
   // Make sure we have the required options.
@@ -104,13 +103,13 @@ fritzRequest.findFailCause = (response) => {
   switch (response.statusCode) {
     case 403:
       return { error: { message: 'Not authenticated correctly for communication with Fritz!Box.' } }
-    break
+      break
     case 404:
       return { error: { message: 'Requested page does not exist on the Fritz!Box.' } }
-    break
+      break
     case 500:
       return { error: { message: 'The Fritz!Box encountered an internal server error.' } }
-    break
+      break
     default:
 
       if (response.message) {

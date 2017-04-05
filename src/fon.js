@@ -22,7 +22,6 @@ const fritzFormat = require('./format.js')
  * @return {object}        Object with telephony calls.
  */
 fritzFon.getCalls = async (options) => {
-
   const path = '/fon_num/foncalls_list.lua?csv='
   const response = await fritzRequest.request(path, 'GET', options)
 
@@ -42,7 +41,6 @@ fritzFon.getCalls = async (options) => {
  * @return {object}        Object with messages
  */
 fritzFon.getTamMessages = async (options) => {
-
   const version = await fritzLogin.getVersionNumber(options)
 
   if (version.error) return version
@@ -51,7 +49,6 @@ fritzFon.getTamMessages = async (options) => {
 
   /* The following works with Fritz!Box OS 6.83 and newer. */
   if (version >= 683) {
-
     // Get a session ID for the POST request first.
     if (!options.sid) {
       options.sid = await fritzLogin.getSessionId(options)
@@ -81,20 +78,17 @@ fritzFon.getTamMessages = async (options) => {
 
   /* The following works with Fritz!Box OS 6.53 and lower. */
   else {
-
     const path = '/myfritz/areas/answer.lua?ajax_id=1'
     const response = await fritzRequest.request(path, 'GET', options)
     if (response.error) return response
 
     tamMessages = JSON.parse(response.body).tamcalls
-
   }
 
   // Fortunately, the returned objects remain somewhat the same.
   const formtattedTamMessages = fritzFormat.tamMessages(tamMessages)
 
   return formtattedTamMessages
-
 }
 
 /**
@@ -105,7 +99,6 @@ fritzFon.getTamMessages = async (options) => {
  * @return {string}
  */
 fritzFon.downloadTamMessage = async (messagePath, localPath, options) => {
-
   const path = '/myfritz/cgi-bin/luacgi_notimeout' +
                '?cmd=tam&script=/http_file_download.lua' +
                '&cmd_files=' + messagePath
@@ -128,7 +121,6 @@ fritzFon.downloadTamMessage = async (messagePath, localPath, options) => {
  * @return {boolean}
  */
 fritzFon.markTamMessageAsRead = async (messageId, options, tamId = 0) => {
-
   const path = '/fon_devices/tam_list.lua?useajax=1' +
                '&TamNr=' + tamId +
                '&idx=' + messageId
@@ -141,7 +133,6 @@ fritzFon.markTamMessageAsRead = async (messageId, options, tamId = 0) => {
   }
 
   return true
-
 }
 
 /**
@@ -150,7 +141,6 @@ fritzFon.markTamMessageAsRead = async (messageId, options, tamId = 0) => {
  * @return {object}
  */
 fritzFon.dialNumber = async (phoneNumber, options) => {
-
   const path = '/fon_num/foncalls_list.lua?xhr=1' +
                '&dial=' + phoneNumber
   const response = await fritzRequest.request(path, 'GET', options)
@@ -170,7 +160,6 @@ fritzFon.dialNumber = async (phoneNumber, options) => {
  * @return {prototype}
  */
 fritzFon.getActiveCalls = async (options) => {
-
   if (!options.sid) {
     options.sid = await fritzLogin.getSessionId(options)
     if (options.sid.error) return options.sid
@@ -187,7 +176,6 @@ fritzFon.getActiveCalls = async (options) => {
   const activeCalls = JSON.parse(response.body).data.foncalls.activecalls
 
   return activeCalls
-
 }
 
 /**
@@ -197,7 +185,6 @@ fritzFon.getActiveCalls = async (options) => {
  * @return {promise}
  */
 fritzFon.getPhonebook = async (phonebookId = 0, options) => {
-
   if (!options.sid) {
     options.sid = await fritzLogin.getSessionId(options)
     if (options.sid.error) return options.sid

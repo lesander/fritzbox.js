@@ -11,20 +11,20 @@ const fritzConfig = {
 }
 
 const dir = 'src'
-const fritzRequest = require('./'+dir+'/request.js')
-const fritzLogin = require('./'+dir+'/login.js')
-const fritzFon = require('./'+dir+'/fon.js')
-const fritzDect = require('./'+dir+'/dect.js')
-const fritzWlan = require('./'+dir+'/wlan.js')
+const fritzRequest = require('./' + dir + '/request.js')
+const fritzLogin = require('./' + dir + '/login.js')
+const fritzFon = require('./' + dir + '/fon.js')
+const fritzDect = require('./' + dir + '/dect.js')
+const fritzWlan = require('./' + dir + '/wlan.js')
 
 const fritz = Object.assign(
   {}, fritzConfig, fritzRequest, fritzLogin,
   fritzFon, fritzDect, fritzWlan
 )
 
-process.on('unhandledRejection', function(reason, r) {
-  console.log("[FritzBox.js] Encountered unhandled Promise rejection")
+process.on('unhandledRejection', function (reason, r) {
+  console.log('[FritzBox.js] Encountered unhandled Promise rejection')
   console.log(reason, r)
-});
+})
 
 module.exports = fritz

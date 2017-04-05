@@ -2,7 +2,7 @@ const fritz = require('../index.js')
 const options = require('../package.json').options
 const fs = require('fs')
 
-async function tam() {
+async function tam () {
   const messages = await fritz.getTamMessages(options)
 
   if (messages.error) {
@@ -24,7 +24,6 @@ async function tam() {
   console.log('There are/is ', newTam, ' new TAM message(s).')
 
   fs.writeFileSync('tam.json', JSON.stringify(messages, null, 2))
-
 }
 
 tam()

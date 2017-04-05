@@ -1,7 +1,7 @@
 const fritz = require('../index.js')
 const options = require('../package.json').options
 
-async function devices() {
+async function devices () {
   const devices = await fritz.getSmartDevices(options)
   if (devices.error) {
     console.log('Error:', devices.error.message)
