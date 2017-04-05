@@ -13,7 +13,7 @@ The most powerful, simple and complete [AVM](https://avm.de) Fritz!Box [API](htt
 ## Getting Started
 This module is future-proof and uses async/await promises.
 
-Until NodeJS supports ES6's async/await natively (which will be very soon), we have to use the harmony flag `--harmony-async-await`.
+Until NodeJS supports ES7's async/await natively (which will be very soon), we have to use the harmony flag `--harmony-async-await`.
 You should use the latest version (`^7.8.0`) of NodeJS and use that flag.
 
 This package was tested on Fritz!Box 7390 and 7490, with firmware versions `6.53`, `6.51` and `6.83`.
