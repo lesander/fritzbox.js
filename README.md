@@ -46,6 +46,11 @@ async function calls(options) {
 calls(options)
 ```
 
+You could run the above example in a terminal with the following command.
+```shell
+node --harmony-async-await example.js
+```
+
 ## Documentation
 Want to get started with FritzBox.js? Cool! The API is
 [documented and available here](/DOCS.md), and you can
