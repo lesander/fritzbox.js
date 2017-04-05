@@ -12,15 +12,21 @@ Every call to any `fritz` function should include the `options` object. The doma
 }
 ```
 
-All functions of the FritzBox.js API are [Promise](http://www.datchley.name/es6-promises)-based.
+All functions of the FritzBox.js API are ES7 [async/await](https://davidwalsh.name/async-generators#es7-async) Promise-based.
+
 ```js
-fritz.functionName(parameter1, parameter2, ...)
-.then((result) => {
-  // do something with the result.
-})
-.catch((error) => {
-  // do something with the error.
-})
+async function main() {
+  const result = await fritz.functionName(parameter1, parameter2, ...)
+
+  if (result.error) {
+    // deal with the error object.
+    return console.log(result.error.message)
+  }
+
+  // deal with the result object.
+  // ...
+}
+main()
 ```
 
 ## Available functions
