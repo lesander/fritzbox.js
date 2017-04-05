@@ -86,4 +86,3 @@ fritzLogin.getVersionNumber = async (options) => {
  */
 const fritzRequest = require('./request.js')
 const fritzFormat = require('./format.js')
-const util = require('util')

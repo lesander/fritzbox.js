@@ -47,8 +47,9 @@ fritzFon.getTamMessages = async (options) => {
 
   let tamMessages
 
-  /* The following works with Fritz!Box OS 6.83 and newer. */
   if (version >= 683) {
+    /* The following works with Fritz!Box OS 6.83 and newer. */
+
     // Get a session ID for the POST request first.
     if (!options.sid) {
       options.sid = await fritzLogin.getSessionId(options)
@@ -65,7 +66,7 @@ fritzFon.getTamMessages = async (options) => {
 
     const response = await fritzRequest.request(path, 'POST', options, false, false, form)
     if (response.error) return response
-    calls = JSON.parse(response.body).calls
+    let calls = JSON.parse(response.body).calls
 
     // Filter only TAM messages.
     tamMessages = []
@@ -74,10 +75,9 @@ fritzFon.getTamMessages = async (options) => {
         tamMessages.push(calls[call].tam_data)
       }
     }
-  }
+  } else {
+    /* The following works with Fritz!Box OS 6.53 and lower. */
 
-  /* The following works with Fritz!Box OS 6.53 and lower. */
-  else {
     const path = '/myfritz/areas/answer.lua?ajax_id=1'
     const response = await fritzRequest.request(path, 'GET', options)
     if (response.error) return response
