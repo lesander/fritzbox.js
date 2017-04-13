@@ -20,7 +20,7 @@ const events = require('events')
  * @param  {Object} options
  * @return {EventEmitter}
  */
-function callMonitor (options) {
+function CallMonitor (options) {
   let self = this
   this.call = {}
 
@@ -57,7 +57,6 @@ function callMonitor (options) {
   const client = net.createConnection(port, options.server)
 
   client.addListener('error', (error) => {
-
     let errorMessage
 
     switch (error.code) {
@@ -72,7 +71,7 @@ function callMonitor (options) {
         break
     }
 
-    self.emit('error', { message: errorMessage, code: errno, raw: error })
+    self.emit('error', { message: errorMessage, code: error.errno, raw: error })
   })
 
   // Listen for data on the opened connection.
@@ -145,5 +144,5 @@ function callMonitor (options) {
  * Export fritzMonitor.
  */
 
-callMonitor.prototype = new events.EventEmitter()
-module.exports = { callMonitor }
+CallMonitor.prototype = new events.EventEmitter()
+module.exports = { CallMonitor }

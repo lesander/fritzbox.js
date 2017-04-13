@@ -1,10 +1,10 @@
 const fritz = require('../index.js')
 const options = require('../package.json').options
 
-let monitor = new fritz.callMonitor(options)
+let monitor = new fritz.CallMonitor(options)
 
 function handler (type, call) {
-  console.log(type, "\n", call)
+  console.log(type, '\n', call)
 }
 
 monitor.on('inbound', (call) => {
