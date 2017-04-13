@@ -7,8 +7,6 @@
  * https://git.io/fritzbox
  */
 
-let fritzMonitor = {}
-
 const net = require('net')
 const events = require('events')
 
@@ -22,7 +20,7 @@ const events = require('events')
  * @param  {Object} options
  * @return {EventEmitter}
  */
-fritzMonitor.callMonitor = (options) => {
+function callMonitor (options) {
   let self = this
   this.call = {}
 
@@ -57,6 +55,25 @@ fritzMonitor.callMonitor = (options) => {
   // Open a connection to the Fritz!Box call monitor.
   const port = options.callmonitorport || 1012
   const client = net.createConnection(port, options.server)
+
+  client.addListener('error', (error) => {
+
+    let errorMessage
+
+    switch (error.code) {
+      case 'ENETUNREACH':
+        errorMessage = `Cannot reach ${error.address}:${error.port}`
+        break
+      case 'ECONNREFUSED':
+        errorMessage = `Connection refused on ${error.address}:${error.port}`
+        break
+      default:
+        errorMessage = `Unknown error`
+        break
+    }
+
+    self.emit('error', { message: errorMessage, code: errno, raw: error })
+  })
 
   // Listen for data on the opened connection.
   client.addListener('data', (chunk) => {
@@ -118,7 +135,7 @@ fritzMonitor.callMonitor = (options) => {
     }
   })
 
-  // Listen for the end signal on the opened connection.s
+  // Listen for the end signal on the opened connections.
   client.addListener('end', () => {
     client.end()
   })
@@ -128,5 +145,5 @@ fritzMonitor.callMonitor = (options) => {
  * Export fritzMonitor.
  */
 
-fritzMonitor.callMonitor.prototype = new events.EventEmitter()
-module.exports = fritzMonitor
+callMonitor.prototype = new events.EventEmitter()
+module.exports = { callMonitor }
