@@ -6,7 +6,6 @@
 let fritzFormat = {}
 
 const csvjson = require('csvjson')
-// const parseString = require('xml2js').parseString
 const convert = require('xml-to-json-promise')
 
 /**
