@@ -47,39 +47,7 @@ fritzLogin.getSessionId = async (options) => {
   return sessionId
 }
 
-/**
- * Get the version of a Fritz!Box without authentication.
- * @param  {Object}  options server protocol
- * @return {String}  '06.83'
- */
-fritzLogin.getVersion = async (options) => {
-  options.noAuth = true
-  const rawXml = await fritzRequest.request('/jason_boxinfo.xml', 'GET', options)
-  if (rawXml.error) return rawXml
-
-  const object = await fritzFormat.xmlToObject(rawXml.body)
-  const fullVersion = object['j:BoxInfo']['j:Version'][0]
-
-  let parts = fullVersion.split('.')
-  const OSVersion = parts[1] + '.' + parts[2]
-  return OSVersion
-}
-
-/**
- * Get the version of a Fritz!Box without authentication.
- * @param  {object}  options server protocol
- * @return {Number}          '683'
- */
-fritzLogin.getVersionNumber = async (options) => {
-  const version = await fritzLogin.getVersion(options)
-  if (version.error) return version
-  const versionNumber = parseInt(version.replace('.', ''))
-  return versionNumber
-}
-
-/**
- * <3 Circular dependencies...
- * https://stackoverflow.com/a/32428290/1878974
- */
+// <3 Circular dependencies...
+// https://stackoverflow.com/a/32428290/1878974
 const fritzRequest = require('./request.js')
 const fritzFormat = require('./format.js')
