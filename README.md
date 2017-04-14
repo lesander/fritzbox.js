@@ -1,6 +1,6 @@
 # FritzBox.js
 [![GitHub release](https://img.shields.io/github/release/lesander/fritzbox.js.svg?maxAge=1)]()
-[![Completion Status](https://img.shields.io/badge/completion-60%25-yellowgreen.svg)]()
+[![Completion Status](https://img.shields.io/badge/completion-70%25-green.svg)]()
 [![Build Status](https://travis-ci.org/lesander/fritzbox.js.svg?branch=master&cache=pls)](https://travis-ci.org/lesander/fritzbox.js)
 [![npm](https://img.shields.io/npm/dt/fritzbox.js.svg?maxAge=1)]()
 [![Code Climate](https://codeclimate.com/github/lesander/fritzbox.js/badges/gpa.svg)](https://codeclimate.com/github/lesander/fritzbox.js)
