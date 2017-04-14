@@ -12,6 +12,10 @@ let fritzFon = {}
 const fritzLogin = require('./login.js')
 const fritzRequest = require('./request.js')
 const fritzFormat = require('./format.js')
+const fritzSystem = require('./system.js')
+
+const net = require('net')
+const events = require('events')
 
 /**
  * Get the history of telephone calls.
@@ -38,7 +42,7 @@ fritzFon.getCalls = async (options) => {
  * @return {object}        Object with messages
  */
 fritzFon.getTamMessages = async (options) => {
-  const version = await fritzLogin.getVersionNumber(options)
+  const version = await fritzSystem.getVersionNumber(options)
 
   if (version.error) return version
 
@@ -209,7 +213,142 @@ fritzFon.getPhonebook = async (phonebookId = 0, options) => {
 }
 
 /**
- * Export fritzFon.
+ * Receive events for incoming and outgoing calls.
+ *
+ * Enable the callmonitor on your Fritz!Box by dialing `#96*5*` and disable with `#96*4*`
+ * Set `options.callmonitorport` to `1012` or a custom port.
+ *
+ * This is an implementation of Thorsten Basse's Fritz!Box Call Monitor
+ *
+ * @memberof fritzFon
+ * @param  {Object} options - FritzBox.js options object.
+ * @return {EventEmitter} Returns an event emitter for you to catch events with.
  */
+var CallMonitor = function (options) {
+  let self = this
+  this.call = {}
+
+  /**
+   * Convert a Fritz!Box date to Epoch time string.
+   * @private
+   * @param  {string} string
+   * @return {number}
+   */
+  const convertDate = (string) => {
+    let d = string.match(/[0-9]{2}/g)
+    let result = ''
+    result += '20' + d[2] + '-' + d[1] + '-' + d[0]
+    result += ' ' + d[3] + ':' + d[4] + ':' + d[5]
+    return Math.floor(new Date(result).getTime() / 1000)
+  }
+
+  /**
+   * Parse a data buffer to a readable message.
+   * @private
+   * @param  {Buffer} buffer
+   * @return {string}
+   */
+  const parseMessage = (buffer) => {
+    let message = buffer.toString()
+                  .toLowerCase()
+                  .replace(/[\n\r]$/, '')
+                  .replace(/;$/, '')
+                  .split(';')
+    message[0] = convertDate(message[0])
+    return message
+  }
+
+  // Open a connection to the Fritz!Box call monitor.
+  const port = options.callmonitorport || 1012
+  const client = net.createConnection(port, options.server)
+
+  client.addListener('error', (error) => {
+    let errorMessage
+
+    switch (error.code) {
+      case 'ENETUNREACH':
+        errorMessage = `Cannot reach ${error.address}:${error.port}`
+        break
+      case 'ECONNREFUSED':
+        errorMessage = `Connection refused on ${error.address}:${error.port}`
+        break
+      default:
+        errorMessage = `Unknown error`
+        break
+    }
+
+    self.emit('error', { message: errorMessage, code: error.errno, raw: error })
+  })
+
+  // Listen for data on the opened connection.
+  client.addListener('data', (chunk) => {
+    const data = parseMessage(chunk)
+
+    switch (data[1]) {
+
+      // Handle an incoming call
+      case 'ring':
+        self.call[data[2]] = {
+          type: 'inbound',
+          start: data[0],
+          caller: data[3],
+          called: data[4]
+        }
+        self.emit('inbound', {
+          time: data[0],
+          caller: data[3],
+          called: data[4]
+        })
+        break
+
+      // Handle an outbound call
+      case 'call':
+        self.call[data[2]] = {
+          type: 'outbound',
+          start: data[0],
+          extension: data[3],
+          caller: data[4],
+          called: data[5]
+        }
+        self.emit('outbound', {
+          time: data[0],
+          extension: data[3],
+          caller: data[4],
+          called: data[5]
+        })
+        break
+
+      // Handle a pick-up event
+      case 'connect':
+        self.call[data[2]]['connect'] = data[0]
+        self.emit('connected', {
+          time: data[0],
+          extension: self.call[data[2]]['extension'],
+          caller: self.call[data[2]]['caller'],
+          called: self.call[data[2]]['called']
+        })
+        break
+
+      // Handle the end of a call
+      case 'disconnect':
+        self.call[data[2]].disconnect = data[0]
+        self.call[data[2]].duration = parseInt(data[3], 10)
+        let call = self.call[data[2]]
+        delete (self.call[data[2]])
+        self.emit('disconnected', call)
+        break
+    }
+  })
+
+  // Listen for the end signal on the opened connections.
+  client.addListener('end', () => {
+    client.end()
+  })
+}
+
+CallMonitor.prototype = new events.EventEmitter()
+fritzFon.CallMonitor = CallMonitor
+
+// Export fritzFon.
 
 module.exports = fritzFon
