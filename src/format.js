@@ -1,10 +1,6 @@
 /**
- * FritzBox.js
- * Licensed under the MIT License.
- * Copyright (c) 2017 Sander Laarhoven All Rights Reserved.
- *
- * Source-code available on GitHub.
- * https://git.io/fritzbox
+ * @module fritzFormat
+ * @ignore
  */
 
 let fritzFormat = {}
@@ -15,8 +11,9 @@ const convert = require('xml-to-json-promise')
 
 /**
  * Format a raw calls array to a more readable array.
- * @param  {array} calls
- * @return {array}
+ * @private
+ * @param  {Array} calls
+ * @return {Array}
  */
 fritzFormat.calls = (calls) => {
   let formattedCalls = []
@@ -36,8 +33,9 @@ fritzFormat.calls = (calls) => {
 
 /**
  * Format calls CSV to object.
+ * @private
  * @param  {string} csvData
- * @return {object}
+ * @return {Object}
  */
 fritzFormat.callsCsvToJson = (csvData) => {
   let parsableCsvData = csvData
@@ -50,9 +48,10 @@ fritzFormat.callsCsvToJson = (csvData) => {
 }
 
 /**
- * [tamMessages description]
- * @param  {[type]} messages [description]
- * @return {[type]}          [description]
+ * Format tam messages.
+ * @private
+ * @param  {Object} messages
+ * @return {Object}
  */
 fritzFormat.tamMessages = (messages) => {
   let formattedMessages = []
@@ -77,6 +76,7 @@ fritzFormat.tamMessages = (messages) => {
 
 /**
  * Get the human-understandable type of a call.
+ * @private
  * @param  {string} type 1-4
  * @return {string}
  */
@@ -90,6 +90,7 @@ fritzFormat.callType = (type) => {
 
 /**
  * Format dd.mm.yy hh:mm to a Date string.
+ * @private
  * @param  {string} rawDate
  * @return {string}
  */
@@ -114,6 +115,7 @@ fritzFormat.date = (rawDate) => {
 
 /**
  * Convert 1's and 0's to booleans.
+ * @private
  * @param  {number} number
  * @return {boolean}
  */
@@ -124,8 +126,9 @@ fritzFormat.boolean = (number) => {
 
 /**
  * Convert XML to JSON object.
- * @param  {string} tmpPath
- * @return {promise}
+ * @private
+ * @param  {string} xml
+ * @return {Object}
  */
 fritzFormat.xmlToObject = async (xml) => {
   const object = await convert.xmlDataToJSON(xml)
@@ -134,8 +137,9 @@ fritzFormat.xmlToObject = async (xml) => {
 
 /**
  * Format an ugly phonebook object to a sane object.
- * @param  {object} object
- * @return {object}
+ * @private
+ * @param  {Object} object
+ * @return {Object}
  */
 fritzFormat.phonebook = (phonebook) => {
   let formattedPhonebook = []
@@ -172,8 +176,6 @@ fritzFormat.phonebook = (phonebook) => {
   return formattedPhonebook
 }
 
-/**
- * Export fritzFon.
- */
+// Export fritzFon.
 
 module.exports = fritzFormat

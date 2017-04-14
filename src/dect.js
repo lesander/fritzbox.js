@@ -1,10 +1,6 @@
 /**
- * FritzBox.js
- * Licensed under the MIT License.
- * Copyright (c) 2017 Sander Laarhoven All Rights Reserved.
- *
- * Source-code available on GitHub.
- * https://git.io/fritzbox
+ * Fritz!Box DECT and Smart Home functions.
+ * @module fritzDect
  */
 
 let fritzDect = {}
@@ -15,8 +11,9 @@ const fritzSystem = require('./system.js')
 
 /**
  * Get all smart devices and groups.
- * @param  {object} options
- * @return {object}
+ *
+ * @param  {Object} options - FritzBox.js options object.
+ * @return {Array} An array of all found smart devices.
  */
 fritzDect.getSmartDevices = async (options) => {
   const path = '/myfritz/areas/homeauto.lua?ajax_id=1&cmd=getData'
@@ -29,10 +26,10 @@ fritzDect.getSmartDevices = async (options) => {
 
 /**
  * Toggle a Fritz DECT switch on or off.
- * @param  {integer} deviceId
- * @param  {integer} value    1 (on) or 0 (off)
- * @param  {object} options
- * @return {object}
+ * @param  {integer} deviceId - The Id of the smart home device.
+ * @param  {integer} value    - Turn on (1) or off (0).
+ * @param  {Object} options   - FritzBox.js options object.
+ * @return {Object} An object with message and deviceId.
  */
 fritzDect.toggleSwitch = async (deviceId, value, options) => {
   const version = await fritzSystem.getVersionNumber(options)
@@ -77,8 +74,6 @@ fritzDect.toggleSwitch = async (deviceId, value, options) => {
   return { message: 'Set switch to given state.', deviceId: responseObject.deviceId }
 }
 
-/**
- * Export fritzDect.
- */
+// Export fritzDect.
 
 module.exports = fritzDect

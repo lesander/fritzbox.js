@@ -1,10 +1,6 @@
 /**
- * FritzBox.js
- * Licensed under the MIT License.
- * Copyright (c) 2017 Sander Laarhoven All Rights Reserved.
- *
- * Source-code available on GitHub.
- * https://git.io/fritzbox
+ * @module fritzRequest
+ * @ignore
  */
 
 const request = require('request-promise')
@@ -16,13 +12,15 @@ module.exports = fritzRequest
 
 /**
  * Send a request to the Fritz!Box.
- * @param  {string}   path    Path to request
- * @param  {string}   method  Request method
- * @param  {object}   options Options object
+ *
+ * @private
+ * @param  {string}   path            Path to request
+ * @param  {string}   method          Request method
+ * @param  {Object}   options         Options object
  * @param  {string}   pipe
- * @param  {object}   formData
+ * @param  {Object}   formData
  * @param  {boolean}  formUrlEncoded
- * @return {object}           Request response object
+ * @return {Object}                    Request response object
  */
 fritzRequest.request = async (path, method, options, pipe = false, formData = false, formUrlEncoded = false) => {
   options.protocol = options.protocol || 'https'
@@ -93,7 +91,9 @@ fritzRequest.request = async (path, method, options, pipe = false, formData = fa
 
 /**
  * Find the cause of a failed request.
- * @param  {object} response HTTP request response
+ *
+ * @private
+ * @param  {Object} response HTTP request response
  * @return {string}          Detailed error message
  */
 fritzRequest.findFailCause = (response) => {
@@ -114,8 +114,6 @@ fritzRequest.findFailCause = (response) => {
   }
 }
 
-/**
- * <3 Circular dependencies...
- * https://stackoverflow.com/a/32428290/1878974
- */
+// <3 Circular dependencies...
+// https://stackoverflow.com/a/32428290/1878974
 const fritzLogin = require('./login.js')

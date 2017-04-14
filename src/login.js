@@ -1,19 +1,13 @@
-/**
- * FritzBox.js
- * Licensed under the MIT License.
- * Copyright (c) 2017 Sander Laarhoven All Rights Reserved.
- *
- * Source-code available on GitHub.
- * https://git.io/fritzbox
- */
+
+/** @module fritzLogin */
 
 let fritzLogin = {}
 module.exports = fritzLogin
 
 /**
  * Login to the Fritz!Box and obtain a sessionId.
- * @param  {object} options Options object
- * @return {string}         sessionId
+ * @param  {Object} options - FritzBox.js options object.
+ * @return {string} Returns a sessionId if successful.
  */
 fritzLogin.getSessionId = async (options) => {
   // If a session ID is already set, we return that value!

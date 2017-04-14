@@ -1,10 +1,6 @@
 /**
- * FritzBox.js
- * Licensed under the MIT License.
- * Copyright (c) 2017 Sander Laarhoven All Rights Reserved.
- *
- * Source-code available on GitHub.
- * https://git.io/fritzbox
+ * Fritz!Fon functions.
+ * @module fritzFon
  */
 
 let fritzFon = {}
@@ -19,8 +15,8 @@ const events = require('events')
 
 /**
  * Get the history of telephone calls.
- * @param  {object} options Options object
- * @return {object}        Object with telephony calls.
+ * @param  {Object} options - FritzBox.js options object.
+ * @return {Array} Array of telephone call history.
  */
 fritzFon.getCalls = async (options) => {
   const path = '/fon_num/foncalls_list.lua?csv='
@@ -38,8 +34,8 @@ fritzFon.getCalls = async (options) => {
 
 /**
  * Get Telephone Answering Machine (TAM) Messages.
- * @param  {object} options Options object
- * @return {object}        Object with messages
+ * @param  {Object} options - FritzBox.js options object.
+ * @return {Array} Array with TAM messages.
  */
 fritzFon.getTamMessages = async (options) => {
   const version = await fritzSystem.getVersionNumber(options)
@@ -94,10 +90,10 @@ fritzFon.getTamMessages = async (options) => {
 
 /**
  * Download a message from the Telephone Answering Machine (TAM).
- * @param  {string} messagePath
- * @param  {string} localPath
- * @param  {object} options
- * @return {string}
+ * @param  {string} messagePath - The remote file path of the message.
+ * @param  {string} localPath   - The local file path to save the message to.
+ * @param  {Object} options     - FritzBox.js options object.
+ * @return {Object} Returns an object with a message.
  */
 fritzFon.downloadTamMessage = async (messagePath, localPath, options) => {
   const path = '/myfritz/cgi-bin/luacgi_notimeout' +
@@ -116,10 +112,10 @@ fritzFon.downloadTamMessage = async (messagePath, localPath, options) => {
 
 /**
  * Mark a message as read.
- * @param  {number} messageId
- * @param  {object} options
- * @param  {number} [tamId=0]
- * @return {boolean}
+ * @param  {number} messageId   - The Id of the message to mark as read.
+ * @param  {Object} options     - FritzBox.js options object.
+ * @param  {number} [tamId=0]   - The Telephone Answering Machine Id
+ * @return {boolean} Returns true when the message was marked as read.
  */
 fritzFon.markTamMessageAsRead = async (messageId, options, tamId = 0) => {
   const path = '/fon_devices/tam_list.lua?useajax=1' +
@@ -138,8 +134,8 @@ fritzFon.markTamMessageAsRead = async (messageId, options, tamId = 0) => {
 
 /**
  * Dial the given number.
- * @param  {number} phoneNumber
- * @return {object}
+ * @param  {number} phoneNumber - The phonenumber to dial, including any extension.
+ * @return {Object} Returns an object with a message.
  */
 fritzFon.dialNumber = async (phoneNumber, options) => {
   const path = '/fon_num/foncalls_list.lua?xhr=1' +
@@ -157,8 +153,8 @@ fritzFon.dialNumber = async (phoneNumber, options) => {
 
 /**
  * Get any active calls.
- * @param  {object} options
- * @return {prototype}
+ * @param  {Object} options - FritzBox.js options object.
+ * @return {Array} Returns an array of active calls.
  */
 fritzFon.getActiveCalls = async (options) => {
   if (!options.sid) {
@@ -181,9 +177,9 @@ fritzFon.getActiveCalls = async (options) => {
 
 /**
  * Download the given telephone book.
- * @param  {number} phonebookId
- * @param  {object} options
- * @return {promise}
+ * @param  {number} phonebookId - Id of the phonebook to use.
+ * @param  {Object} options     - FritzBox.js options object.
+ * @return {Array} Returns an array of contact objects.
  */
 fritzFon.getPhonebook = async (phonebookId = 0, options) => {
   if (!options.sid) {
