@@ -150,7 +150,7 @@ fritzFon.dialNumber = async (phoneNumber, options) => {
   if (response.error) return response
 
   if (JSON.parse(response.body).err !== 0) {
-    return { error: 'An error occured while ringing the number.' }
+    return { error: { message: 'An error occured while ringing the number.' } }
   }
 
   return { message: 'Ringing. Please pick up your designated handset now.' }
