@@ -44,6 +44,11 @@
   "devDependencies": {
     "standard": "^8.6.0"
   },
+  "standard": {
+    "ignore": [
+      "/docs/api**"
+    ]
+  },
   "options": {
     "protocol": "https",
     "server": "fritz.box",
