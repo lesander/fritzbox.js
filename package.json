@@ -30,7 +30,8 @@
   "main": "index.js",
   "scripts": {
     "test": "standard",
-    "local-test": "test/ci.sh"
+    "local-test": "test/ci.sh",
+    "build-docs": "documentation build --github --sort-order=alpha --output=docs/api --format=html"
   },
   "dependencies": {
     "crypto": "^0.0.3",
