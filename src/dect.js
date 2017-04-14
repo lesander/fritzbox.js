@@ -11,6 +11,7 @@ let fritzDect = {}
 
 const fritzLogin = require('./login.js')
 const fritzRequest = require('./request.js')
+const fritzSystem = require('./system.js')
 
 /**
  * Get all smart devices and groups.
@@ -34,7 +35,7 @@ fritzDect.getSmartDevices = async (options) => {
  * @return {object}
  */
 fritzDect.toggleSwitch = async (deviceId, value, options) => {
-  const version = await fritzLogin.getVersionNumber(options)
+  const version = await fritzSystem.getVersionNumber(options)
   if (version.error) return version
 
   let response
