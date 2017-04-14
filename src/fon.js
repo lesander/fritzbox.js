@@ -138,6 +138,11 @@ fritzFon.markTamMessageAsRead = async (messageId, options, tamId = 0) => {
  * @return {Object} Returns an object with a message.
  */
 fritzFon.dialNumber = async (phoneNumber, options) => {
+
+  if (typeof phoneNumber !== 'string' && typeof phoneNumber !== 'integer') {
+    return { error: { message: 'Invalid phone number given.' } }
+  }
+
   const path = '/fon_num/foncalls_list.lua?xhr=1' +
                '&dial=' + phoneNumber
   const response = await fritzRequest.request(path, 'GET', options)
