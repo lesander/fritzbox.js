@@ -6,7 +6,10 @@ const state = 1
 
 async function toggle () {
   const result = await fritz.toggleSwitch(id, state, options)
-  if (result.error) return console.log('Error:', result.error.message)
+  if (result.error) {
+    console.log('Error:', result.error.message)
+    process.exit(1)
+  }
 
   console.log('Toggled switch:', result)
 }

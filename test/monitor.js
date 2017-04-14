@@ -25,4 +25,5 @@ monitor.on('disconnected', (call) => {
 
 monitor.on('error', (error) => {
   handler('error', error)
+  process.exit(1)
 })
