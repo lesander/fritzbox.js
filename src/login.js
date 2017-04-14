@@ -44,4 +44,3 @@ fritzLogin.getSessionId = async (options) => {
 // <3 Circular dependencies...
 // https://stackoverflow.com/a/32428290/1878974
 const fritzRequest = require('./request.js')
-const fritzFormat = require('./format.js')

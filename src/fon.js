@@ -138,8 +138,7 @@ fritzFon.markTamMessageAsRead = async (messageId, options, tamId = 0) => {
  * @return {Object} Returns an object with a message.
  */
 fritzFon.dialNumber = async (phoneNumber, options) => {
-
-  if (typeof phoneNumber !== 'string' && typeof phoneNumber !== 'integer') {
+  if (typeof phoneNumber !== 'string' && typeof phoneNumber !== 'number') {
     return { error: { message: 'Invalid phone number given.' } }
   }
 
