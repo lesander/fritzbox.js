@@ -53,7 +53,7 @@ node --harmony-async-await example.js
 
 ## Documentation
 Want to get started with FritzBox.js? Cool! The API is
-[documented and available here](/DOCS.md), and you can
+[documented and available here](/https://lesander.github.io/fritzbox.js/api), and you can
 [see some examples](/test) in the `test/` folder.
 
 ## Contributing
