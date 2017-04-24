@@ -31,7 +31,8 @@
   "scripts": {
     "test": "standard",
     "local-test": "test/ci.sh",
-    "build-docs": "documentation build --github --sort-order=alpha --output=docs/api --format=html"
+    "build-docs": "documentation build --github --sort-order=alpha --output=docs/api --format=html src/**",
+    "watch-docs": "documentation serve --watch --sort-order=alpha src/**"
   },
   "dependencies": {
     "crypto": "^0.0.3",
