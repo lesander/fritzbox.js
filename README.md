@@ -70,4 +70,4 @@ a reference to this project page.
 The software is provided as is. It might work as expected - or not.
 Just don't blame me.
 
-A copy of FritzBox.js's license should always be included in your modified or distributed software using said package.
+You are required to include a copy of this project's license and copyright notice in your modified or distributed version of FritzBox.js
