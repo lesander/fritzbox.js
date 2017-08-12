@@ -21,7 +21,7 @@ fritzLogin.getSessionId = async (options) => {
 
   // Solve the challenge.
   const challenge = response.body.match('<Challenge>(.*?)</Challenge>')[1]
-  const buffer = Buffer(challenge + '-' + options.password, 'UTF-16LE')
+  const buffer = Buffer.from(challenge + '-' + options.password, 'UTF-16LE')
   const challengeAnswer = challenge + '-' + require('crypto').createHash('md5').update(buffer).digest('hex')
 
   // Send our answer to the Fritz!Box.
