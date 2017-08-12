@@ -1,0 +1,109 @@
+---
+# FritzBox.js Project Website
+layout: default
+title: FritzBox.js
+---
+<section id="navbar">
+  <nav class="navbar navbar-default navbar-static-top navbar-padded text-uppercase app-navbar">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed p-x-0" data-toggle="collapse" data-target="#navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">
+          <span style="text-transform: initial;">FritzBox<b style="font-weight:bolder;">.js</b></span>
+        </a>
+      </div>
+      <div class="navbar-collapse collapse" id="navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li class="active">
+            <a href="/">Home</a>
+          </li>
+          <li>
+            <a href="api/">Documentation</a>
+          </li>
+          <li>
+            <a href="https://github.com/lesander/fritzbox.js">GitHub</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</section>
+<section id="header">
+  <div class="block block-inverse text-center">
+    <div class="block-foreground">
+      <h1 class="block-title">FritzBox.js</h1>
+      <h3>
+        The leading open-source NodeJS
+        implementation of the Fritz!Box API.
+      </h3>
+      <a class="btn btn-info btn-lg mt-1" href="https://github.com/lesander/fritzbox.js">Get Started</a>
+      <p class="text-muted">
+        Currently v{{ site.version }}
+      </p>
+    </div>
+    <div class="block-background">
+      <div id='stars'></div>
+      <div id='stars2'></div>
+      <div id='stars3'></div>
+    </div>
+  </div>
+</section>
+<section id="intro">
+  <div class="container">
+    <p>
+      FritzBox.js is an opensource asynchronous JavaScript implementation of
+      the non-public API of <a href="https://avm.de/">AVM's Fritz!Box</a>, built by
+      <a href="https://github.com/lesander">Sander Laarhoven</a> and
+      <a href="https://github.com/lesander/fritzbox.js/graphs/contributors">contributors</a>.
+    </p>
+    <p>
+      The goal of this project is to create an easy to use and open way to communicate with Fritz!Box.
+      Help by making pull requests and opening issues on
+      <a href="https://github.com/lesander/fritzbox.js">GitHub</a>.
+      All code is <a href="api/">documented</a> with <a href="http://documentation.js.org/">Documentation.js</a>
+    </p>
+  </div>
+</section>
+<section id="installing">
+
+    <div class="container">
+      <h2>Getting Started</h2>
+      <p>
+        FritzBox.js is future-proof and uses async/await promises. This means that you need to run NodeJS version
+        7.6.0 or newer.
+        If your NodeJS version is between 7.0.0 and 7.5.0 you can use the harmony
+        flag <code>--harmony-async-await</code> to make use of the async/await promises.
+      </p>
+      <p>{% highlight javascript %}npm install fritzbox.js{% endhighlight %}</p>
+
+      <p>
+        This package was tested on Fritz!Box 7390 and 7490, with firmware versions 6.53, 6.51 and 6.83.
+      </p>
+      <p>
+        Take a look at the test <a href="https://github.com/lesander/fritzbox.js/tree/master/test">files</a> for some examples.
+      </p>
+    </div>
+
+</section>
+<section id="footer">
+  <div class="block app-block-footer">
+    <div class="container">
+      <ul class="footer-links" style="padding-left: 0;margin-bottom: 20px;">
+        <li><a href="https://github.com/lesander/fritzbox.js">GitHub</a></li>
+        <li><a href="https://fritzbox.js.org/api">Documentation</a></li>
+        <li><a href="https://github.com/lesander/fritzbox.js/releases">Releases</a></li>
+      </ul>
+      <p>
+        Designed &amp; built by <a href="https://github.com/lesander" target="_blank">@lesander</a> and <a href="https://github.com/lesander/fritzbox.js/graphs/contributors">contributors</a>.
+      </p>
+      <p>
+        Code licensed under the <a href="https://github.com/lesander/fritzbox.js/blob/master/LICENSE" target="_blank" rel="license">MIT License</a>, docs under <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="license">CC BY 3.0</a>.
+      </p>
+    </div>
+  </div>
+</section>
