@@ -1,19 +1,18 @@
 /**
- * FritzBox.js
- * https://git.io/fritzbox
- * Licensed under the MIT License.
- * Copyright (c) 2017 Sander Laarhoven All Rights Reserved.
+ * @module fritzFormat
+ * @ignore
  */
 
 let fritzFormat = {}
 
 const csvjson = require('csvjson')
-const parseString = require('xml2js').parseString
+const convert = require('xml-to-json-promise')
 
 /**
  * Format a raw calls array to a more readable array.
- * @param  {array} calls
- * @return {array}
+ * @private
+ * @param  {Array} calls
+ * @return {Array}
  */
 fritzFormat.calls = (calls) => {
   let formattedCalls = []
@@ -33,26 +32,38 @@ fritzFormat.calls = (calls) => {
 
 /**
  * Format calls CSV to object.
+ * @private
  * @param  {string} csvData
- * @return {object}
+ * @return {Object}
  */
 fritzFormat.callsCsvToJson = (csvData) => {
+  // Replace the CSV column titles with the English format.
+  let lines = csvData.split('\n')
+  lines[1] = 'Type;Date;Name;Telephone number;Extension;Telephone Number;Duration'
+  csvData = lines.join('\n')
+
+  // We remove the separator definition and shorten some column titles, so that
+  // the csv to json module can parse them correctly.
   let parsableCsvData = csvData
                         .replace('sep=;', '')
                         .replace('Extension;Telephone number', 'Extension;NumberSelf')
                         .replace('Telephone number', 'Number')
                         .trim()
+
+  // Format the CSV to a json object and return the result.
   const formattedBody = csvjson.toObject(parsableCsvData, {delimiter: ';'})
   return formattedBody
 }
 
 /**
- * [tamMessages description]
- * @param  {[type]} messages [description]
- * @return {[type]}          [description]
+ * Format tam messages.
+ * @private
+ * @param  {Object} messages
+ * @return {Object}
  */
 fritzFormat.tamMessages = (messages) => {
   let formattedMessages = []
+
   for (var i in messages) {
     formattedMessages[i] = {
       tamId: messages[i].tam,
@@ -67,11 +78,13 @@ fritzFormat.tamMessages = (messages) => {
       isNewMessage: messages[i].new
     }
   }
+
   return formattedMessages
 }
 
 /**
  * Get the human-understandable type of a call.
+ * @private
  * @param  {string} type 1-4
  * @return {string}
  */
@@ -85,6 +98,7 @@ fritzFormat.callType = (type) => {
 
 /**
  * Format dd.mm.yy hh:mm to a Date string.
+ * @private
  * @param  {string} rawDate
  * @return {string}
  */
@@ -109,6 +123,7 @@ fritzFormat.date = (rawDate) => {
 
 /**
  * Convert 1's and 0's to booleans.
+ * @private
  * @param  {number} number
  * @return {boolean}
  */
@@ -119,22 +134,20 @@ fritzFormat.boolean = (number) => {
 
 /**
  * Convert XML to JSON object.
- * @param  {string} tmpPath
- * @return {promise}
+ * @private
+ * @param  {string} xml
+ * @return {Object}
  */
-fritzFormat.xmlToJson = (xml) => {
-  return new Promise(function (resolve, reject) {
-    parseString(xml, (error, result) => {
-      if (error) return reject(error)
-      return resolve(result)
-    })
-  })
+fritzFormat.xmlToObject = async (xml) => {
+  const object = await convert.xmlDataToJSON(xml)
+  return object
 }
 
 /**
  * Format an ugly phonebook object to a sane object.
- * @param  {object} object
- * @return {object}
+ * @private
+ * @param  {Object} object
+ * @return {Object}
  */
 fritzFormat.phonebook = (phonebook) => {
   let formattedPhonebook = []
@@ -171,8 +184,6 @@ fritzFormat.phonebook = (phonebook) => {
   return formattedPhonebook
 }
 
-/**
- * Export fritzFon.
- */
+// Export fritzFon.
 
 module.exports = fritzFormat

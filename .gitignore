@@ -45,3 +45,9 @@ calls.json
 
 # Ignore research files.
 research/
+
+# Ignore lib file.
+lib/
+
+# Ignore Jekyll site folder.
+_site/

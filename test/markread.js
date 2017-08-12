@@ -1,10 +1,15 @@
 const fritz = require('../index.js')
 const options = require('../package.json').options
-fritz.markTamMessageAsRead(15, options)
-.then((messages) => {
-  console.log('Marked message as read.')
-  console.log(messages)
-})
-.catch((error) => {
-  console.log('Error:', error)
-})
+const messageId = 20
+
+async function markasread () {
+  const status = await fritz.markTamMessageAsRead(messageId, options)
+  if (status.error) {
+    console.log('Error:', status.error.message)
+    process.exit(1)
+  }
+
+  console.log('Marked message as read', status)
+}
+
+markasread()

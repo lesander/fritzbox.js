@@ -1,8 +1,10 @@
 /**
  * FritzBox.js
- * https://git.io/fritzbox
  * Licensed under the MIT License.
  * Copyright (c) 2017 Sander Laarhoven All Rights Reserved.
+ *
+ * Source-code available on GitHub.
+ * https://git.io/fritzbox
  */
 
 const fritzConfig = {
@@ -10,15 +12,25 @@ const fritzConfig = {
   debug: require('./package.json').options.debug
 }
 
-const fritzRequest = require('./src/request.js')
-const fritzLogin = require('./src/login.js')
-const fritzFon = require('./src/fon.js')
-const fritzDect = require('./src/dect.js')
-const fritzWlan = require('./src/wlan.js')
+const dir = 'src'
+const fritzLogin = require('./' + dir + '/login.js')
+const fritzSystem = require('./' + dir + '/system.js')
+const fritzFon = require('./' + dir + '/fon.js')
+const fritzDect = require('./' + dir + '/dect.js')
+const fritzWlan = require('./' + dir + '/wlan.js')
 
 const fritz = Object.assign(
-  {}, fritzConfig, fritzRequest, fritzLogin,
+  {}, fritzConfig, fritzSystem, fritzLogin,
   fritzFon, fritzDect, fritzWlan
 )
+
+process.on('unhandledRejection', function (reason, r) {
+  console.log('\x1b[31m[FritzBox.js] Encountered unhandled Promise rejection.\n' +
+              'The script has been stopped. See the full stack trace below for more information.\n' +
+              'If you think this has to do with FritzBox.js directly,\n' +
+              'please do no hesitate to open an issue on GitHub.\n')
+  console.log(reason, r)
+  process.exit(1)
+})
 
 module.exports = fritz

@@ -1,0 +1,63 @@
+#header h3 {
+  margin: 2em;
+  max-width: 500px;
+}
+
+#header a {
+  border-radius: 3px;
+  background-color: transparent;
+  border-color: #32a8ce;
+}
+
+#header a:hover {
+  border-color: #32a8ce;
+  background-color: #32a8ce;
+}
+
+#header .frameworks {
+  display: inline-block;
+  width: 130px;
+}
+
+#header img {
+  width: 100%;
+}
+
+#header {
+  margin-top: -24px;
+}
+
+#header .text-muted {
+  margin-top: 20px;
+}
+
+#intro, #installing {
+  padding-top: 2em;
+  font-size: 18px;
+}
+
+#installing {
+  padding-bottom: 2em;
+}
+
+#footer .app-block-footer {
+  background-color: rgb(27, 28, 29);
+  color: #99979c;
+  /*color: rgba(116, 119, 123, .5);*/
+}
+
+#footer a {
+  color: #fff;
+  font-weight: bolder;
+}
+
+#footer li {
+  display: inline-block;
+}
+#footer li+li {
+  margin-left: 15px;
+}
+
+h2, code, pre, .description {
+  text-align: left;
+}
