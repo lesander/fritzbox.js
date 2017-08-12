@@ -44,10 +44,14 @@ const options = {
 })()
 ```
 
-You could run the above example in a terminal with the following command.
-```shell
-node --harmony-async-await example.js
-```
+## Documentation
+Want to get started with FritzBox.js? Cool! The API is
+[documented and available here](https://lesander.github.io/fritzbox.js/api), and you can
+[see some examples](/test) in the `test/` folder.
+
+## Contributing
+If you'd like to contribute to FritzBox.js, or file a bug or feature request,
+please head over to [the issue tracker](/issues) or [open a pull request](/pulls).
 
 ## Migrating from 1.x.x to 2.x.x
 FritzBox.js v2.x is not backwards compatible with v1.x.
@@ -86,16 +90,6 @@ console.log(callHistory)
 Note that any Promise waiting to be fulfilled using `await` should be put inside an `async` function.
 
 For more changes, please see the [roadmap](https://github.com/lesander/fritzbox.js/issues/1).
-
-
-## Documentation
-Want to get started with FritzBox.js? Cool! The API is
-[documented and available here](https://lesander.github.io/fritzbox.js/api), and you can
-[see some examples](/test) in the `test/` folder.
-
-## Contributing
-If you'd like to contribute to FritzBox.js, or file a bug or feature request,
-please head over to [the issue tracker](/issues) or [open a pull request](/pulls).
 
 ## License
 This software is open-sourced under the MIT License ([see the LICENSE file for
