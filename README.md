@@ -35,14 +35,13 @@ const options = {
   server: 'fritz.box',
   protocol: 'https' }
 
-async function calls(options) {
+;(async () => {
+
   const calls = await fritz.getCalls(options)
-  if (calls.error) {
-    return console.log('Error: ' + calls.error.message)
-  }
+  if (calls.error) return console.log('Error: ' + calls.error.message)
   console.log('Got ' + calls.length + 'calls.')
-}
-calls(options)
+
+})()
 ```
 
 You could run the above example in a terminal with the following command.
@@ -50,23 +49,56 @@ You could run the above example in a terminal with the following command.
 node --harmony-async-await example.js
 ```
 
+## Migrating from 1.x.x to 2.x.x
+FritzBox.js v2.x is not backwards compatible with v1.x.
+One of the mayor changes includes the switch to `async/await` Promises.
+In v1.x, Promises were implemented with a `then`, `catch`:
+
+```js
+fritz.getCalls(options)
+.then((callHistory) => {
+  console.log(callHistory)
+})
+.catch((error) => {
+  console.log(error)
+})
+```
+
+With v2.x, the `catch` will no longer catch any errors, since the module is now
+built to provide support for `await`. Any errors will be passed along like this:
+
+```js
+fritz.getCalls(options)
+.then((callHistory) => {
+  if (callHistory.error) return console.log(error)
+  console.log(callHistory)
+})
+```
+
+Of course, this can be simplified using `await`:
+
+```js
+let callHistory = await fritz.getCalls(options)
+if (callHistory.error) return console.log(error)
+console.log(callHistory)
+```
+
+Note that any Promise waiting to be fulfilled using `await` should be put inside an `async` function.
+
+For more changes, please see the [roadmap](https://github.com/lesander/fritzbox.js/issues/1).
+
+
 ## Documentation
 Want to get started with FritzBox.js? Cool! The API is
-[documented and available here](/https://lesander.github.io/fritzbox.js/api), and you can
+[documented and available here](https://lesander.github.io/fritzbox.js/api), and you can
 [see some examples](/test) in the `test/` folder.
 
 ## Contributing
 If you'd like to contribute to FritzBox.js, or file a bug or feature request,
 please head over to [the issue tracker](/issues) or [open a pull request](/pulls).
 
-
 ## License
 This software is open-sourced under the MIT License ([see the LICENSE file for
-the full license](/LICENSE)). So within some limits, you can do with the code whatever
-you want. However, if you like and/or want to re-use it, I'd really appreciate
-a reference to this project page.
-
-The software is provided as is. It might work as expected - or not.
-Just don't blame me.
+the full license](/LICENSE)).
 
 You are required to include a copy of this project's license and copyright notice in your modified or distributed version of FritzBox.js
