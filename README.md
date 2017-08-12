@@ -44,11 +44,11 @@ const options = {
 })()
 ```
 
-To minimize overhead and limit login requests made to the Fritz!Box it is recommended to store the SID once one has been obtained using [`fritz.getSessionId`](http://localhost:9000/api/#fritzLogin.getSessionId).
+To minimize overhead and limit login requests made to the Fritz!Box it is recommended to store the SID once one has been obtained using [`fritz.getSessionId`](https://fritzbox.js.org/api/#fritzLogin.getSessionId).
 
 ## Documentation
 Want to get started with FritzBox.js? Cool! The API is
-[documented and available here](https://lesander.github.io/fritzbox.js/api), and you can
+[documented and available here](https://fritzbox.js.org/api), and you can
 [see some examples](/test) in the `test/` folder.
 
 ## Contributing
@@ -76,7 +76,7 @@ built to provide support for `await`. Any errors will be passed along like this:
 ```js
 fritz.getCalls(options)
 .then((callHistory) => {
-  if (callHistory.error) return console.log(error)
+  if (callHistory.error) return console.log(callHistory.error.message)
   console.log(callHistory)
 })
 ```
@@ -85,7 +85,7 @@ Of course, this can be simplified using `await`:
 
 ```js
 let callHistory = await fritz.getCalls(options)
-if (callHistory.error) return console.log(error)
+if (callHistory.error) return console.log(callHistory.error.message)
 console.log(callHistory)
 ```
 
