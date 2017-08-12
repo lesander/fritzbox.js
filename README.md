@@ -44,6 +44,8 @@ const options = {
 })()
 ```
 
+To minimize overhead and limit login requests made to the Fritz!Box it is recommended to store the SID once one has been obtained using [`fritz.getSessionId`](http://localhost:9000/api/#fritzLogin.getSessionId).
+
 ## Documentation
 Want to get started with FritzBox.js? Cool! The API is
 [documented and available here](https://lesander.github.io/fritzbox.js/api), and you can
