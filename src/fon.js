@@ -285,7 +285,6 @@ var CallMonitor = function (options) {
     const data = parseMessage(chunk)
 
     switch (data[1]) {
-
       // Handle an incoming call
       case 'ring':
         self.call[data[2]] = {
