@@ -1,6 +1,6 @@
 {
   "name": "fritzbox.js",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "author": "Sander Laarhoven <sanderlaarhoven@gmail.com>",
   "description": "The most powerful Fritz!Box API for NodeJS.",
   "homepage": "https://git.io/fritzbox",
