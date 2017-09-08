@@ -17,14 +17,16 @@ const convert = require('xml-to-json-promise')
 fritzFormat.calls = (calls) => {
   let formattedCalls = []
   for (var i in calls) {
-    formattedCalls[i] = {
-      type: fritzFormat.callType(calls[i].Type),
-      date: fritzFormat.date(calls[i].Date),
-      name: calls[i].Name,
-      duration: calls[i].Duration,
-      number: calls[i].Number,
-      numberSelf: calls[i].NumberSelf,
-      extension: calls[i].Extension
+    if (typeof calls[i] === 'object') {
+      formattedCalls[i] = {
+        type: fritzFormat.callType(calls[i].Type),
+        date: fritzFormat.date(calls[i].Date),
+        name: calls[i].Name,
+        duration: calls[i].Duration,
+        number: calls[i].Number,
+        numberSelf: calls[i].NumberSelf,
+        extension: calls[i].Extension
+      }
     }
   }
   return formattedCalls
