@@ -105,7 +105,7 @@ fritzFormat.date = (rawDate) => {
 
   let dateParts = date.split('.')
   let day = dateParts[0]
-  let month = dateParts[1]
+  let month = (parseInt(dateParts[1]) - 1)
   let year = '20' + dateParts[2]
 
   let timeParts = time.split(':')
