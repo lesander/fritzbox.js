@@ -37,18 +37,11 @@ fritzFormat.calls = (calls) => {
  * @return {Object}
  */
 fritzFormat.callsCsvToJson = (csvData) => {
-  // Replace the CSV column titles with the English format.
+  // Replace the CSV column titles with the English format and remove unnecessary lines
   let lines = csvData.split('\n')
-  lines[1] = 'Type;Date;Name;Telephone number;Extension;Telephone Number;Duration'
-  csvData = lines.join('\n')
-
-  // We remove the separator definition and shorten some column titles, so that
-  // the csv to json module can parse them correctly.
-  let parsableCsvData = csvData
-                        .replace('sep=;', '')
-                        .replace('Extension;Telephone number', 'Extension;NumberSelf')
-                        .replace('Telephone number', 'Number')
-                        .trim()
+  lines.splice(0,1) // removes 'sep=;'
+  lines[0] = 'Type;Date;Name;Number;Extension;NumberSelf;Duration'
+  let parsableCsvData = lines.join('\n').trim()
 
   // Format the CSV to a json object and return the result.
   const formattedBody = csvjson.toObject(parsableCsvData, {delimiter: ';'})
