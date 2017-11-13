@@ -31,8 +31,8 @@
   "scripts": {
     "test": "standard",
     "local-test": "test/ci.sh",
-    "build-docs": "documentation build --github --sort-order=alpha --output=docs/api --format=html src/**",
-    "watch-docs": "documentation serve --watch --sort-order=alpha src/**"
+    "build-docs": "./node_modules/documentation/bin/documentation.js build --github --sort-order=alpha --output=docs/api --format=html src/**",
+    "watch-docs": "./node_modules/documentation/bin/documentation.js serve --watch --sort-order=alpha src/**"
   },
   "dependencies": {
     "crypto": "^0.0.3",
@@ -43,6 +43,7 @@
     "xml2js": "^0.4.17"
   },
   "devDependencies": {
+    "documentation": "^5.3.3",
     "standard": "^8.6.0"
   },
   "standard": {
