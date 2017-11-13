@@ -146,7 +146,7 @@ fritzFormat.xmlToObject = async (xml) => {
 /**
  * Format an ugly phonebook object to a sane object.
  * @private
- * @param  {Object} object
+ * @param  {Object} phonebook
  * @return {Object}
  */
 fritzFormat.phonebook = (phonebook) => {
