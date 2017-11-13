@@ -24,11 +24,11 @@ node $flags index.js
 echo ' ✓ No syntax errors found.'
 
 # Run StandardJS linter
-standard
+./node_modules/standard/bin/cmd.js
 echo ' ✓ Code is complaint with StandardJS.'
 
 # Run documentation.js linter
-documentation lint src/**
+./node_modules/documentation/bin/documentation.js lint src/**
 echo ' ✓ Code documentation is complaint with JSDoc.'
 
 # Test some features.
