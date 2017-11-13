@@ -2,10 +2,25 @@
 set -e
 pwd
 
-echo '  FritzBox.js CI Test'
+# Get Node version
+version=$(node -v)
+versionNumber=$(echo $version | tr -d '.' | tr -d 'v')
+
+if (( $versionNumber < 700 )); then
+  echo ' NodeJS version is not supported (<7.0.0)'
+  exit 1
+fi
+
+if (( $versionNumber >= 700 && $versionNumber < 760 )); then
+  flags='--harmony-async-await'
+else
+  flags=''
+fi
+
+echo '  FritzBox.js CI Test (Node '$version')'
 
 # Check for runtime errors.
-node --harmony-async-await index.js
+node $flags index.js
 echo ' ✓ No syntax errors found.'
 
 # Run StandardJS linter
@@ -18,17 +33,17 @@ echo ' ✓ Code documentation is complaint with JSDoc.'
 
 # Test some features.
 echo '   Running test scripts..'
-node --harmony-async-await test/version.js      # async ready
-node --harmony-async-await test/login.js        # async ready
-node --harmony-async-await test/calls.js        # async ready
-node --harmony-async-await test/smartdevices.js # async ready
-node --harmony-async-await test/tam.js          # async ready
-node --harmony-async-await test/phonebook.js    # async ready
+node $flags test/version.js      # async ready
+node $flags test/login.js        # async ready
+node $flags test/calls.js        # async ready
+node $flags test/smartdevices.js # async ready
+node $flags test/tam.js          # async ready
+node $flags test/phonebook.js    # async ready
 
-node --harmony-async-await test/activecalls.js  # async ready
-#node --harmony-async-await test/dial.js         # async ready
-node --harmony-async-await test/markread.js     # async ready
-node --harmony-async-await test/tamdownload.js  # async ready
-node --harmony-async-await test/toggleswitch.js # async ready
+node $flags test/activecalls.js  # async ready
+#node $flags test/dial.js        # async ready
+node $flags test/markread.js     # async ready
+node $flags test/tamdownload.js  # async ready
+node $flags test/toggleswitch.js # async ready
 
 echo " ✓ Finished with tests."
