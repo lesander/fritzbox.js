@@ -128,8 +128,7 @@ fritzFormat.date = (rawDate) => {
  * @return {boolean}
  */
 fritzFormat.boolean = (number) => {
-  if (number === 1) return true
-  return false
+  return !!+number
 }
 
 /**
