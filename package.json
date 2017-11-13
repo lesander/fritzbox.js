@@ -29,7 +29,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "standard",
+    "test": "standard && documentation lint src/**",
     "local-test": "test/ci.sh",
     "build-docs": "./node_modules/documentation/bin/documentation.js build --github --sort-order=alpha --output=docs/api --format=html src/**",
     "watch-docs": "./node_modules/documentation/bin/documentation.js serve --watch --sort-order=alpha src/**"
