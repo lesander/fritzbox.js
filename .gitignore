@@ -52,3 +52,6 @@ lib/
 
 # Ignore Jekyll site folder.
 _site/
+
+# Ignore .env file
+.env

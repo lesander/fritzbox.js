@@ -38,6 +38,7 @@
   "dependencies": {
     "crypto": "^0.0.3",
     "csvjson": "^3.0.0",
+    "dotenv": "^6.2.0",
     "request": "^2.88.0",
     "request-promise": "^4.2.2",
     "xml-to-json-promise": "^0.0.3",
@@ -51,13 +52,5 @@
     "ignore": [
       "/docs/**"
     ]
-  },
-  "options": {
-    "protocol": "https",
-    "server": "fritz.box",
-    "username": "xxx",
-    "password": "xxx",
-    "callmonitorport": "1012",
-    "debug": false
   }
 }
