@@ -33,17 +33,17 @@ echo ' ✓ Code documentation is complaint with JSDoc.'
 
 # Test some features.
 echo '   Running test scripts..'
-node $flags test/version.js      # async ready
-node $flags test/login.js        # async ready
-node $flags test/calls.js        # async ready
-node $flags test/smartdevices.js # async ready
-node $flags test/tam.js          # async ready
-node $flags test/phonebook.js    # async ready
+node $flags test/version.js
+node $flags test/login.js
+node $flags test/calls.js
+node $flags test/smartdevices.js
+node $flags test/tam.js
+node $flags test/phonebook.js
 
-node $flags test/activecalls.js  # async ready
-#node $flags test/dial.js        # async ready
-node $flags test/markread.js     # async ready
-node $flags test/tamdownload.js  # async ready
-node $flags test/toggleswitch.js # async ready
+node $flags test/activecalls.js
+#node $flags test/dial.js 550@hd-telefonie.avm.de
+#node $flags test/markread.js
+#node $flags test/tamdownload.js
+#node $flags test/toggleswitch.js
 
 echo " ✓ Finished with tests."
