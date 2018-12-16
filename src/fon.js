@@ -99,7 +99,6 @@ fritzFon.getTamMessages = async (options) => {
  * @return {Object} Returns an object with a message.
  */
 fritzFon.downloadTamMessage = async (messagePath, localPath, options) => {
-
   // TODO: Check if this path also works for 7.01.
   const path = '/myfritz/cgi-bin/luacgi_notimeout' +
                '?cmd=tam&script=/http_file_download.lua' +

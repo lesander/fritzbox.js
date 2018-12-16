@@ -30,6 +30,7 @@
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/standard/bin/cmd.js && ./node_modules/documentation/bin/documentation.js lint src/**",
+    "fix-linter": "./node_modules/standard/bin/cmd.js --fix",
     "local-test": "test/ci.sh",
     "build-docs": "./node_modules/documentation/bin/documentation.js build --github --sort-order=alpha --output=docs/api --format=html src/**",
     "watch-docs": "./node_modules/documentation/bin/documentation.js serve --watch --sort-order=alpha src/**"
