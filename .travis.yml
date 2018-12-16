@@ -1,6 +1,8 @@
 language: node_js
 node_js:
-  - node # 9 at the moment
+  - node # 11 at the moment
+  - 10
+  - 9
   - 8
   - 7
 before_script:
