@@ -21,7 +21,12 @@ fritzDect.getSmartDevices = async (options) => {
 
   if (response.error) return response
 
-  return JSON.parse(response.body).devices
+  if (response.body !== '') {
+    return JSON.parse(response.body).devices
+  } else {
+    return []
+  }
+
 }
 
 /**
