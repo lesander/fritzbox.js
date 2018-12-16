@@ -63,7 +63,10 @@ fritzFon.getTamMessages = async (options) => {
 
     const response = await fritzRequest.request(path, 'POST', options, false, false, form)
     if (response.error) return response
-    let calls = JSON.parse(response.body).calls
+    let calls = []
+    if (response.body !== '') {
+      calls = JSON.parse(response.body).calls
+    }
 
     // Filter only TAM messages.
     tamMessages = []
@@ -96,6 +99,8 @@ fritzFon.getTamMessages = async (options) => {
  * @return {Object} Returns an object with a message.
  */
 fritzFon.downloadTamMessage = async (messagePath, localPath, options) => {
+
+  // TODO: Check if this path also works for 7.01.
   const path = '/myfritz/cgi-bin/luacgi_notimeout' +
                '?cmd=tam&script=/http_file_download.lua' +
                '&cmd_files=' + messagePath
@@ -125,6 +130,7 @@ fritzFon.markTamMessageAsRead = async (messageId, options, tamId = 0) => {
 
   if (response.error) return response
 
+  // TODO: This status response works for 6.83, status of 7.01 unknown.
   if (response.body !== '{"state":1,"cur_idx":1}') {
     return { error: { message: 'Message not marked as read.', raw: response.body } }
   }
@@ -174,7 +180,12 @@ fritzFon.getActiveCalls = async (options) => {
   const response = await fritzRequest.request('/data.lua', 'POST', options, false, false, form)
   if (response.error) return response
 
-  const activeCalls = JSON.parse(response.body).data.foncalls.activecalls
+  const responseJson = JSON.parse(response.body)
+  let activeCalls = []
+  if (responseJson.data.foncalls) {
+    // TODO: Currently not sure if >=701 still uses the foncalls array.
+    return responseJson.data.foncalls.activecalls
+  }
 
   return activeCalls
 }
