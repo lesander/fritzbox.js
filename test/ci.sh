@@ -46,5 +46,6 @@ node $flags test/activecalls.js
 #node $flags test/tamdownload.js
 #node $flags test/toggleswitch.js
 node $flags test/log.js
+node $flags test/key.js
 
 echo " ✓ Finished with tests."

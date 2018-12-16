@@ -39,6 +39,7 @@
     "crypto": "^0.0.3",
     "csvjson": "^3.0.0",
     "dotenv": "^6.2.0",
+    "jsdom": "^13.1.0",
     "request": "^2.88.0",
     "request-promise": "^4.2.2",
     "xml-to-json-promise": "^0.0.3",
