@@ -178,6 +178,66 @@ fritzFormat.phonebook = (phonebook) => {
   return formattedPhonebook
 }
 
+/**
+ * Returns all system log types of the Fritz!Box.
+ * @return {Object}
+ */
+fritzFormat.getSystemLogTypes = () => {
+  const logTypes = {
+    1: 'system',
+    2: 'internet_connection',
+    3: 'telephony',
+    4: 'wireless',
+    5: 'usb_devices'
+  }
+  return logTypes
+}
+
+/**
+ * Returns object with name of available log types, followed
+ * by the internal identifier used for api calls.
+ * @param  {string} name
+ * @return {Object}
+ */
+fritzFormat.getLogTypeFromName = (name) => {
+  const nameToLogId = fritzFormat.getSystemLogTypes().reverse()
+  return nameToLogId[name] || false
+}
+
+/**
+ * Format Fritz!OS's raw log object to a human readable object.
+ * @param  {Object} rawLog
+ * @return {Object}
+ */
+fritzFormat.systemLog = (rawLog) => {
+  let log = []
+
+  const logTypes = fritzFormat.getSystemLogTypes()
+
+  for (var i in rawLog) {
+    let logItem = rawLog[i]
+
+    const date = logItem[0]
+    const time = logItem[1]
+    const message = logItem[2]
+    const code = logItem[3]
+    const type = logItem[4]
+    const help = logItem[5]
+
+    const combinedTimestamp = date + ' ' + time
+
+    log.push({
+      'timestamp': fritzFormat.date(combinedTimestamp),
+      'type': logTypes[type],
+      'code': parseInt(code),
+      'message': message,
+      'more_information_uri': help
+    })
+  }
+
+  return log
+}
+
 // Export fritzFon.
 
 module.exports = fritzFormat

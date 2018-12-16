@@ -6,6 +6,7 @@ module.exports = fritzSystem
 
 const fritzRequest = require('./request.js')
 const fritzFormat = require('./format.js')
+const fritzLogin = require('./login.js')
 
 /**
  * Get all the publicly available Fritz!Box information in raw format.
@@ -98,4 +99,32 @@ fritzSystem.getName = async (options) => {
 
   const systemName = boxInfo['name']
   return systemName
+}
+
+/**
+ * Get the system log of the Fritz!Box.
+ * @param  {string} filter - Optional: only show the given type of messages.
+ * @return {Object} Log results.
+ */
+fritzSystem.getSystemLog = async (options, filter = false) => {
+  // Obtain an SID first if none is yet set.
+  if (!options.sid) {
+    options.sid = await fritzLogin.getSessionId(options)
+    if (options.sid.error) return options.sid
+  }
+
+  // Prepare the POST form.
+  const form = {
+    page: 'log',
+    filter: fritzFormat.getLogTypeFromName[options.logFilter] || 0,
+    sid: options.sid
+  }
+  options.removeSidFromUri = true
+
+  const requestResult = await fritzRequest.request('/data.lua', 'POST', options, false, false, form)
+  if (requestResult.error) return requestResult
+
+  const rawLog = JSON.parse(requestResult.body).data.log
+
+  return fritzFormat.systemLog(rawLog)
 }
