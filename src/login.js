@@ -35,7 +35,7 @@ fritzLogin.getSessionId = async (options) => {
 
   // Determine if the login worked.
   if (sessionId === '0000000000000000') {
-    return { error: 'Could not login to Fritz!Box. Invalid login?' }
+    return { error: { message: 'Could not login to Fritz!Box. Invalid login?' } }
   }
 
   return sessionId
