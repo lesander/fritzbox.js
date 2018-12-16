@@ -63,6 +63,31 @@ fritzSystem.getBoxInfo = async (options) => {
 }
 
 /**
+ * Get all the overview info from the main panel.
+ * @param  {Object} options - FritzBox.js options object.
+ * @ignore
+ */
+fritzSystem.getRawOverviewInfo = async (options) => {
+  // Obtain an SID first if none is yet set.
+  if (!options.sid) {
+    options.sid = await fritzLogin.getSessionId(options)
+    if (options.sid.error) return options.sid
+  }
+
+  // Prepare the POST form.
+  const form = {
+    page: 'overview',
+    sid: options.sid
+  }
+  options.removeSidFromUri = true
+
+  const requestResult = await fritzRequest.request('/data.lua', 'POST', options, false, false, form)
+  if (requestResult.error) return requestResult
+
+  return JSON.parse(requestResult.body)
+}
+
+/**
  * Get the version of a Fritz!Box without authentication.
  * @param  {Object} options - FritzBox.js options object.
  * @return {string} The Fritz!OS version as a string (e.g. `'06.83'`)
@@ -79,7 +104,7 @@ fritzSystem.getVersion = async (options) => {
 
 /**
  * Get the version of a Fritz!Box without authentication.
- * @param  {Object}  options server protocol
+ * @param  {Object} options - FritzBox.js options object.
  * @return {number} The Fritz!OS version cast as an integer (e.g. `683`)
  */
 fritzSystem.getVersionNumber = async (options) => {
@@ -103,6 +128,7 @@ fritzSystem.getName = async (options) => {
 
 /**
  * Get the system log of the Fritz!Box.
+ * @param  {Object} options - FritzBox.js options object.
  * @param  {string} filter - Optional: only show the given type of messages.
  * @return {Object} Log results.
  */
@@ -127,4 +153,13 @@ fritzSystem.getSystemLog = async (options, filter = false) => {
   const rawLog = JSON.parse(requestResult.body).data.log
 
   return fritzFormat.systemLog(rawLog)
+}
+
+/**
+ * Check if a software update is available for the Fritz!Box.
+ * @return {boolean}
+ */
+fritzSystem.updateAvailable = async (options) => {
+  const rawOverviewInfo = await fritzSystem.getRawOverviewInfo(options)
+  return rawOverviewInfo.data.fritzos.isUpdateAvail
 }
