@@ -21,7 +21,11 @@ fritzDect.getSmartDevices = async (options) => {
 
   if (response.error) return response
 
-  return JSON.parse(response.body).devices
+  if (response.body !== '') {
+    return JSON.parse(response.body).devices
+  } else {
+    return []
+  }
 }
 
 /**
@@ -36,6 +40,10 @@ fritzDect.toggleSwitch = async (deviceId, value, options) => {
   if (version.error) return version
 
   let response
+
+  // TODO: Unknown as of yet if 7.01 supports this using the
+  // method from 6.83. We seem to get a text/html response instead
+  // of JSON. Will investigate when a network with switch is available.
 
   if (version >= 683) {
     // Post 06.83 uses a POST request.
@@ -64,6 +72,10 @@ fritzDect.toggleSwitch = async (deviceId, value, options) => {
   }
 
   if (response.error) return response
+
+  if (response.body === '') {
+    return { error: { message: 'No response from fritzbox. Does the switch exist?' } }
+  }
 
   const responseObject = JSON.parse(response.body)
 

@@ -2,19 +2,20 @@
 <html>
 <head>
   <meta charset='utf-8' />
-  <title>fritzbox.js 2.0.0 | Documentation</title>
+  <title>fritzbox.js 2.0.1 | Documentation</title>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
   <link href='assets/bass.css' type='text/css' rel='stylesheet' />
   <link href='assets/style.css' type='text/css' rel='stylesheet' />
   <link href='assets/github.css' type='text/css' rel='stylesheet' />
+  <link href='assets/split.css' type='text/css' rel='stylesheet' />
+  <meta name='description' content='The most powerful Fritz!Box API for NodeJS.'>
 </head>
-<body class='documentation'>
-  <div class='max-width-4 mx-auto'>
-    <div class='clearfix md-mxn2'>
-      <div class='fixed xs-hide fix-3 overflow-auto max-height-100'>
+<body class='documentation m0'>
+    <div class='flex'>
+      <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
         <div class='py1 px2'>
           <h3 class='mb0 no-anchor'>fritzbox.js</h3>
-          <div class='mb1'><code>2.0.0</code></div>
+          <div class='mb1'><code>2.0.1</code></div>
           <input
             placeholder='Filter'
             id='filter-input'
@@ -22,40 +23,6 @@
             type='text' />
           <div id='toc'>
             <ul class='list-reset h5 py1-ul'>
-              
-                
-                <li><a
-                  href='#fritzdect'
-                  class=" toggle-sibling">
-                  fritzDect
-                  <span class='icon'>▸</span>
-                </a>
-                
-                <div class='toggle-target display-none'>
-                  
-                  <ul class='list-reset py1-ul pl1'>
-                    <li class='h5'><span>Static members</span></li>
-                    
-                      <li><a
-                        href='#fritzDect.toggleSwitch'
-                        class='regular pre-open'>
-                        .toggleSwitch
-                      </a></li>
-                    
-                      <li><a
-                        href='#fritzDect.getSmartDevices'
-                        class='regular pre-open'>
-                        .getSmartDevices
-                      </a></li>
-                    
-                    </ul>
-                  
-                  
-                  
-                  
-                </div>
-                
-                </li>
               
                 
                 <li><a
@@ -71,51 +38,85 @@
                     <li class='h5'><span>Static members</span></li>
                     
                       <li><a
-                        href='#fritzFon.markTamMessageAsRead'
-                        class='regular pre-open'>
-                        .markTamMessageAsRead
-                      </a></li>
-                    
-                      <li><a
-                        href='#fritzFon.getActiveCalls'
-                        class='regular pre-open'>
-                        .getActiveCalls
-                      </a></li>
-                    
-                      <li><a
-                        href='#fritzFonCallMonitor'
+                        href='#fritzfoncallmonitor'
                         class='regular pre-open'>
                         .CallMonitor
                       </a></li>
                     
                       <li><a
-                        href='#fritzFon.getPhonebook'
-                        class='regular pre-open'>
-                        .getPhonebook
-                      </a></li>
-                    
-                      <li><a
-                        href='#fritzFon.dialNumber'
+                        href='#fritzfondialnumber'
                         class='regular pre-open'>
                         .dialNumber
                       </a></li>
                     
                       <li><a
-                        href='#fritzFon.getCalls'
+                        href='#fritzfondownloadtammessage'
+                        class='regular pre-open'>
+                        .downloadTamMessage
+                      </a></li>
+                    
+                      <li><a
+                        href='#fritzfongetactivecalls'
+                        class='regular pre-open'>
+                        .getActiveCalls
+                      </a></li>
+                    
+                      <li><a
+                        href='#fritzfongetcalls'
                         class='regular pre-open'>
                         .getCalls
                       </a></li>
                     
                       <li><a
-                        href='#fritzFon.getTamMessages'
+                        href='#fritzfongetphonebook'
+                        class='regular pre-open'>
+                        .getPhonebook
+                      </a></li>
+                    
+                      <li><a
+                        href='#fritzfongettammessages'
                         class='regular pre-open'>
                         .getTamMessages
                       </a></li>
                     
                       <li><a
-                        href='#fritzFon.downloadTamMessage'
+                        href='#fritzfonmarktammessageasread'
                         class='regular pre-open'>
-                        .downloadTamMessage
+                        .markTamMessageAsRead
+                      </a></li>
+                    
+                    </ul>
+                  
+                  
+                  
+                  
+                </div>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#fritzdect'
+                  class=" toggle-sibling">
+                  fritzDect
+                  <span class='icon'>▸</span>
+                </a>
+                
+                <div class='toggle-target display-none'>
+                  
+                  <ul class='list-reset py1-ul pl1'>
+                    <li class='h5'><span>Static members</span></li>
+                    
+                      <li><a
+                        href='#fritzdectgetsmartdevices'
+                        class='regular pre-open'>
+                        .getSmartDevices
+                      </a></li>
+                    
+                      <li><a
+                        href='#fritzdecttoggleswitch'
+                        class='regular pre-open'>
+                        .toggleSwitch
                       </a></li>
                     
                     </ul>
@@ -141,7 +142,7 @@
                     <li class='h5'><span>Static members</span></li>
                     
                       <li><a
-                        href='#fritzLogin.getSessionId'
+                        href='#fritzlogingetsessionid'
                         class='regular pre-open'>
                         .getSessionId
                       </a></li>
@@ -169,15 +170,15 @@
                     <li class='h5'><span>Static members</span></li>
                     
                       <li><a
-                        href='#fritzSystem.getVersionNumber'
+                        href='#fritzsystemgetversion'
                         class='regular pre-open'>
-                        .getVersionNumber
+                        .getVersion
                       </a></li>
                     
                       <li><a
-                        href='#fritzSystem.getVersion'
+                        href='#fritzsystemgetversionnumber'
                         class='regular pre-open'>
-                        .getVersion
+                        .getVersionNumber
                       </a></li>
                     
                     </ul>
@@ -202,243 +203,14 @@
             </ul>
           </div>
           <div class='mt1 h6 quiet'>
-            <a href='http://documentation.js.org/reading-documentation.html'>Need help reading this?</a>
+            <a href='https://documentation.js.org/reading-documentation.html'>Need help reading this?</a>
           </div>
         </div>
       </div>
-      <div class='fix-margin-3'>
+      <div id='split-right' class='relative overflow-auto height-viewport-100'>
         
           
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='fritzdect'>
-      fritzDect
-    </h3>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='[object Object]'>
-      <span></span>
-      </a>
-    
-  </div>
-  
-
-  <p>Fritz!Box DECT and Smart Home functions.</p>
-
-
-  <div class='pre p1 fill-light mt0'>fritzDect</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Static Members</div>
-    <div class="clearfix">
-  
-    <div class='border-bottom' id='fritzDect.toggleSwitch'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>toggleSwitch(deviceId, value, options)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='[object Object]'>
-      <span></span>
-      </a>
-    
-  </div>
-  
-
-  <p>Toggle a Fritz DECT switch on or off.</p>
-
-
-  <div class='pre p1 fill-light mt0'>toggleSwitch(deviceId: integer, value: integer, options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>deviceId</span> <code class='quiet'>(integer)</code>
-	    The Id of the smart home device.
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>value</span> <code class='quiet'>(integer)</code>
-	    Turn on (1) or off (0).
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    FritzBox.js options object.
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>:
-        An object with message and deviceId.
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='fritzDect.getSmartDevices'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>getSmartDevices(options)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='[object Object]'>
-      <span></span>
-      </a>
-    
-  </div>
-  
-
-  <p>Get all smart devices and groups.</p>
-
-
-  <div class='pre p1 fill-light mt0'>getSmartDevices(options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    FritzBox.js options object.
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code>:
-        An array of all found smart devices.
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-</div>
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
+          <section class='p2 mb2 clearfix bg-white minishadow'>
 
   
   <div class='clearfix'>
@@ -448,8 +220,8 @@
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='[object Object]'>
-      <span></span>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/lesander/fritzbox.js/blob/b85d495b2258b2f6092ac80759b159fe01e21e6d/src/fon.js#L6-L6'>
+      <span>src/fon.js</span>
       </a>
     
   </div>
@@ -457,8 +229,10 @@
 
   <p>Fritz!Fon functions.</p>
 
-
-  <div class='pre p1 fill-light mt0'>fritzFon</div>
+ 
+  
+    <div class='pre p1 fill-light mt0'>fritzFon</div>
+   
   
   
 
@@ -483,180 +257,7 @@
     <div class='py1 quiet mt1 prose-big'>Static Members</div>
     <div class="clearfix">
   
-    <div class='border-bottom' id='fritzFon.markTamMessageAsRead'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>markTamMessageAsRead(messageId, options, tamId = 0)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='[object Object]'>
-      <span></span>
-      </a>
-    
-  </div>
-  
-
-  <p>Mark a message as read.</p>
-
-
-  <div class='pre p1 fill-light mt0'>markTamMessageAsRead(messageId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, tamId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>?): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>messageId</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
-	    The Id of the message to mark as read.
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    FritzBox.js options object.
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>tamId</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>?
-            = <code>0</code>)</code>
-	    The Telephone Answering Machine Id
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>:
-        Returns true when the message was marked as read.
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='fritzFon.getActiveCalls'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>getActiveCalls(options)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='[object Object]'>
-      <span></span>
-      </a>
-    
-  </div>
-  
-
-  <p>Get any active calls.</p>
-
-
-  <div class='pre p1 fill-light mt0'>getActiveCalls(options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    FritzBox.js options object.
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code>:
-        Returns an array of active calls.
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='fritzFonCallMonitor'>
+    <div class='border-bottom' id='fritzfoncallmonitor'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
             <a class='icon pin-right py1 dark-link caret-right'>▸</a>
@@ -670,8 +271,8 @@
   <div class='clearfix'>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='[object Object]'>
-      <span></span>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/lesander/fritzbox.js/blob/b85d495b2258b2f6092ac80759b159fe01e21e6d/src/fon.js#L238-L357'>
+      <span>src/fon.js</span>
       </a>
     
   </div>
@@ -682,8 +283,10 @@
 Set <code>options.callmonitorport</code> to <code>1012</code> or a custom port.</p>
 <p>This is an implementation of Thorsten Basse's Fritz!Box Call Monitor</p>
 
-
-  <div class='pre p1 fill-light mt0'>CallMonitor(options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): EventEmitter</div>
+ 
+  
+    <div class='pre p1 fill-light mt0'>CallMonitor(options: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): EventEmitter</div>
+   
   
   
 
@@ -700,7 +303,7 @@ Set <code>options.callmonitorport</code> to <code>1012</code> or a custom port.<
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
 	    FritzBox.js options object.
 
           </div>
@@ -736,93 +339,7 @@ Set <code>options.callmonitorport</code> to <code>1012</code> or a custom port.<
       </div>
     </div>
   
-    <div class='border-bottom' id='fritzFon.getPhonebook'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>getPhonebook(phonebookId?, options)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='[object Object]'>
-      <span></span>
-      </a>
-    
-  </div>
-  
-
-  <p>Download the given telephone book.</p>
-
-
-  <div class='pre p1 fill-light mt0'>getPhonebook(phonebookId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>?= 0, options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>phonebookId</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>?= 0)</code>
-	    Id of the phonebook to use.
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    FritzBox.js options object.
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code>:
-        Returns an array of contact objects.
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='fritzFon.dialNumber'>
+    <div class='border-bottom' id='fritzfondialnumber'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
             <a class='icon pin-right py1 dark-link caret-right'>▸</a>
@@ -836,8 +353,8 @@ Set <code>options.callmonitorport</code> to <code>1012</code> or a custom port.<
   <div class='clearfix'>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='[object Object]'>
-      <span></span>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/lesander/fritzbox.js/blob/b85d495b2258b2f6092ac80759b159fe01e21e6d/src/fon.js#L146-L162'>
+      <span>src/fon.js</span>
       </a>
     
   </div>
@@ -845,8 +362,10 @@ Set <code>options.callmonitorport</code> to <code>1012</code> or a custom port.<
 
   <p>Dial the given number.</p>
 
-
-  <div class='pre p1 fill-light mt0'>dialNumber(phoneNumber: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, options: any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></div>
+ 
+  
+    <div class='pre p1 fill-light mt0'>dialNumber(phoneNumber: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, options: any): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></div>
+   
   
   
 
@@ -863,7 +382,7 @@ Set <code>options.callmonitorport</code> to <code>1012</code> or a custom port.<
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>phoneNumber</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+            <span class='code bold'>phoneNumber</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
 	    The phonenumber to dial, including any extension.
 
           </div>
@@ -886,7 +405,7 @@ Set <code>options.callmonitorport</code> to <code>1012</code> or a custom port.<
   
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>:
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>:
         Returns an object with a message.
 
       
@@ -907,11 +426,11 @@ Set <code>options.callmonitorport</code> to <code>1012</code> or a custom port.<
       </div>
     </div>
   
-    <div class='border-bottom' id='fritzFon.getCalls'>
+    <div class='border-bottom' id='fritzfondownloadtammessage'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
             <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>getCalls(options)</span>
+            <span class='code strong strong truncate'>downloadTamMessage(messagePath, localPath, options)</span>
         </div>
       </div>
       <div class="clearfix display-none toggle-target">
@@ -921,17 +440,19 @@ Set <code>options.callmonitorport</code> to <code>1012</code> or a custom port.<
   <div class='clearfix'>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='[object Object]'>
-      <span></span>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/lesander/fritzbox.js/blob/b85d495b2258b2f6092ac80759b159fe01e21e6d/src/fon.js#L101-L116'>
+      <span>src/fon.js</span>
       </a>
     
   </div>
   
 
-  <p>Get the history of telephone calls.</p>
+  <p>Download a message from the Telephone Answering Machine (TAM).</p>
 
-
-  <div class='pre p1 fill-light mt0'>getCalls(options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></div>
+ 
+  
+    <div class='pre p1 fill-light mt0'>downloadTamMessage(messagePath: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, localPath: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, options: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></div>
+   
   
   
 
@@ -948,7 +469,25 @@ Set <code>options.callmonitorport</code> to <code>1012</code> or a custom port.<
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+            <span class='code bold'>messagePath</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The remote file path of the message.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>localPath</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The local file path to save the message to.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
 	    FritzBox.js options object.
 
           </div>
@@ -963,7 +502,165 @@ Set <code>options.callmonitorport</code> to <code>1012</code> or a custom port.<
   
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code>:
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>:
+        Returns an object with a message.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='fritzfongetactivecalls'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>getActiveCalls(options)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/lesander/fritzbox.js/blob/b85d495b2258b2f6092ac80759b159fe01e21e6d/src/fon.js#L169-L191'>
+      <span>src/fon.js</span>
+      </a>
+    
+  </div>
+  
+
+  <p>Get any active calls.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>getActiveCalls(options: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    FritzBox.js options object.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code>:
+        Returns an array of active calls.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='fritzfongetcalls'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>getCalls(options)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/lesander/fritzbox.js/blob/b85d495b2258b2f6092ac80759b159fe01e21e6d/src/fon.js#L21-L33'>
+      <span>src/fon.js</span>
+      </a>
+    
+  </div>
+  
+
+  <p>Get the history of telephone calls.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>getCalls(options: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    FritzBox.js options object.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code>:
         Array of telephone call history.
 
       
@@ -984,11 +681,11 @@ Set <code>options.callmonitorport</code> to <code>1012</code> or a custom port.<
       </div>
     </div>
   
-    <div class='border-bottom' id='fritzFon.getTamMessages'>
+    <div class='border-bottom' id='fritzfongetphonebook'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
             <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>getTamMessages(options)</span>
+            <span class='code strong strong truncate'>getPhonebook(phonebookId, options)</span>
         </div>
       </div>
       <div class="clearfix display-none toggle-target">
@@ -998,17 +695,19 @@ Set <code>options.callmonitorport</code> to <code>1012</code> or a custom port.<
   <div class='clearfix'>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='[object Object]'>
-      <span></span>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/lesander/fritzbox.js/blob/b85d495b2258b2f6092ac80759b159fe01e21e6d/src/fon.js#L199-L224'>
+      <span>src/fon.js</span>
       </a>
     
   </div>
   
 
-  <p>Get Telephone Answering Machine (TAM) Messages.</p>
+  <p>Download the given telephone book.</p>
 
-
-  <div class='pre p1 fill-light mt0'>getTamMessages(options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></div>
+ 
+  
+    <div class='pre p1 fill-light mt0'>getPhonebook(phonebookId: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, options: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></div>
+   
   
   
 
@@ -1025,7 +724,17 @@ Set <code>options.callmonitorport</code> to <code>1012</code> or a custom port.<
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+            <span class='code bold'>phonebookId</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>
+            = <code>0</code>)</code>
+	    Id of the phonebook to use.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
 	    FritzBox.js options object.
 
           </div>
@@ -1040,7 +749,86 @@ Set <code>options.callmonitorport</code> to <code>1012</code> or a custom port.<
   
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code>:
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code>:
+        Returns an array of contact objects.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='fritzfongettammessages'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>getTamMessages(options)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/lesander/fritzbox.js/blob/b85d495b2258b2f6092ac80759b159fe01e21e6d/src/fon.js#L40-L92'>
+      <span>src/fon.js</span>
+      </a>
+    
+  </div>
+  
+
+  <p>Get Telephone Answering Machine (TAM) Messages.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>getTamMessages(options: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    FritzBox.js options object.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code>:
         Array with TAM messages.
 
       
@@ -1061,11 +849,11 @@ Set <code>options.callmonitorport</code> to <code>1012</code> or a custom port.<
       </div>
     </div>
   
-    <div class='border-bottom' id='fritzFon.downloadTamMessage'>
+    <div class='border-bottom' id='fritzfonmarktammessageasread'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
             <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>downloadTamMessage(messagePath, localPath, options)</span>
+            <span class='code strong strong truncate'>markTamMessageAsRead(messageId, options, tamId)</span>
         </div>
       </div>
       <div class="clearfix display-none toggle-target">
@@ -1075,17 +863,19 @@ Set <code>options.callmonitorport</code> to <code>1012</code> or a custom port.<
   <div class='clearfix'>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='[object Object]'>
-      <span></span>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/lesander/fritzbox.js/blob/b85d495b2258b2f6092ac80759b159fe01e21e6d/src/fon.js#L125-L139'>
+      <span>src/fon.js</span>
       </a>
     
   </div>
   
 
-  <p>Download a message from the Telephone Answering Machine (TAM).</p>
+  <p>Mark a message as read.</p>
 
-
-  <div class='pre p1 fill-light mt0'>downloadTamMessage(messagePath: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, localPath: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></div>
+ 
+  
+    <div class='pre p1 fill-light mt0'>markTamMessageAsRead(messageId: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, options: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, tamId: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></div>
+   
   
   
 
@@ -1102,8 +892,8 @@ Set <code>options.callmonitorport</code> to <code>1012</code> or a custom port.<
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>messagePath</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-	    The remote file path of the message.
+            <span class='code bold'>messageId</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    The Id of the message to mark as read.
 
           </div>
           
@@ -1111,17 +901,18 @@ Set <code>options.callmonitorport</code> to <code>1012</code> or a custom port.<
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>localPath</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-	    The local file path to save the message to.
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
 	    FritzBox.js options object.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>tamId</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>
+            = <code>0</code>)</code>
+	    The Telephone Answering Machine Id
 
           </div>
           
@@ -1135,8 +926,8 @@ Set <code>options.callmonitorport</code> to <code>1012</code> or a custom port.<
   
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>:
-        Returns an object with a message.
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>:
+        Returns true when the message was marked as read.
 
       
     
@@ -1165,29 +956,31 @@ Set <code>options.callmonitorport</code> to <code>1012</code> or a custom port.<
   
 </section>
 
-          
         
           
-            <section class='p2 mb2 clearfix bg-white minishadow'>
+          <section class='p2 mb2 clearfix bg-white minishadow'>
 
   
   <div class='clearfix'>
     
-    <h3 class='fl m0' id='fritzlogin'>
-      fritzLogin
+    <h3 class='fl m0' id='fritzdect'>
+      fritzDect
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='[object Object]'>
-      <span></span>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/lesander/fritzbox.js/blob/b85d495b2258b2f6092ac80759b159fe01e21e6d/src/dect.js#L6-L6'>
+      <span>src/dect.js</span>
       </a>
     
   </div>
   
 
-  
+  <p>Fritz!Box DECT and Smart Home functions.</p>
 
-  <div class='pre p1 fill-light mt0'>fritzLogin</div>
+ 
+  
+    <div class='pre p1 fill-light mt0'>fritzDect</div>
+   
   
   
 
@@ -1212,11 +1005,11 @@ Set <code>options.callmonitorport</code> to <code>1012</code> or a custom port.<
     <div class='py1 quiet mt1 prose-big'>Static Members</div>
     <div class="clearfix">
   
-    <div class='border-bottom' id='fritzLogin.getSessionId'>
+    <div class='border-bottom' id='fritzdectgetsmartdevices'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
             <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>getSessionId(options)</span>
+            <span class='code strong strong truncate'>getSmartDevices(options)</span>
         </div>
       </div>
       <div class="clearfix display-none toggle-target">
@@ -1226,17 +1019,19 @@ Set <code>options.callmonitorport</code> to <code>1012</code> or a custom port.<
   <div class='clearfix'>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='[object Object]'>
-      <span></span>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/lesander/fritzbox.js/blob/b85d495b2258b2f6092ac80759b159fe01e21e6d/src/dect.js#L18-L29'>
+      <span>src/dect.js</span>
       </a>
     
   </div>
   
 
-  <p>Login to the Fritz!Box and obtain a sessionId.</p>
+  <p>Get all smart devices and groups.</p>
 
-
-  <div class='pre p1 fill-light mt0'>getSessionId(options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></div>
+ 
+  
+    <div class='pre p1 fill-light mt0'>getSmartDevices(options: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></div>
+   
   
   
 
@@ -1253,7 +1048,7 @@ Set <code>options.callmonitorport</code> to <code>1012</code> or a custom port.<
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
 	    FritzBox.js options object.
 
           </div>
@@ -1268,7 +1063,240 @@ Set <code>options.callmonitorport</code> to <code>1012</code> or a custom port.<
   
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>:
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code>:
+        An array of all found smart devices.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='fritzdecttoggleswitch'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>toggleSwitch(deviceId, value, options)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/lesander/fritzbox.js/blob/b85d495b2258b2f6092ac80759b159fe01e21e6d/src/dect.js#L38-L87'>
+      <span>src/dect.js</span>
+      </a>
+    
+  </div>
+  
+
+  <p>Toggle a Fritz DECT switch on or off.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>toggleSwitch(deviceId: integer, value: integer, options: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>deviceId</span> <code class='quiet'>(integer)</code>
+	    The Id of the smart home device.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>value</span> <code class='quiet'>(integer)</code>
+	    Turn on (1) or off (0).
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    FritzBox.js options object.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>:
+        An object with message and deviceId.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+</div>
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='fritzlogin'>
+      fritzLogin
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/lesander/fritzbox.js/blob/b85d495b2258b2f6092ac80759b159fe01e21e6d/src/login.js#L4-L4'>
+      <span>src/login.js</span>
+      </a>
+    
+  </div>
+  
+
+  
+ 
+  
+    <div class='pre p1 fill-light mt0'>fritzLogin</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Static Members</div>
+    <div class="clearfix">
+  
+    <div class='border-bottom' id='fritzlogingetsessionid'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>getSessionId(options)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/lesander/fritzbox.js/blob/b85d495b2258b2f6092ac80759b159fe01e21e6d/src/login.js#L12-L42'>
+      <span>src/login.js</span>
+      </a>
+    
+  </div>
+  
+
+  <p>Login to the Fritz!Box and obtain a sessionId.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>getSessionId(options: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    FritzBox.js options object.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>:
         Returns a sessionId if successful.
 
       
@@ -1298,10 +1326,9 @@ Set <code>options.callmonitorport</code> to <code>1012</code> or a custom port.<
   
 </section>
 
-          
         
           
-            <section class='p2 mb2 clearfix bg-white minishadow'>
+          <section class='p2 mb2 clearfix bg-white minishadow'>
 
   
   <div class='clearfix'>
@@ -1311,16 +1338,18 @@ Set <code>options.callmonitorport</code> to <code>1012</code> or a custom port.<
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='[object Object]'>
-      <span></span>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/lesander/fritzbox.js/blob/b85d495b2258b2f6092ac80759b159fe01e21e6d/src/system.js#L4-L4'>
+      <span>src/system.js</span>
       </a>
     
   </div>
   
 
   
-
-  <div class='pre p1 fill-light mt0'>fritzSystem</div>
+ 
+  
+    <div class='pre p1 fill-light mt0'>fritzSystem</div>
+   
   
   
 
@@ -1345,11 +1374,11 @@ Set <code>options.callmonitorport</code> to <code>1012</code> or a custom port.<
     <div class='py1 quiet mt1 prose-big'>Static Members</div>
     <div class="clearfix">
   
-    <div class='border-bottom' id='fritzSystem.getVersionNumber'>
+    <div class='border-bottom' id='fritzsystemgetversion'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
             <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>getVersionNumber(options)</span>
+            <span class='code strong strong truncate'>getVersion(options)</span>
         </div>
       </div>
       <div class="clearfix display-none toggle-target">
@@ -1359,8 +1388,8 @@ Set <code>options.callmonitorport</code> to <code>1012</code> or a custom port.<
   <div class='clearfix'>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='[object Object]'>
-      <span></span>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/lesander/fritzbox.js/blob/b85d495b2258b2f6092ac80759b159fe01e21e6d/src/system.js#L15-L26'>
+      <span>src/system.js</span>
       </a>
     
   </div>
@@ -1368,8 +1397,10 @@ Set <code>options.callmonitorport</code> to <code>1012</code> or a custom port.<
 
   <p>Get the version of a Fritz!Box without authentication.</p>
 
-
-  <div class='pre p1 fill-light mt0'>getVersionNumber(options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></div>
+ 
+  
+    <div class='pre p1 fill-light mt0'>getVersion(options: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></div>
+   
   
   
 
@@ -1386,8 +1417,8 @@ Set <code>options.callmonitorport</code> to <code>1012</code> or a custom port.<
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    server protocol
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    FritzBox.js options object.
 
           </div>
           
@@ -1401,9 +1432,9 @@ Set <code>options.callmonitorport</code> to <code>1012</code> or a custom port.<
   
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>:
-        The Fritz!OS version cast as an integer (e.g. 
-<code>683</code>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>:
+        The Fritz!OS version as a string (e.g. 
+<code>'06.83'</code>
 )
 
       
@@ -1424,11 +1455,11 @@ Set <code>options.callmonitorport</code> to <code>1012</code> or a custom port.<
       </div>
     </div>
   
-    <div class='border-bottom' id='fritzSystem.getVersion'>
+    <div class='border-bottom' id='fritzsystemgetversionnumber'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
             <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>getVersion(options)</span>
+            <span class='code strong strong truncate'>getVersionNumber(options)</span>
         </div>
       </div>
       <div class="clearfix display-none toggle-target">
@@ -1438,8 +1469,8 @@ Set <code>options.callmonitorport</code> to <code>1012</code> or a custom port.<
   <div class='clearfix'>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='[object Object]'>
-      <span></span>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/lesander/fritzbox.js/blob/b85d495b2258b2f6092ac80759b159fe01e21e6d/src/system.js#L33-L38'>
+      <span>src/system.js</span>
       </a>
     
   </div>
@@ -1447,8 +1478,10 @@ Set <code>options.callmonitorport</code> to <code>1012</code> or a custom port.<
 
   <p>Get the version of a Fritz!Box without authentication.</p>
 
-
-  <div class='pre p1 fill-light mt0'>getVersion(options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></div>
+ 
+  
+    <div class='pre p1 fill-light mt0'>getVersionNumber(options: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></div>
+   
   
   
 
@@ -1465,8 +1498,8 @@ Set <code>options.callmonitorport</code> to <code>1012</code> or a custom port.<
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    FritzBox.js options object.
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    server protocol
 
           </div>
           
@@ -1480,9 +1513,9 @@ Set <code>options.callmonitorport</code> to <code>1012</code> or a custom port.<
   
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>:
-        The Fritz!OS version as a string (e.g. 
-<code>'06.83'</code>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>:
+        The Fritz!OS version cast as an integer (e.g. 
+<code>683</code>
 )
 
       
@@ -1512,10 +1545,9 @@ Set <code>options.callmonitorport</code> to <code>1012</code> or a custom port.<
   
 </section>
 
-          
         
           
-            <section class='p2 mb2 clearfix bg-white minishadow'>
+          <section class='p2 mb2 clearfix bg-white minishadow'>
 
   
   <div class='clearfix'>
@@ -1525,16 +1557,18 @@ Set <code>options.callmonitorport</code> to <code>1012</code> or a custom port.<
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='[object Object]'>
-      <span></span>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/lesander/fritzbox.js/blob/b85d495b2258b2f6092ac80759b159fe01e21e6d/src/wlan.js#L1-L4'>
+      <span>src/wlan.js</span>
       </a>
     
   </div>
   
 
   
-
-  <div class='pre p1 fill-light mt0'>fritzWlan</div>
+ 
+  
+    <div class='pre p1 fill-light mt0'>fritzWlan</div>
+   
   
   
 
@@ -1562,12 +1596,11 @@ Set <code>options.callmonitorport</code> to <code>1012</code> or a custom port.<
   
 </section>
 
-          
         
       </div>
     </div>
-  </div>
   <script src='assets/anchor.js'></script>
+  <script src='assets/split.js'></script>
   <script src='assets/site.js'></script>
 </body>
 </html>

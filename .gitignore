@@ -42,6 +42,7 @@ bck_package.json
 # Ignore test generated files.
 tam.json
 calls.json
+test/*.wav
 
 # Ignore research files.
 research/
@@ -51,3 +52,6 @@ lib/
 
 # Ignore Jekyll site folder.
 _site/
+
+# Ignore .env file
+.env

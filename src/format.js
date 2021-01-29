@@ -17,14 +17,16 @@ const convert = require('xml-to-json-promise')
 fritzFormat.calls = (calls) => {
   let formattedCalls = []
   for (var i in calls) {
-    formattedCalls[i] = {
-      type: fritzFormat.callType(calls[i].Type),
-      date: fritzFormat.date(calls[i].Date),
-      name: calls[i].Name,
-      duration: calls[i].Duration,
-      number: calls[i].Number,
-      numberSelf: calls[i].NumberSelf,
-      extension: calls[i].Extension
+    if (typeof calls[i] === 'object') {
+      formattedCalls[i] = {
+        type: fritzFormat.callType(calls[i].Type),
+        date: fritzFormat.date(calls[i].Date),
+        name: calls[i].Name,
+        duration: calls[i].Duration,
+        number: calls[i].Number,
+        numberSelf: calls[i].NumberSelf,
+        extension: calls[i].Extension
+      }
     }
   }
   return formattedCalls
@@ -37,18 +39,11 @@ fritzFormat.calls = (calls) => {
  * @return {Object}
  */
 fritzFormat.callsCsvToJson = (csvData) => {
-  // Replace the CSV column titles with the English format.
+  // Replace the CSV column titles with the English format and remove unnecessary lines
   let lines = csvData.split('\n')
-  lines[1] = 'Type;Date;Name;Telephone number;Extension;Telephone Number;Duration'
-  csvData = lines.join('\n')
-
-  // We remove the separator definition and shorten some column titles, so that
-  // the csv to json module can parse them correctly.
-  let parsableCsvData = csvData
-                        .replace('sep=;', '')
-                        .replace('Extension;Telephone number', 'Extension;NumberSelf')
-                        .replace('Telephone number', 'Number')
-                        .trim()
+  lines.splice(0, 1) // removes 'sep=;'
+  lines[0] = 'Type;Date;Name;Number;Extension;NumberSelf;Duration'
+  let parsableCsvData = lines.join('\n').trim()
 
   // Format the CSV to a json object and return the result.
   const formattedBody = csvjson.toObject(parsableCsvData, {delimiter: ';'})
@@ -110,7 +105,7 @@ fritzFormat.date = (rawDate) => {
 
   let dateParts = date.split('.')
   let day = dateParts[0]
-  let month = dateParts[1]
+  let month = (parseInt(dateParts[1]) - 1)
   let year = '20' + dateParts[2]
 
   let timeParts = time.split(':')
@@ -128,8 +123,7 @@ fritzFormat.date = (rawDate) => {
  * @return {boolean}
  */
 fritzFormat.boolean = (number) => {
-  if (number === 1) return true
-  return false
+  return !!+number
 }
 
 /**
@@ -146,7 +140,7 @@ fritzFormat.xmlToObject = async (xml) => {
 /**
  * Format an ugly phonebook object to a sane object.
  * @private
- * @param  {Object} object
+ * @param  {Object} phonebook
  * @return {Object}
  */
 fritzFormat.phonebook = (phonebook) => {
@@ -182,6 +176,66 @@ fritzFormat.phonebook = (phonebook) => {
   }
 
   return formattedPhonebook
+}
+
+/**
+ * Returns all system log types of the Fritz!Box.
+ * @return {Object}
+ */
+fritzFormat.getSystemLogTypes = () => {
+  const logTypes = {
+    1: 'system',
+    2: 'internet_connection',
+    3: 'telephony',
+    4: 'wireless',
+    5: 'usb_devices'
+  }
+  return logTypes
+}
+
+/**
+ * Returns object with name of available log types, followed
+ * by the internal identifier used for api calls.
+ * @param  {string} name
+ * @return {Object}
+ */
+fritzFormat.getLogTypeFromName = (name) => {
+  const nameToLogId = fritzFormat.getSystemLogTypes().reverse()
+  return nameToLogId[name] || false
+}
+
+/**
+ * Format Fritz!OS's raw log object to a human readable object.
+ * @param  {Object} rawLog
+ * @return {Object}
+ */
+fritzFormat.systemLog = (rawLog) => {
+  let log = []
+
+  const logTypes = fritzFormat.getSystemLogTypes()
+
+  for (var i in rawLog) {
+    let logItem = rawLog[i]
+
+    const date = logItem[0]
+    const time = logItem[1]
+    const message = logItem[2]
+    const code = logItem[3]
+    const type = logItem[4]
+    const help = logItem[5]
+
+    const combinedTimestamp = date + ' ' + time
+
+    log.push({
+      'timestamp': fritzFormat.date(combinedTimestamp),
+      'type': logTypes[type],
+      'code': parseInt(code),
+      'message': message,
+      'more_information_uri': help
+    })
+  }
+
+  return log
 }
 
 // Export fritzFon.

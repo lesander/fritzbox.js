@@ -1,5 +1,5 @@
 const fritz = require('../index.js')
-const options = require('../package.json').options
+const options = require('./env.js')
 const messagePath = '/data/tam/rec/rec.0.020'
 const localPath = './test/rec20.wav'
 

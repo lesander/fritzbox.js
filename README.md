@@ -8,8 +8,6 @@
 
 The most powerful, simple and complete [AVM](https://avm.de) Fritz!Box [API](https://avm.de/Schnittstellen).
 
-**This project is still a work in progress. [See issue #1 for the current status.](https://github.com/lesander/fritzbox.js/issues/1)**
-
 ## Getting Started
 This module is future-proof and uses async/await promises.
 
@@ -22,6 +20,8 @@ This package was tested on Fritz!Box 7390 and 7490, with firmware versions `6.53
 ```
 npm install fritzbox.js
 ```
+
+Browser support is coming soon.
 
 ## Usage
 

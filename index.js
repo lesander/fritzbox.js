@@ -7,9 +7,11 @@
  * https://git.io/fritzbox
  */
 
+require('dotenv').config()
+
 const fritzConfig = {
   version: require('./package.json').version,
-  debug: require('./package.json').options.debug
+  debug: process.env.FRITZ_DEBUG
 }
 
 const dir = 'src'

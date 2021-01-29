@@ -1,5 +1,5 @@
 const fritz = require('../index.js')
-const options = require('../package.json').options
+const options = require('./env.js')
 const messageId = 20
 
 async function markasread () {
