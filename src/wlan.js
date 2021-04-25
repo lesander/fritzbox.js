@@ -28,4 +28,15 @@ fritzWlan.getWlanSecurity = async (options) => {
   return JSON.parse(response.body).data.wlan
 }
 
+fritzWlan.getWlanGuest = async (options) => {
+  const form = {
+    page: 'wGuest'
+  }
+
+  const response = await fritzRequest.request('/data.lua', 'POST', options, false, false, form)
+  if (response.error) return response
+
+  return JSON.parse(response.body).data.guestAccess
+}
+
 module.exports = fritzWlan
