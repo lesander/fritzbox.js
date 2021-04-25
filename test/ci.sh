@@ -30,5 +30,6 @@ node --harmony-async-await test/activecalls.js  # async ready
 node --harmony-async-await test/markread.js     # async ready
 node --harmony-async-await test/tamdownload.js  # async ready
 node --harmony-async-await test/toggleswitch.js # async ready
+node --harmony-async-await test/wlanSecurity.js # async ready
 
 echo " ✓ Finished with tests."

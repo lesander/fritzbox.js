@@ -36,6 +36,9 @@ fritzRequest.request = async (path, method, options, pipe = false, formData = fa
     const sessionId = await fritzLogin.getSessionId(options)
     if (sessionId.error) return sessionId
     options.sid = sessionId
+    if (typeof formUrlEncoded === 'object') {
+      formUrlEncoded.sid = sessionId
+    }
   }
 
   if (typeof options.removeSidFromUri === 'undefined') {
@@ -43,7 +46,7 @@ fritzRequest.request = async (path, method, options, pipe = false, formData = fa
   }
 
   // Add SID to path if one has been given to us.
-  if (options.sid && options.removeSidFromUri !== true && options.noAuth !== true) {
+  if (options.sid && options.removeSidFromUri !== true && options.noAuth !== true && !formUrlEncoded.hasOwnProperty('sid')) {
     path += '&sid=' + options.sid
   }
 
