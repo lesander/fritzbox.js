@@ -46,7 +46,7 @@ fritzFormat.callsCsvToJson = (csvData) => {
   // the csv to json module can parse them correctly.
   let parsableCsvData = csvData
                         .replace('sep=;', '')
-                        .replace('Extension;Telephone number', 'Extension;NumberSelf')
+                        .replace('Extension;Telephone Number', 'Extension;NumberSelf')
                         .replace('Telephone number', 'Number')
                         .trim()
 

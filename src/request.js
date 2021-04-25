@@ -38,12 +38,16 @@ fritzRequest.request = async (path, method, options, pipe = false, formData = fa
     options.sid = sessionId
   }
 
+  if (typeof formUrlEncoded === 'object') {
+    formUrlEncoded.sid = options.sid
+  }
+
   if (typeof options.removeSidFromUri === 'undefined') {
     options.removeSidFromUri = false
   }
 
   // Add SID to path if one has been given to us.
-  if (options.sid && options.removeSidFromUri !== true && options.noAuth !== true) {
+  if (options.sid && options.removeSidFromUri !== true && options.noAuth !== true && !formUrlEncoded.hasOwnProperty('sid')) {
     path += '&sid=' + options.sid
   }
 
