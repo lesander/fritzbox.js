@@ -7,6 +7,8 @@ module.exports = fritzSystem
 const fritzRequest = require('./request.js')
 const fritzFormat = require('./format.js')
 
+const counterInfoRegex = new RegExp(/\{(.*?)\}}/)
+
 /**
  * Get the version of a Fritz!Box without authentication.
  * @param  {Object} options - FritzBox.js options object.
@@ -35,4 +37,42 @@ fritzSystem.getVersionNumber = async (options) => {
   if (version.error) return version
   const versionNumber = parseInt(version.replace('.', ''))
   return versionNumber
+}
+
+/**
+ * Get the online counter information
+ * @param  {Object}  options counter options
+ * @return {number} The parsed object with counter information
+ */
+fritzSystem.getCounter = async (options) => {
+  if (options.sid) {
+    options.noAuth = true
+  }
+
+  const response = await fritzRequest.request(
+    '/data.lua',
+    'POST',
+    options,
+    false,
+    false,
+    {
+      xhr: 1,
+      page: 'netCnt',
+      sid: options.sid
+    }
+  )
+  if (response.error) return response
+
+  const counterInfoRegexResult = counterInfoRegex.exec(response.body)
+  let counterInfo = counterInfoRegexResult[0]
+
+  if (!counterInfo) {
+    return { error: { message: 'Could not find counter information', raw: response } }
+  }
+
+  try {
+    return JSON.parse(counterInfo)
+  } catch (e) {
+    return { error: { message: 'Could not parse information', raw: response } }
+  }
 }
