@@ -53,7 +53,7 @@ fritzSystem.getCounter = async (options) => {
   }
 
   // Check the version first, because the structure is parsable from v7.25 and up
-  const version = await fritzSystem.getVersionNumber();
+  const version = await fritzSystem.getVersionNumber(options);
   if (version.error) {
     return version;
   }
