@@ -1,8 +1,8 @@
-const fritz = require('../index.js')
-const options = require('../package.json').options
+import fritz from '../index.js'
+import pckJson from '../package.json' assert {type:'json'}
 
 async function devices () {
-  const devices = await fritz.getSmartDevices(options)
+  const devices = await fritz.getSmartDevices(pckJson.options)
   if (devices.error) {
     console.log('Error:', devices.error.message)
     process.exit(1)

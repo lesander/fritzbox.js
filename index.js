@@ -6,18 +6,17 @@
  * Source-code available on GitHub.
  * https://git.io/fritzbox
  */
-
+import pckJson from './package.json' assert { type: 'json'}
 const fritzConfig = {
-  version: require('./package.json').version,
-  debug: require('./package.json').options.debug
+  version: pckJson.version,
+  debug: pckJson.options.debug
 }
 
-const dir = 'src'
-const fritzLogin = require('./' + dir + '/login.js')
-const fritzSystem = require('./' + dir + '/system.js')
-const fritzFon = require('./' + dir + '/fon.js')
-const fritzDect = require('./' + dir + '/dect.js')
-const fritzWlan = require('./' + dir + '/wlan.js')
+import fritzLogin from './src/login.js'
+import fritzSystem from './src/system.js'
+import fritzFon from './src/fon.js'
+import fritzDect from './src/dect.js'
+import fritzWlan from './src/wlan.js'
 
 const fritz = Object.assign(
   {}, fritzConfig, fritzSystem, fritzLogin,
@@ -33,4 +32,4 @@ process.on('unhandledRejection', function (reason, r) {
   process.exit(1)
 })
 
-module.exports = fritz
+export default fritz

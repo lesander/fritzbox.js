@@ -5,9 +5,9 @@
 
 let fritzDect = {}
 
-const fritzLogin = require('./login.js')
-const fritzRequest = require('./request.js')
-const fritzSystem = require('./system.js')
+import fritzLogin from './login.js'
+import fritzRequest from './request.js'
+import fritzSystem from './system.js'
 
 /**
  * Get all smart devices and groups.
@@ -21,7 +21,9 @@ fritzDect.getSmartDevices = async (options) => {
 
   if (response.error) return response
 
-  return JSON.parse(response.body).devices
+  console.log(response)
+
+  return JSON.parse(response).devices
 }
 
 /**
@@ -76,4 +78,4 @@ fritzDect.toggleSwitch = async (deviceId, value, options) => {
 
 // Export fritzDect.
 
-module.exports = fritzDect
+export default fritzDect

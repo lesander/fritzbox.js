@@ -5,13 +5,13 @@
 
 let fritzFon = {}
 
-const fritzLogin = require('./login.js')
-const fritzRequest = require('./request.js')
-const fritzFormat = require('./format.js')
-const fritzSystem = require('./system.js')
+import fritzLogin from './login.js'
+import fritzRequest from './request.js'
+import fritzFormat from './format.js'
+import fritzSystem from './system.js'
 
-const net = require('net')
-const events = require('events')
+import net from 'net'
+import events from 'events'
 
 /**
  * Get the history of telephone calls.
@@ -350,4 +350,4 @@ fritzFon.CallMonitor = CallMonitor
 
 // Export fritzFon.
 
-module.exports = fritzFon
+export default  fritzFon

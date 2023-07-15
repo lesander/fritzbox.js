@@ -2,11 +2,10 @@
 /** @module fritzSystem */
 
 let fritzSystem = {}
-module.exports = fritzSystem
+export default fritzSystem
 
-const fritzRequest = require('./request.js')
-const fritzFormat = require('./format.js')
-
+import fritzRequest from './request.js'
+import fritzFormat from './format.js'
 /**
  * Get the version of a Fritz!Box without authentication.
  * @param  {Object} options - FritzBox.js options object.

@@ -1,7 +1,7 @@
-const fritz = require('../index.js')
-const options = require('../package.json').options
+import fritz from '../index.js'
+import pckJson from '../package.json' assert {type: 'json'}
 
-let monitor = new fritz.CallMonitor(options)
+let monitor = new fritz.CallMonitor(pckJson.options)
 
 function handler (type, call) {
   console.log(type, '\n', call)
