@@ -3,12 +3,19 @@
  * @ignore
  */
 
-const request = require('request-promise')
-const requestNoPromise = require('request')
-const fs = require('fs')
+import fetch from 'node-fetch';
+import request from 'request-promise'
+import requestNoPromise from 'request'
+import fs  from 'fs'
+import https from'https';
 
+const httpsAgent = new https.Agent({
+    //Disable SSL verification since the Fritz.box endpoint is not secure enough
+    //The certificate uses a weak Diffie-Hellman key and is vulnerable to a Logjam Attack
+      rejectUnauthorized: false,
+    });
 let fritzRequest = {}
-module.exports = fritzRequest
+export default  fritzRequest
 
 /**
  * Send a request to the Fritz!Box.
@@ -22,7 +29,8 @@ module.exports = fritzRequest
  * @param  {boolean}  formUrlEncoded
  * @return {Object}                    Request response object
  */
-fritzRequest.request = async (path, method, options, pipe = false, formData = false, formUrlEncoded = false) => {
+fritzRequest.request = async (path, method, options, pipe = false, formData = false, formUrlEncoded = false, params, headers) => {
+  console.log("PATH: " + path)
   options.protocol = options.protocol || 'https'
 
   // Make sure we have the required options.
@@ -41,10 +49,25 @@ fritzRequest.request = async (path, method, options, pipe = false, formData = fa
   if (typeof options.removeSidFromUri === 'undefined') {
     options.removeSidFromUri = false
   }
+  if (!params) {
+    params = {};
+  }
 
   // Add SID to path if one has been given to us.
   if (options.sid && options.removeSidFromUri !== true && options.noAuth !== true) {
-    path += '&sid=' + options.sid
+    params['sid'] = options.sid
+  }
+
+  let body;
+  if (method === 'POST') {
+    body = params
+  }  else {
+      for (const key in params) {
+          if (!path.endsWith('&') || !path.endsWith('?')) {
+              path += '&'
+          }
+          path += `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`
+      };
   }
 
   // Set the options for the request.
@@ -64,7 +87,7 @@ fritzRequest.request = async (path, method, options, pipe = false, formData = fa
   }
 
   // Pipe a file to disk.
-  if (pipe) {
+  if (false) {
     let stream = requestNoPromise(requestOptions).pipe(fs.createWriteStream(pipe))
     stream.on('finish', () => {
       return { message: 'File has been saved to ' + pipe }
@@ -72,21 +95,25 @@ fritzRequest.request = async (path, method, options, pipe = false, formData = fa
   }
 
   // Execute HTTP(S) request.
-  let response = null
   try {
-    response = await request(requestOptions)
+    // response = await request(requestOptions)
+    console.log(requestOptions.uri)
+    console.log(method)
+    console.log(body)
+
+    const response =  await fetch(requestOptions.uri, {
+      headers: headers,
+      method: method || 'GET',
+      body: body,
+      agent: httpsAgent
+    })
+    const xmlResponse = await response.text();
+    
+    return xmlResponse
   } catch (error) {
     return fritzRequest.findFailCause(error)
   }
 
-  /*
-  if (response.statusCode !== 200) {
-    console.log('is not 200')
-    return fritzRequest.findFailCause(response)
-  }
-  */
-
-  return response
 }
 
 /**
@@ -116,4 +143,5 @@ fritzRequest.findFailCause = (response) => {
 
 // <3 Circular dependencies...
 // https://stackoverflow.com/a/32428290/1878974
-const fritzLogin = require('./login.js')
+import fritzLogin from './login.js'
+

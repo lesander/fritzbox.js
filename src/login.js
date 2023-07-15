@@ -2,7 +2,7 @@
 /** @module fritzLogin */
 
 let fritzLogin = {}
-module.exports = fritzLogin
+export default fritzLogin
 
 /**
  * Login to the Fritz!Box and obtain a sessionId.
@@ -16,23 +16,32 @@ fritzLogin.getSessionId = async (options) => {
   // Request a challenge for us to solve.
   const response = await fritzRequest.request('/login_sid.lua?version=2', 'GET', options)
 
-  console.log(response)
+  console.log("response: ", response)
   // Return the response error if one has presented itself.
   if (response.error) return response
 
   // Solve the challenge.
-  const challenge = response.body.match('<Challenge>(.*?)</Challenge>')[1]
+  const challenge = response.match('<Challenge>(.*?)</Challenge>')[1]
   const challengeAnswer = await solveChallenge(challenge, options)
 
   // Send our answer to the Fritz!Box.
-  const path = '/login_sid.lua?version=2&'
-  //username=' + options.username + '&response=' + challengeAnswer
-  const form = {
+  const path = '/login_sid.lua?version=2'
+  const params = {
     username: options.username,
     response: challengeAnswer
   }
+  const formBody = []
+  for (const property in params) {
+    const encodedKey = encodeURIComponent(property);
+    const encodedValue = encodeURIComponent(params[property]);
+    formBody.push(encodedKey + "=" + encodedValue);
+  }
 
-  const challengeResponse = await fritzRequest.request(path, 'POST', options, true, form)
+  const headers = {
+    "Content-Type": "application/x-www-form-urlencoded",
+  }
+
+  const challengeResponse = await fritzRequest.request(path, 'POST', options, true, false, false, formBody.join("&"), headers)
 
   fritzRequest.request(path, 'POST', options).then((response) => {
     console.log(response)
@@ -40,12 +49,12 @@ fritzLogin.getSessionId = async (options) => {
     console.log(error)
   })
 
-  console.log("test " + JSON.stringify(challengeResponse))
-
+  
+  console.log("test ", challengeResponse)
   if (challengeResponse.error) return challengeResponse
-
+  
   // Extract the session ID.
-  const sessionIdMatch = challengeResponse.body.match('<SID>(.*?)</SID>')
+  const sessionIdMatch = challengeResponse.match('<SID>(.*?)</SID>')
   if (!sessionIdMatch || !sessionIdMatch[1]) {
     return { error: { message: 'Failed to retrieve session ID from Fritz!Box.' } }
   }
@@ -94,5 +103,5 @@ function parseHexToIntArray (hexNumber) {
 
 // <3 Circular dependencies...
 // https://stackoverflow.com/a/32428290/1878974
-const fritzRequest = require('./request.js')
-const crypto = require('crypto')
+import fritzRequest from './request.js'
+import crypto from 'crypto'
