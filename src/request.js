@@ -21,15 +21,15 @@ export default  fritzRequest
  * Send a request to the Fritz!Box.
  *
  * @private
- * @param  {string}   path            Path to request
- * @param  {string}   method          Request method
- * @param  {Object}   options         Options object
- * @param  {string}   pipe
- * @param  {Object}   formData
- * @param  {boolean}  formUrlEncoded
+ * @param  {string}       path            Path to request
+ * @param  {string}       method          Request method
+ * @param  {Object}       options         Options object
+ * @param  {HeadersInit}  headers
+ * @param  {Object}       params
+ * @param  {string}       pipe
  * @return {Object}                    Request response object
  */
-fritzRequest.request = async (path, method, options, pipe = false, formData = false, formUrlEncoded = false, params, headers) => {
+fritzRequest.request = async (path, method, options, headers, params, pipe = false) => {
   console.log("PATH: " + path)
   options.protocol = options.protocol || 'https'
 
@@ -61,33 +61,20 @@ fritzRequest.request = async (path, method, options, pipe = false, formData = fa
   let body;
   if (method === 'POST') {
     body = params
-  }  else {
+  }  else if (method === 'GET'){
       for (const key in params) {
           if (!path.endsWith('&') || !path.endsWith('?')) {
               path += '&'
           }
-          path += `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`
+          path += `${key}=${params[key]}`
       };
   }
 
   // Set the options for the request.
-  let requestOptions = {
-    uri: options.protocol + '://' + options.server + path,
-    method: method || 'GET',
-    resolveWithFullResponse: true,
-    rejectUnauthorized: false
-  }
-
-  if (formData) {
-    requestOptions.formData = formData
-  }
-
-  if (formUrlEncoded) {
-    requestOptions.form = formUrlEncoded
-  }
+  const uri = options.protocol + '://' + options.server + path
 
   // Pipe a file to disk.
-  if (false) {
+  if (pipe) {
     let stream = requestNoPromise(requestOptions).pipe(fs.createWriteStream(pipe))
     stream.on('finish', () => {
       return { message: 'File has been saved to ' + pipe }
@@ -96,20 +83,14 @@ fritzRequest.request = async (path, method, options, pipe = false, formData = fa
 
   // Execute HTTP(S) request.
   try {
-    // response = await request(requestOptions)
-    console.log(requestOptions.uri)
-    console.log(method)
-    console.log(body)
-
-    const response =  await fetch(requestOptions.uri, {
+    const response =  await fetch(uri, {
       headers: headers,
       method: method || 'GET',
       body: body,
       agent: httpsAgent
     })
-    const xmlResponse = await response.text();
     
-    return xmlResponse
+    return await response.text()
   } catch (error) {
     return fritzRequest.findFailCause(error)
   }
