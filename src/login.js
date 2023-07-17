@@ -41,13 +41,7 @@ fritzLogin.getSessionId = async (options) => {
     "Content-Type": "application/x-www-form-urlencoded",
   }
 
-  const challengeResponse = await fritzRequest.request(path, 'POST', options, true, false, false, formBody.join("&"), headers)
-
-  fritzRequest.request(path, 'POST', options).then((response) => {
-    console.log(response)
-  }, (error) => {
-    console.log(error)
-  })
+  const challengeResponse = await fritzRequest.request(path, 'POST', options, formBody.join("&"), headers)
 
   if (challengeResponse.error) return challengeResponse
   
