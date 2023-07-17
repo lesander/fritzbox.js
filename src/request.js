@@ -29,7 +29,7 @@ export default  fritzRequest
  * @param  {string}       pipe
  * @return {Object}                    Request response object
  */
-fritzRequest.request = async (path, method, options, headers, params, pipe = false) => {
+fritzRequest.request = async (path, method, options, headers, params) => {
   console.log("PATH: " + path)
   options.protocol = options.protocol || 'https'
 
@@ -72,14 +72,6 @@ fritzRequest.request = async (path, method, options, headers, params, pipe = fal
 
   // Set the options for the request.
   const uri = options.protocol + '://' + options.server + path
-
-  // Pipe a file to disk.
-  if (pipe) {
-    let stream = requestNoPromise(requestOptions).pipe(fs.createWriteStream(pipe))
-    stream.on('finish', () => {
-      return { message: 'File has been saved to ' + pipe }
-    })
-  }
 
   // Execute HTTP(S) request.
   try {
