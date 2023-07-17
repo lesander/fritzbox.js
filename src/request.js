@@ -4,9 +4,6 @@
  */
 
 import fetch from 'node-fetch';
-import request from 'request-promise'
-import requestNoPromise from 'request'
-import fs  from 'fs'
 import https from'https';
 
 const httpsAgent = new https.Agent({
@@ -29,7 +26,7 @@ export default  fritzRequest
  * @param  {string}       pipe
  * @return {Object}                    Request response object
  */
-fritzRequest.request = async (path, method, options, headers, params) => {
+fritzRequest.request = async (path, method, options, params, headers) => {
   console.log("PATH: " + path)
   options.protocol = options.protocol || 'https'
 
