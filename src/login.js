@@ -49,8 +49,6 @@ fritzLogin.getSessionId = async (options) => {
     console.log(error)
   })
 
-  
-  console.log("test ", challengeResponse)
   if (challengeResponse.error) return challengeResponse
   
   // Extract the session ID.
