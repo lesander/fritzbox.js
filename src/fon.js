@@ -20,7 +20,7 @@ import events from 'events'
  */
 fritzFon.getCalls = async (options) => {
   const path = '/fon_num/foncalls_list.lua?csv='
-  const response = fritzRequest.request(path, 'GET', options)
+  const response = await fritzRequest.request(path, 'GET', options)
 
   if (response.error) return response
 
@@ -174,18 +174,11 @@ fritzFon.getActiveCalls = async (options) => {
     xhr: '1'
   }
 
-  const formBody = []
-  for (const property in params) {
-    const encodedKey = encodeURIComponent(property);
-    const encodedValue = encodeURIComponent(params[property]);
-    formBody.push(`${encodedKey}=${encodedValue}`);
-  }
-
   const headers = {
     "Content-Type": "application/x-www-form-urlencoded",
   }
 
-  const response = await fritzRequest.request('/data.lua', 'POST', options, formBody.join("&"), headers)
+  const response = await fritzRequest.request('/data.lua', 'POST', options, params, headers)
 
   if (response.error) return response
 

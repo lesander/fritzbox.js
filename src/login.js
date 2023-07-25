@@ -29,18 +29,12 @@ fritzLogin.getSessionId = async (options) => {
     username: options.username,
     response: challengeAnswer
   }
-  const formBody = []
-  for (const property in params) {
-    const encodedKey = encodeURIComponent(property);
-    const encodedValue = encodeURIComponent(params[property]);
-    formBody.push(encodedKey + "=" + encodedValue);
-  }
 
   const headers = {
     "Content-Type": "application/x-www-form-urlencoded",
   }
 
-  const responseChallenge = await fritzRequest.request(path, 'POST', options, formBody.join("&"), headers)
+  const responseChallenge = await fritzRequest.request(path, 'POST', options, params, headers)
 
   if (responseChallenge.error) return responseChallenge
   

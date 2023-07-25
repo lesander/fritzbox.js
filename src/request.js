@@ -21,11 +21,11 @@ export default  fritzRequest
  * @param  {string}       method          Request method
  * @param  {Object}       options         Options object
  * @param  {HeadersInit}  headers
- * @param  {Object}       params
+ * @param  {Object}       body
  * @param  {string}       pipe
  * @return {Object}                    Request response object
  */
-fritzRequest.request = async (path, method, options, params = false, headers = false) => {
+fritzRequest.request = async (path, method, options, body = {}, headers = {}) => {
   console.log("PATH: " + path)
   options.protocol = options.protocol || 'https'
 
@@ -37,7 +37,7 @@ fritzRequest.request = async (path, method, options, params = false, headers = f
 
   // Obtain a session id if none was given to us.
   if (!options.sid && !path.includes('/login_sid.lua') && options.noAuth !== true) {
-    const sessionId = fritzLogin.getSessionId(options)
+    const sessionId = await fritzLogin.getSessionId(options)
     if (sessionId.error) return sessionId
     options.sid = sessionId
   }
@@ -45,33 +45,36 @@ fritzRequest.request = async (path, method, options, params = false, headers = f
   if (typeof options.removeSidFromUri === 'undefined') {
     options.removeSidFromUri = false
   }
-  if (!params) {
-    params = {};
-  }
-  if (!headers) {
-    headers = {};
+  if (headers['Content-Type'] === 'application/x-www-form-urlencoded') {
+    const formBody = []
+    for (const property in body) {
+      const encodedKey = encodeURIComponent(property);
+      const encodedValue = encodeURIComponent(body[property]);
+      formBody.push(encodedKey + "=" + encodedValue);
+    }
+    body = formBody.join("&")
+  } else if (options.sid && options.removeSidFromUri !== true && options.noAuth !== true) {
+    // Add SID to path if one has been given to us.
+    body['sid'] = options.sid
   }
 
-  // Add SID to path if one has been given to us.
-  if (options.sid && options.removeSidFromUri !== true && options.noAuth !== true) {
-    params['sid'] = options.sid
-  }
-
-  let body;
   if (method === 'POST') {
-    body = params
+
   }  else if (method === 'GET'){
-      for (const key in params) {
-          if (!path.endsWith('&') || !path.endsWith('?')) {
-              path += '&'
-          }
-          path += `${key}=${params[key]}`
+    for (const key in body) {
+      if (!path.endsWith('&') || !path.endsWith('?')) {
+        path += '&'
       }
+      path += `${key}=${body[key]}`
+    }
+    body = undefined;
   }
 
   // Set the options for the request.
   const uri = options.protocol + '://' + options.server + path
-
+  console.log('headers: ', headers)
+  console.log('method: ', method)
+  console.log('body: ', body)
   // Execute HTTP(S) request.
   try {
     const fetchResponse =  await fetch(uri, {
