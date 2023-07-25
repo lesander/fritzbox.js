@@ -43,8 +43,36 @@ fritzFon.getTamMessages = async (options) => {
   if (version.error) return version
 
   let tamMessages
+  if (version >= 750) {
+    /* The following works with Fritz!Box OS 7.50 and newer. */
+    if (!options.sid) {
+      options.sid = await fritzLogin.getSessionId(options)
+      if (options.sid.error) return options.sid
+    }
 
-  if (version >= 683) {
+    // Prepare request options
+    options.removeSidFromUri = true
+    const path = '/data.lua?'
+    const param = {
+      sid: options.sid,
+      page: 'tam',
+      xhr: 1
+    }
+
+    const response = await fritzRequest.request(path, 'GET', options, param)
+    if (response.error) return response
+
+    let calls = JSON.parse(response.body).data.foncalls.calls
+    console.log(calls)
+    // Filter only TAM messages.
+    tamMessages = []
+    for (var call in calls) {
+      if (calls[call].type === 'tam') {
+        tamMessages.push(calls[call])
+      }
+    }
+
+  } else if (version >= 683) {
     /* The following works with Fritz!Box OS 6.83 and newer. */
 
     // Get a session ID for the POST request first.
@@ -60,8 +88,11 @@ fritzFon.getTamMessages = async (options) => {
       sid: options.sid,
       ajax_id: 1234
     }
+    const headers = {
+      "Content-Type": "application/x-www-form-urlencoded",
+    }
 
-    const response = await fritzRequest.request(path, 'POST', options, false, false, form)
+    const response = await fritzRequest.request(path, 'POST', options, form, headers)
     if (response.error) return response
     let calls = JSON.parse(response.body).calls
 

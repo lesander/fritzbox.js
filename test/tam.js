@@ -1,9 +1,9 @@
-const fritz = require('../index.js')
-const options = require('../package.json').options
-const fs = require('fs')
+import fritz from '../index.js'
+import pckJson from '../package.json' assert {type:'json'}
+import fs from 'fs'
 
 async function tam () {
-  const messages = await fritz.getTamMessages(options)
+  const messages = await fritz.getTamMessages(pckJson.options)
 
   if (messages.error) {
     console.log('Error:', messages.error.message)
