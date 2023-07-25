@@ -143,9 +143,12 @@ fritzFon.dialNumber = async (phoneNumber, options) => {
     return { error: { message: 'Invalid phone number given.' } }
   }
 
-  const path = '/fon_num/foncalls_list.lua?xhr=1' +
-               '&dial=' + phoneNumber
-  const response = await fritzRequest.request(path, 'GET', options)
+  const path = '/fon_num/foncalls_list.lua?'
+  const param = {
+    xhr: 1,
+    dial: phoneNumber
+  }
+  const response = await fritzRequest.request(path, 'GET', options, param)
 
   if (response.error) return response
 
