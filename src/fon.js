@@ -20,12 +20,12 @@ import events from 'events'
  */
 fritzFon.getCalls = async (options) => {
   const path = '/fon_num/foncalls_list.lua?csv='
-  const response = await fritzRequest.request(path, 'GET', options)
+  const response = fritzRequest.request(path, 'GET', options)
 
   if (response.error) return response
 
   const csvCalls = response.body
-  const jsonCalls = await fritzFormat.callsCsvToJson(csvCalls)
+  const jsonCalls = fritzFormat.callsCsvToJson(csvCalls)
 
   const formattedCalls = fritzFormat.calls(jsonCalls)
 
@@ -99,7 +99,8 @@ fritzFon.downloadTamMessage = async (messagePath, localPath, options) => {
   const path = '/myfritz/cgi-bin/luacgi_notimeout' +
                '?cmd=tam&script=/http_file_download.lua' +
                '&cmd_files=' + messagePath
-  const response = await fritzRequest.request(path, 'GET', options, localPath)
+              
+  const response = await fritzRequest.request(path, 'GET', options)
 
   if (response.error) return response
 
@@ -167,11 +168,25 @@ fritzFon.getActiveCalls = async (options) => {
   }
 
   options.removeSidFromUri = true
-  const form = {
+  const params = {
     page: 'overview',
-    sid: options.sid
+    sid: options.sid,
+    xhr: '1'
   }
-  const response = await fritzRequest.request('/data.lua', 'POST', options, false, false, form)
+
+  const formBody = []
+  for (const property in params) {
+    const encodedKey = encodeURIComponent(property);
+    const encodedValue = encodeURIComponent(params[property]);
+    formBody.push(`${encodedKey}=${encodedValue}`);
+  }
+
+  const headers = {
+    "Content-Type": "application/x-www-form-urlencoded",
+  }
+
+  const response = await fritzRequest.request('/data.lua', 'POST', options, formBody.join("&"), headers)
+
   if (response.error) return response
 
   const activeCalls = JSON.parse(response.body).data.foncalls.activecalls

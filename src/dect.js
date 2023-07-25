@@ -55,7 +55,7 @@ fritzDect.toggleSwitch = async (deviceId, value, options) => {
       cmdValue: value,
       deviceId: deviceId
     }
-    response = await fritzRequest.request(path, 'POST', options, false, false, form)
+    response = await fritzRequest.request(path, 'POST', options, form)
   } else {
     // Pre 06.83 used a GET request.
     const path = '/myfritz/areas/homeauto.lua?ajax_id=' +

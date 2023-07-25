@@ -16,12 +16,11 @@ fritzLogin.getSessionId = async (options) => {
   // Request a challenge for us to solve.
   const response = await fritzRequest.request('/login_sid.lua?version=2', 'GET', options)
 
-  console.log("response: ", response)
   // Return the response error if one has presented itself.
   if (response.error) return response
 
   // Solve the challenge.
-  const challenge = response.match('<Challenge>(.*?)</Challenge>')[1]
+  const challenge = response.body.match('<Challenge>(.*?)</Challenge>')[1]
   const challengeAnswer = await solveChallenge(challenge, options)
 
   // Send our answer to the Fritz!Box.
@@ -41,12 +40,12 @@ fritzLogin.getSessionId = async (options) => {
     "Content-Type": "application/x-www-form-urlencoded",
   }
 
-  const challengeResponse = await fritzRequest.request(path, 'POST', options, formBody.join("&"), headers)
+  const responseChallenge = await fritzRequest.request(path, 'POST', options, formBody.join("&"), headers)
 
-  if (challengeResponse.error) return challengeResponse
+  if (responseChallenge.error) return responseChallenge
   
   // Extract the session ID.
-  const sessionIdMatch = challengeResponse.match('<SID>(.*?)</SID>')
+  const sessionIdMatch = responseChallenge.body.match('<SID>(.*?)</SID>')
   if (!sessionIdMatch || !sessionIdMatch[1]) {
     return { error: { message: 'Failed to retrieve session ID from Fritz!Box.' } }
   }
@@ -69,14 +68,14 @@ async function solveChallenge (challenge, options) {
     const iter2 = parseInt(challengeSplit[3])
     const salt2 = challengeSplit[4]
 
-    let hash1 = crypto.pbkdf2Sync(options.password, salt1, iter1, 32, 'sha256')
-    let hash2 = crypto.pbkdf2Sync(hash1, parseHexToIntArray(salt2), iter2, 32, 'sha256')
+    let hash1 = Crypto.pbkdf2Sync(options.password, salt1, iter1, 32, 'sha256')
+    let hash2 = Crypto.pbkdf2Sync(hash1, parseHexToIntArray(salt2), iter2, 32, 'sha256')
 
     return `${salt2}$${hash2.toString('hex').trim()}`
   } else {
     // MD5 encryption
     const buffer = Buffer.from(challenge + '-' + options.password, 'UTF-16LE')
-    return challenge + '-' + require('crypto').createHash('md5').update(buffer).digest('hex')
+    return challenge + '-' + Crypto.createHash('md5').update(buffer).digest('hex')
   }
 }
 
@@ -96,4 +95,5 @@ function parseHexToIntArray (hexNumber) {
 // <3 Circular dependencies...
 // https://stackoverflow.com/a/32428290/1878974
 import fritzRequest from './request.js'
-import crypto from 'crypto'
+import Crypto from 'crypto'
+import Buffer from 'node:buffer'

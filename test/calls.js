@@ -1,9 +1,9 @@
-const fritz = require('../index.js')
-const options = require('../package.json').options
-const fs = require('fs')
+import fritz from '../index.js'
+import pckJson from '../package.json' assert {type:'json'}
+import fs from 'fs'
 
 async function calls () {
-  const calls = await fritz.getCalls(options)
+  const calls = await fritz.getCalls(pckJson.options)
   if (calls.error) {
     console.log('Error:', calls.error.message)
     process.exit(1)

@@ -4,7 +4,7 @@
  */
 
 import fetch from 'node-fetch';
-import https from'https';
+import https from 'https';
 
 const httpsAgent = new https.Agent({
     //Disable SSL verification since the Fritz.box endpoint is not secure enough
@@ -13,7 +13,6 @@ const httpsAgent = new https.Agent({
     });
 let fritzRequest = {}
 export default  fritzRequest
-
 /**
  * Send a request to the Fritz!Box.
  *
@@ -26,7 +25,7 @@ export default  fritzRequest
  * @param  {string}       pipe
  * @return {Object}                    Request response object
  */
-fritzRequest.request = async (path, method, options, params, headers) => {
+fritzRequest.request = async (path, method, options, params = false, headers = false) => {
   console.log("PATH: " + path)
   options.protocol = options.protocol || 'https'
 
@@ -38,7 +37,7 @@ fritzRequest.request = async (path, method, options, params, headers) => {
 
   // Obtain a session id if none was given to us.
   if (!options.sid && !path.includes('/login_sid.lua') && options.noAuth !== true) {
-    const sessionId = await fritzLogin.getSessionId(options)
+    const sessionId = fritzLogin.getSessionId(options)
     if (sessionId.error) return sessionId
     options.sid = sessionId
   }
@@ -48,6 +47,9 @@ fritzRequest.request = async (path, method, options, params, headers) => {
   }
   if (!params) {
     params = {};
+  }
+  if (!headers) {
+    headers = {};
   }
 
   // Add SID to path if one has been given to us.
@@ -64,7 +66,7 @@ fritzRequest.request = async (path, method, options, params, headers) => {
               path += '&'
           }
           path += `${key}=${params[key]}`
-      };
+      }
   }
 
   // Set the options for the request.
@@ -72,14 +74,17 @@ fritzRequest.request = async (path, method, options, params, headers) => {
 
   // Execute HTTP(S) request.
   try {
-    const response =  await fetch(uri, {
+    const fetchResponse =  await fetch(uri, {
       headers: headers,
       method: method || 'GET',
       body: body,
       agent: httpsAgent
     })
-    
-    return await response.text()
+    const response = {
+      body: await fetchResponse.text()
+    }
+    console.log('response fetch', response)
+    return response
   } catch (error) {
     return fritzRequest.findFailCause(error)
   }
