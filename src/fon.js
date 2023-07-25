@@ -119,10 +119,13 @@ fritzFon.downloadTamMessage = async (messagePath, localPath, options) => {
  * @return {boolean} Returns true when the message was marked as read.
  */
 fritzFon.markTamMessageAsRead = async (messageId, options, tamId = 0) => {
-  const path = '/fon_devices/tam_list.lua?useajax=1' +
-               '&TamNr=' + tamId +
-               '&idx=' + messageId
-  const response = await fritzRequest.request(path, 'GET', options)
+  const path = '/fon_devices/tam_list.lua?'
+  const param = {
+    useajax: 1,
+    TamNr: tamId,
+    idx: messageId
+  }
+  const response = await fritzRequest.request(path, 'GET', options, param)
 
   if (response.error) return response
 
