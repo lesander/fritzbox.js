@@ -62,13 +62,13 @@ fritzFon.getTamMessages = async (options) => {
     const response = await fritzRequest.request(path, 'GET', options, param)
     if (response.error) return response
 
-    let calls = JSON.parse(response.body).data.foncalls.calls
+    let calls = JSON.parse(response.body).data.foncalls
     console.log(calls)
     // Filter only TAM messages.
     tamMessages = []
     for (var call in calls) {
       if (calls[call].type === 'tam') {
-        tamMessages.push(calls[call])
+        tamMessages.push(calls[call].tam_data)
       }
     }
 
@@ -127,20 +127,44 @@ fritzFon.getTamMessages = async (options) => {
  * @return {Object} Returns an object with a message.
  */
 fritzFon.downloadTamMessage = async (messagePath, localPath, options) => {
-  const path = '/myfritz/cgi-bin/luacgi_notimeout' +
-               '?cmd=tam&script=/http_file_download.lua' +
-               '&cmd_files=' + messagePath
-              
-  const response = await fritzRequest.request(path, 'GET', options)
+  const version = await fritzSystem.getVersionNumber(options)
 
-  if (response.error) return response
+  if (version.error) return version
 
-  if (response.headers['content-type'] !== 'audio/x-wav') {
+  if (version >= 750) { 
+    const path = '/cgi-bin/luacgi_notimeout?'
+    const param = {
+      script: '/lua/photo.lua',
+      myabfile: messagePath,
+    }
+    options.noAuth = false
+    const response = await fritzRequest.request(path, 'GET', options, param)
+
+    if (response.error) return response
+
+    if (response.headers.get('Content-Type') !== 'audio/x-wav') {
+      return { error: { message: 'Did not receive wav audio file', raw: response } }
+    }
+
+    return { message: 'Saved tam message to ' + localPath }
+  } else {
+    const path = '/myfritz/cgi-bin/luacgi_notimeout' +
+    '?cmd=tam&script=/http_file_download.lua' +
+    '&cmd_files=' + messagePath
+   
+    const response = await fritzRequest.request(path, 'GET', options)
+
+    if (response.error) return response
+
+    if (response.headers['content-type'] !== 'audio/x-wav') {
     return { error: { message: 'Did not receive wav audio file', raw: response } }
+    }
+
+    return { message: 'Saved tam message to ' + localPath }
+    }
   }
 
-  return { message: 'Saved tam message to ' + localPath }
-}
+ 
 
 /**
  * Mark a message as read.
@@ -244,7 +268,12 @@ fritzFon.getPhonebook = async (phonebookId = 0, options) => {
     PhonebookExport: ''
   }
   const path = '/cgi-bin/firmwarecfg'
-  const response = await fritzRequest.request(path, 'POST', options, false, formData)
+  
+  const headers = {
+    "Content-Type": "multipart/form-data",
+  }
+
+  const response = await fritzRequest.request(path, 'POST', options, formData, headers)
 
   if (response.error) return response
 
