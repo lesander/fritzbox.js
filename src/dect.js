@@ -39,7 +39,10 @@ fritzDect.toggleSwitch = async (deviceId, value, options) => {
 
   let response
 
-  if (version >= 683) {
+  if (version >= 750) {
+    //TODO when someone gets a smartswitch
+    return { error: 'The implementation for FritzOS!7.50 is not available '}
+  } else if (version >= 683) {
     // Post 06.83 uses a POST request.
 
     if (!options.sid) {
@@ -55,7 +58,12 @@ fritzDect.toggleSwitch = async (deviceId, value, options) => {
       cmdValue: value,
       deviceId: deviceId
     }
-    response = await fritzRequest.request(path, 'POST', options, form)
+    
+   
+    const headers = {
+      "Content-Type": "multipart/form-data",
+    }
+    response = await fritzRequest.request(path, 'POST', options, form, headers)
   } else {
     // Pre 06.83 used a GET request.
     const path = '/myfritz/areas/homeauto.lua?ajax_id=' +

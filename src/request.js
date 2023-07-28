@@ -46,16 +46,17 @@ fritzRequest.request = async (path, method, options, body = {}, headers = {}) =>
   if (typeof options.removeSidFromUri === 'undefined') {
     options.removeSidFromUri = false
   }
+  
   if (headers['Content-Type'] === 'application/x-www-form-urlencoded') {
     const encodedForm = []
     for (const property in body) {
       const encodedKey = encodeURIComponent(property);
       const encodedValue = encodeURIComponent(body[property]);
-      encodedForm.push(encodedKey + "=" + encodedValue);
+      encodedForm.push(`${encodedKey}=${encodedValue}`);
     }
     body = encodedForm.join("&")
   } else if (headers['Content-Type'] === 'multipart/form-data') {
-    const form = new FormData();
+    const form = new FormData()
     for (const property in body) {
       form.append(property, body[property])
     }
@@ -65,9 +66,8 @@ fritzRequest.request = async (path, method, options, body = {}, headers = {}) =>
     body['sid'] = options.sid
   }
 
-  if (method === 'POST') {
 
-  }  else if (method === 'GET'){
+   if (method === 'GET'){
     for (const key in body) {
       if (!path.endsWith('&') || !path.endsWith('?')) {
         path += '&'
@@ -78,25 +78,25 @@ fritzRequest.request = async (path, method, options, body = {}, headers = {}) =>
   }
 
   // Set the options for the request.
-  const uri = options.protocol + '://' + options.server + path
+  const uri = `${options.protocol}://${options.server}${path}`
   console.log('uri: ', uri, 'headers: ', headers, 'method: ', method, 'body: ', body)
   // Execute HTTP(S) request.
-  try {
     const fetchResponse =  await fetch(uri, {
       headers: headers,
       method: method || 'GET',
       body: body,
       agent: httpsAgent
     })
-    const response = {
-      body: await fetchResponse.text(),
-      headers: fetchResponse.headers
+    if (fetchResponse.ok) {
+      const response = {
+        body: await fetchResponse.text(),
+        headers: fetchResponse.headers,
+      }
+      console.log('response fetch', response)
+      return response
+    } else {
+      return fritzRequest.findFailCause(fetchResponse)
     }
-    console.log('response fetch', response)
-    return response
-  } catch (error) {
-    return fritzRequest.findFailCause(error)
-  }
 
 }
 
@@ -104,11 +104,11 @@ fritzRequest.request = async (path, method, options, body = {}, headers = {}) =>
  * Find the cause of a failed request.
  *
  * @private
- * @param  {Object} response HTTP request response
+ * @param  {Response} response HTTP request response
  * @return {string}          Detailed error message
  */
 fritzRequest.findFailCause = (response) => {
-  switch (response.statusCode) {
+  switch (response.status) {
     case 403:
       return { error: { message: 'Not authenticated correctly for communication with Fritz!Box.' } }
     case 404:
@@ -118,7 +118,7 @@ fritzRequest.findFailCause = (response) => {
     default:
 
       if (response.message) {
-        return { error: { message: response.message } }
+        return { error: { message: response.statusText } }
       }
 
       return { error: { message: 'Encountered an unexpected error.', raw: response } }
