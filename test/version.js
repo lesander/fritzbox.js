@@ -1,8 +1,8 @@
-const fritz = require('../index.js')
-const options = require('../package.json').options
+import fritz from '../index.js'
+import pckJson from '../package.json' assert {type:'json'}
 
 async function version () {
-  const version = await fritz.getVersion(options)
+  const version = await fritz.getVersion(pckJson.options)
   if (version.error) {
     console.log('Error:', version.error.message)
     process.exit(1)
