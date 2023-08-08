@@ -66,7 +66,7 @@ fritzFon.getTamMessages = async (options) => {
     console.log(calls)
     // Filter only TAM messages.
     tamMessages = []
-    for (var call in calls) {
+    for (const call in calls) {
       if (calls[call].type === 'tam') {
         tamMessages.push(calls[call].tam_data)
       }
@@ -98,7 +98,7 @@ fritzFon.getTamMessages = async (options) => {
 
     // Filter only TAM messages.
     tamMessages = []
-    for (var call in calls) {
+    for (let call in calls) {
       if (calls[call].tam_data) {
         tamMessages.push(calls[call].tam_data)
       }

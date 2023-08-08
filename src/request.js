@@ -47,6 +47,11 @@ fritzRequest.request = async (path, method, options, body = {}, headers = {}) =>
     options.removeSidFromUri = false
   }
   
+  if (options.sid && options.removeSidFromUri !== true && options.noAuth !== true) {
+    // Add SID to path if one has been given to us.
+    body['sid'] = options.sid
+  }
+
   if (headers['Content-Type'] === 'application/x-www-form-urlencoded') {
     const encodedForm = []
     for (const property in body) {
@@ -61,10 +66,8 @@ fritzRequest.request = async (path, method, options, body = {}, headers = {}) =>
       form.append(property, body[property])
     }
     body = form
-  } else if (options.sid && options.removeSidFromUri !== true && options.noAuth !== true) {
-    // Add SID to path if one has been given to us.
-    body['sid'] = options.sid
-  }
+  } 
+  
 
 
    if (method === 'GET'){

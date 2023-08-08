@@ -1,9 +1,8 @@
 {
-  "name": "fritzbox.js",
+  "name": "neofritzbox.js",
   "version": "2.0.1",
-  "author": "@lesander",
-  "description": "The most powerful Fritz!Box API for NodeJS.",
-  "homepage": "https://git.io/fritzbox",
+  "author": "@fiwel00",
+  "description": "The second most powerful Fritz!Box API for NodeJS.",
   "license": "MIT",
   "contributors": [],
   "keywords": [
@@ -25,7 +24,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lesander/fritzbox.js.git"
+    "url": "git+https://github.com/fiwel00/fritzbox.js.git"
   },
   "main": "index.js",
   "scripts": {
@@ -39,7 +38,7 @@
     "csvjson": "^3.0.0",
     "FormData": "^0.10.1",
     "node-fetch": "^3.3.1",
-    "xml-to-json-promise": "^0.0.3",
+    "xml-to-json-promise": "^0.0.3"
   },
   "devDependencies": {
     "eslint": "^8.45.0",
@@ -52,9 +51,9 @@
   },
   "options": {
     "protocol": "https",
-    "server": "fritz.box",
-    "username": "xxx",
-    "password": "xxx",
+    "server": "192.168.178.1",
+    "username": "fritz0275",
+    "password": "acht1714",
     "callmonitorport": "1012",
     "debug": false
   },
