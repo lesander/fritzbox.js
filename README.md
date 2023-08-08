@@ -1,4 +1,4 @@
-# FritzBox.js
+# NeoFritzBox.js
 [![GitHub release](https://img.shields.io/github/release/lesander/fritzbox.js.svg?maxAge=1)]()
 [![Completion Status](https://img.shields.io/badge/completion-70%25-green.svg)]()
 [![Build Status](https://travis-ci.org/lesander/fritzbox.js.svg?branch=master&cache=pls)](https://travis-ci.org/lesander/fritzbox.js)
@@ -8,19 +8,19 @@
 
 The most powerful, simple and complete [AVM](https://avm.de) Fritz!Box [API](https://avm.de/Schnittstellen).
 
-**This project is still a work in progress. [See issue #1 for the current status.](https://github.com/lesander/fritzbox.js/issues/1)**
+**This project is a fork of [fritzbox.js](https://github.com/lesander/fritzbox.js) is mostly a refactoring excerise. But it already welcomes some new changes**
 
 ## Getting Started
 This module is future-proof and uses async/await promises.
 
 This means that you need to run NodeJS version `7.6.0` or newer. If your NodeJS version is between `7.0.0` and `7.5.0` you can use the harmony flag `--harmony-async-await` to make use of the async/await promises.
 
-This package was tested on Fritz!Box 7390 and 7490, with firmware versions `6.53`, `6.51` and `6.83`.
+This package was tested on Fritz!Box 7520, with firmware versions `7.50`.
 
 ## Installing
 
 ```
-npm install fritzbox.js
+npm install neofritzbox.js
 ```
 
 ## Usage
@@ -47,51 +47,13 @@ const options = {
 To minimize overhead and limit login requests made to the Fritz!Box it is recommended to store the SID once one has been obtained using [`fritz.getSessionId`](https://fritzbox.js.org/api/#fritzLogin.getSessionId).
 
 ## Documentation
-Want to get started with FritzBox.js? Cool! The API is
-[documented and available here](https://fritzbox.js.org/api), and you can
-[see some examples](/test) in the `test/` folder.
+The only available documentation is from the base repository and does not include any additional feature that have been implemented see [fritzbox.js documentation](https://fritzbox.js.org/api).
+
+Tests for new features have been written and you can [see some examples](/test) in the `test/` folder.
 
 ## Contributing
-If you'd like to contribute to FritzBox.js, or file a bug or feature request,
+If you'd like to contribute to NeoFritzBox.js, or file a bug or feature request,
 please head over to [the issue tracker](/issues) or [open a pull request](/pulls).
-
-## Migrating from 1.x.x to 2.x.x
-FritzBox.js v2.x is not backwards compatible with v1.x.
-One of the mayor changes includes the switch to `async/await` Promises.
-In v1.x, Promises were implemented with a `then`, `catch`:
-
-```js
-fritz.getCalls(options)
-.then((callHistory) => {
-  console.log(callHistory)
-})
-.catch((error) => {
-  console.log(error)
-})
-```
-
-With v2.x, the `catch` will no longer catch any errors, since the module is now
-built to provide support for `await`. Any errors will be passed along like this:
-
-```js
-fritz.getCalls(options)
-.then((callHistory) => {
-  if (callHistory.error) return console.log(callHistory.error.message)
-  console.log(callHistory)
-})
-```
-
-Of course, this can be simplified using `await`:
-
-```js
-let callHistory = await fritz.getCalls(options)
-if (callHistory.error) return console.log(callHistory.error.message)
-console.log(callHistory)
-```
-
-Note that any Promise waiting to be fulfilled using `await` should be put inside an `async` function.
-
-For more changes, please see the [roadmap](https://github.com/lesander/fritzbox.js/issues/1).
 
 ## License
 This software is open-sourced under the MIT License ([see the LICENSE file for
