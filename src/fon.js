@@ -71,7 +71,6 @@ fritzFon.getTamMessages = async (options) => {
         tamMessages.push(calls[call].tam_data)
       }
     }
-
   } else if (version >= 683) {
     /* The following works with Fritz!Box OS 6.83 and newer. */
 
@@ -89,7 +88,7 @@ fritzFon.getTamMessages = async (options) => {
       ajax_id: 1234
     }
     const headers = {
-      "Content-Type": "application/x-www-form-urlencoded",
+      'Content-Type': 'application/x-www-form-urlencoded'
     }
 
     const response = await fritzRequest.request(path, 'POST', options, form, headers)
@@ -131,11 +130,11 @@ fritzFon.downloadTamMessage = async (messagePath, localPath, options) => {
 
   if (version.error) return version
 
-  if (version >= 750) { 
+  if (version >= 750) {
     const path = '/cgi-bin/luacgi_notimeout?'
     const param = {
       script: '/lua/photo.lua',
-      myabfile: messagePath,
+      myabfile: messagePath
     }
     options.noAuth = false
     const response = await fritzRequest.request(path, 'GET', options, param)
@@ -151,20 +150,18 @@ fritzFon.downloadTamMessage = async (messagePath, localPath, options) => {
     const path = '/myfritz/cgi-bin/luacgi_notimeout' +
     '?cmd=tam&script=/http_file_download.lua' +
     '&cmd_files=' + messagePath
-   
+
     const response = await fritzRequest.request(path, 'GET', options)
 
     if (response.error) return response
 
     if (response.headers['content-type'] !== 'audio/x-wav') {
-    return { error: { message: 'Did not receive wav audio file', raw: response } }
+      return { error: { message: 'Did not receive wav audio file', raw: response } }
     }
 
     return { message: 'Saved tam message to ' + localPath }
-    }
   }
-
- 
+}
 
 /**
  * Mark a message as read.
@@ -184,7 +181,7 @@ fritzFon.markTamMessageAsRead = async (messageId, options, tamId = 0) => {
 
   if (response.error) return response
 
-  if (response.body !== '{"state":1,"cur_idx":1}') {
+  if (response.body !== "{'state':1,'cur_idx':1}") {
     return { error: { message: 'Message not marked as read.', raw: response.body } }
   }
 
@@ -236,7 +233,7 @@ fritzFon.getActiveCalls = async (options) => {
   }
 
   const headers = {
-    "Content-Type": "application/x-www-form-urlencoded",
+    'Content-Type': 'application/x-www-form-urlencoded'
   }
 
   const response = await fritzRequest.request('/data.lua', 'POST', options, params, headers)
@@ -268,9 +265,9 @@ fritzFon.getPhonebook = async (phonebookId = 0, options) => {
     PhonebookExport: ''
   }
   const path = '/cgi-bin/firmwarecfg'
-  
+
   const headers = {
-    "Content-Type": "multipart/form-data",
+    'Content-Type': 'multipart/form-data'
   }
 
   const response = await fritzRequest.request(path, 'POST', options, formData, headers)
@@ -424,4 +421,4 @@ fritzFon.CallMonitor = CallMonitor
 
 // Export fritzFon.
 
-export default  fritzFon
+export default fritzFon

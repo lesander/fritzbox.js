@@ -3,17 +3,17 @@
  * @ignore
  */
 
-import fetch from 'node-fetch';
-import https from 'https';
-import FormData from 'form-data';
+import fetch from 'node-fetch'
+import https from 'https'
+import FormData from 'form-data'
 
 const httpsAgent = new https.Agent({
-    //Disable SSL verification since the Fritz.box endpoint is not secure enough
-    //The certificate uses a weak Diffie-Hellman key and is vulnerable to a Logjam Attack
-      rejectUnauthorized: false,
-    });
+  // Disable SSL verification since the Fritz.box endpoint is not secure enough
+  // The certificate uses a weak Diffie-Hellman key and is vulnerable to a Logjam Attack
+  rejectUnauthorized: false
+})
 let fritzRequest = {}
-export default  fritzRequest
+export default fritzRequest
 /**
  * Send a request to the Fritz!Box.
  *
@@ -27,7 +27,7 @@ export default  fritzRequest
  * @return {Object}                    Request response object
  */
 fritzRequest.request = async (path, method, options, body = {}, headers = {}) => {
-  console.log("PATH: " + path)
+  console.debug('PATH: ' + path)
   options.protocol = options.protocol || 'https'
 
   // Make sure we have the required options.
@@ -46,7 +46,7 @@ fritzRequest.request = async (path, method, options, body = {}, headers = {}) =>
   if (typeof options.removeSidFromUri === 'undefined') {
     options.removeSidFromUri = false
   }
-  
+
   if (options.sid && options.removeSidFromUri !== true && options.noAuth !== true) {
     // Add SID to path if one has been given to us.
     body['sid'] = options.sid
@@ -55,52 +55,49 @@ fritzRequest.request = async (path, method, options, body = {}, headers = {}) =>
   if (headers['Content-Type'] === 'application/x-www-form-urlencoded') {
     const encodedForm = []
     for (const property in body) {
-      const encodedKey = encodeURIComponent(property);
-      const encodedValue = encodeURIComponent(body[property]);
-      encodedForm.push(`${encodedKey}=${encodedValue}`);
+      const encodedKey = encodeURIComponent(property)
+      const encodedValue = encodeURIComponent(body[property])
+      encodedForm.push(`${encodedKey}=${encodedValue}`)
     }
-    body = encodedForm.join("&")
+    body = encodedForm.join('&')
   } else if (headers['Content-Type'] === 'multipart/form-data') {
     const form = new FormData()
     for (const property in body) {
       form.append(property, body[property])
     }
     body = form
-  } 
-  
+  }
 
-
-   if (method === 'GET'){
+  if (method === 'GET') {
     for (const key in body) {
       if (!path.endsWith('&') || !path.endsWith('?')) {
         path += '&'
       }
       path += `${key}=${body[key]}`
     }
-    body = undefined;
+    body = undefined
   }
 
   // Set the options for the request.
   const uri = `${options.protocol}://${options.server}${path}`
-  console.log('uri: ', uri, 'headers: ', headers, 'method: ', method, 'body: ', body)
+  console.debug('uri: ', uri, 'headers: ', headers, 'method: ', method, 'body: ', body)
   // Execute HTTP(S) request.
-    const fetchResponse =  await fetch(uri, {
-      headers: headers,
-      method: method || 'GET',
-      body: body,
-      agent: httpsAgent
-    })
-    if (fetchResponse.ok) {
-      const response = {
-        body: await fetchResponse.text(),
-        headers: fetchResponse.headers,
-      }
-      console.log('response fetch', response)
-      return response
-    } else {
-      return fritzRequest.findFailCause(fetchResponse)
+  const fetchResponse = await fetch(uri, {
+    headers: headers,
+    method: method || 'GET',
+    body: body,
+    agent: httpsAgent
+  })
+  if (fetchResponse.ok) {
+    const response = {
+      body: await fetchResponse.text(),
+      headers: fetchResponse.headers
     }
-
+    console.debug('response fetch', response)
+    return response
+  } else {
+    return fritzRequest.findFailCause(fetchResponse)
+  }
 }
 
 /**

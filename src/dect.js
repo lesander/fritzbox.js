@@ -40,8 +40,9 @@ fritzDect.toggleSwitch = async (deviceId, value, options) => {
   let response
 
   if (version >= 750) {
-    //TODO when someone gets a smartswitch
-    return { error: 'The implementation for FritzOS!7.50 is not available '}
+    // TODO when someone gets a smartswitch
+
+    return {error: 'The implementation for FritzOS!7.50 is not available '}
   } else if (version >= 683) {
     // Post 06.83 uses a POST request.
 
@@ -58,10 +59,9 @@ fritzDect.toggleSwitch = async (deviceId, value, options) => {
       cmdValue: value,
       deviceId: deviceId
     }
-    
-   
+
     const headers = {
-      "Content-Type": "multipart/form-data",
+      'Content-Type': 'multipart/form-data'
     }
     response = await fritzRequest.request(path, 'POST', options, form, headers)
   } else {

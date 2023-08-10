@@ -31,13 +31,13 @@ fritzLogin.getSessionId = async (options) => {
   }
 
   const headers = {
-    "Content-Type": "application/x-www-form-urlencoded",
+    'Content-Type': 'application/x-www-form-urlencoded'
   }
 
   const responseChallenge = await fritzRequest.request(path, 'POST', options, params, headers)
 
   if (responseChallenge.error) return responseChallenge
-  
+
   // Extract the session ID.
   const sessionIdMatch = responseChallenge.body.match('<SID>(.*?)</SID>')
   if (!sessionIdMatch || !sessionIdMatch[1]) {

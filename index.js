@@ -24,11 +24,11 @@ const fritz = Object.assign(
 )
 
 process.on('unhandledRejection', function (reason, r) {
-  console.log('\x1b[31m[FritzBox.js] Encountered unhandled Promise rejection.\n' +
+  console.error('\x1b[31m[FritzBox.js] Encountered unhandled Promise rejection.\n' +
               'The script has been stopped. See the full stack trace below for more information.\n' +
               'If you think this has to do with FritzBox.js directly,\n' +
               'please do no hesitate to open an issue on GitHub.\n')
-  console.log(reason, r)
+  console.error(reason, r)
   process.exit(1)
 })
 
