@@ -28,8 +28,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "standard",
-    "local-test": "test/ci.sh",
+    "test": "test/ci.sh",
     "build-docs": "documentation build --github --sort-order=alpha --output=docs/api --format=html src/**",
     "watch-docs": "documentation serve --watch --sort-order=alpha src/**"
   },
