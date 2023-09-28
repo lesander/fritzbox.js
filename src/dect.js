@@ -16,14 +16,20 @@ import fritzSystem from './system.js'
  * @return {Array} An array of all found smart devices.
  */
 fritzDect.getSmartDevices = async (options) => {
-  const path = '/myfritz/areas/homeauto.lua?ajax_id=1&cmd=getData'
-  const response = await fritzRequest.request(path, 'GET', options)
+  const path = '/data.lua'
+  const body = {
+    xhr: '1',
+    page: 'sh_dev',
+    xhrid: 'all'
+  }
+  const headers = {
+    'Content-Type': 'application/x-www-form-urlencoded'
+  }
+  const response = await fritzRequest.request(path, 'POST', options, body, headers)
 
   if (response.error) return response
-
-  console.log(response)
-
-  return JSON.parse(response).devices
+  
+  return JSON.parse(response.body).data
 }
 
 /**
@@ -38,7 +44,7 @@ fritzDect.toggleSwitch = async (deviceId, value, options) => {
   if (version.error) return version
 
   let response
-
+  console.log("Fritzbox version is: " + version)
   if (version >= 750) {
     // TODO when someone gets a smartswitch
 
