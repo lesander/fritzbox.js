@@ -77,7 +77,7 @@ fritzWlan.resetDevice = async (deviceName, options) => {
 
   if (response.error) return response
 
-  return ''
+  return JSON.parse(response.body)
 }
 
 export default fritzWlan
