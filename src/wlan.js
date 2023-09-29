@@ -52,6 +52,11 @@ fritzWlan.getDeviceByName = async (deviceName, options) => {
 
 fritzWlan.resetDevice = async (deviceName, options) => {
   const device = await fritzWlan.getDeviceByName(deviceName, options)
+
+  if (device.error) {
+    return device;
+  }
+
   const path = `/data.lua`
   const params = {
     xhr: '1',
