@@ -50,9 +50,9 @@
   },
   "options": {
     "protocol": "https",
-    "server": "192.168.178.1",
-    "username": "fritz0275",
-    "password": "acht1714",
+    "server": "fritz.box",
+    "username": "",
+    "password": "",
     "callmonitorport": "1012",
     "debug": false
   },
