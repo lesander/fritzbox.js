@@ -1,6 +1,6 @@
 {
   "name": "neofritzbox.js",
-  "version": "2.1.1",
+  "version": "2.1.3",
   "author": "@fiwel00",
   "description": "The second most powerful Fritz!Box API for NodeJS.",
   "license": "MIT",
