@@ -1,10 +1,10 @@
-const fritz = require('../index.js')
-const options = require('../package.json').options
-const messagePath = '/data/tam/rec/rec.0.020'
+import fritz from '../index.js'
+import pckJson from '../package.json' assert {type:'json'}
+const messagePath = '/data/tam/rec/rec.0.000'
 const localPath = './test/rec20.wav'
 
 async function download () {
-  const status = await fritz.downloadTamMessage(messagePath, localPath, options)
+  const status = await fritz.downloadTamMessage(messagePath, localPath, pckJson.options)
 
   if (status.error) {
     console.log('Error:', status.error.message)

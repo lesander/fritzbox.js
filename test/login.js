@@ -1,8 +1,8 @@
-const fritz = require('../index.js')
-const options = require('../package.json').options
+import fritz  from '../index.js'
+import pckJson from '../package.json' assert { type: 'json'}
 
 async function login () {
-  const sessionId = await fritz.getSessionId(options)
+  const sessionId = await fritz.getSessionId(pckJson.options)
   if (sessionId.error) {
     console.log('Error:', sessionId.error.message)
     process.exit(1)

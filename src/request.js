@@ -3,26 +3,31 @@
  * @ignore
  */
 
-const request = require('request-promise')
-const requestNoPromise = require('request')
-const fs = require('fs')
+import fetch from 'node-fetch'
+import https from 'https'
+import FormData from 'form-data'
 
+const httpsAgent = new https.Agent({
+  // Disable SSL verification since the Fritz.box endpoint is not secure enough
+  // The certificate uses a weak Diffie-Hellman key and is vulnerable to a Logjam Attack
+  rejectUnauthorized: false
+})
 let fritzRequest = {}
-module.exports = fritzRequest
-
+export default fritzRequest
 /**
  * Send a request to the Fritz!Box.
  *
  * @private
- * @param  {string}   path            Path to request
- * @param  {string}   method          Request method
- * @param  {Object}   options         Options object
- * @param  {string}   pipe
- * @param  {Object}   formData
- * @param  {boolean}  formUrlEncoded
+ * @param  {string}       path            Path to request
+ * @param  {string}       method          Request method
+ * @param  {Object}       options         Options object
+ * @param  {HeadersInit}  headers
+ * @param  {Object}       body
+ * @param  {string}       pipe
  * @return {Object}                    Request response object
  */
-fritzRequest.request = async (path, method, options, pipe = false, formData = false, formUrlEncoded = false) => {
+fritzRequest.request = async (path, method, options, body = {}, headers = {}) => {
+  console.debug('PATH: ' + path)
   options.protocol = options.protocol || 'https'
 
   // Make sure we have the required options.
@@ -42,62 +47,68 @@ fritzRequest.request = async (path, method, options, pipe = false, formData = fa
     options.removeSidFromUri = false
   }
 
-  // Add SID to path if one has been given to us.
   if (options.sid && options.removeSidFromUri !== true && options.noAuth !== true) {
-    path += '&sid=' + options.sid
+    // Add SID to path if one has been given to us.
+    body['sid'] = options.sid
+  }
+
+  if (headers['Content-Type'] === 'application/x-www-form-urlencoded') {
+    const encodedForm = []
+    for (const property in body) {
+      const encodedKey = encodeURIComponent(property)
+      const encodedValue = encodeURIComponent(body[property])
+      encodedForm.push(`${encodedKey}=${encodedValue}`)
+    }
+    body = encodedForm.join('&')
+  } else if (headers['Content-Type'] === 'multipart/form-data') {
+    const form = new FormData()
+    for (const property in body) {
+      form.append(property, body[property])
+    }
+    body = form
+  }
+
+  if (method === 'GET') {
+    for (const key in body) {
+      if (!path.endsWith('&') || !path.endsWith('?')) {
+        path += '&'
+      }
+      path += `${key}=${body[key]}`
+    }
+    body = undefined
   }
 
   // Set the options for the request.
-  let requestOptions = {
-    uri: options.protocol + '://' + options.server + path,
-    method: method || 'GET',
-    resolveWithFullResponse: true,
-    rejectUnauthorized: false
-  }
-
-  if (formData) {
-    requestOptions.formData = formData
-  }
-
-  if (formUrlEncoded) {
-    requestOptions.form = formUrlEncoded
-  }
-
-  // Pipe a file to disk.
-  if (pipe) {
-    let stream = requestNoPromise(requestOptions).pipe(fs.createWriteStream(pipe))
-    stream.on('finish', () => {
-      return { message: 'File has been saved to ' + pipe }
-    })
-  }
-
+  const uri = `${options.protocol}://${options.server}${path}`
+  console.debug('uri: ', uri, 'headers: ', headers, 'method: ', method, 'body: ', body)
   // Execute HTTP(S) request.
-  let response = null
-  try {
-    response = await request(requestOptions)
-  } catch (error) {
-    return fritzRequest.findFailCause(error)
+  const fetchResponse = await fetch(uri, {
+    headers: headers,
+    method: method || 'GET',
+    body: body,
+    agent: httpsAgent
+  })
+  if (fetchResponse.ok) {
+    const response = {
+      body: await fetchResponse.text(),
+      headers: fetchResponse.headers
+    }
+    console.debug('response fetch', response)
+    return response
+  } else {
+    return fritzRequest.findFailCause(fetchResponse)
   }
-
-  /*
-  if (response.statusCode !== 200) {
-    console.log('is not 200')
-    return fritzRequest.findFailCause(response)
-  }
-  */
-
-  return response
 }
 
 /**
  * Find the cause of a failed request.
  *
  * @private
- * @param  {Object} response HTTP request response
+ * @param  {Response} response HTTP request response
  * @return {string}          Detailed error message
  */
 fritzRequest.findFailCause = (response) => {
-  switch (response.statusCode) {
+  switch (response.status) {
     case 403:
       return { error: { message: 'Not authenticated correctly for communication with Fritz!Box.' } }
     case 404:
@@ -107,7 +118,7 @@ fritzRequest.findFailCause = (response) => {
     default:
 
       if (response.message) {
-        return { error: { message: response.message } }
+        return { error: { message: response.statusText } }
       }
 
       return { error: { message: 'Encountered an unexpected error.', raw: response } }
@@ -116,4 +127,5 @@ fritzRequest.findFailCause = (response) => {
 
 // <3 Circular dependencies...
 // https://stackoverflow.com/a/32428290/1878974
-const fritzLogin = require('./login.js')
+import fritzLogin from './login.js'
+

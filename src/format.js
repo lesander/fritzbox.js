@@ -5,8 +5,8 @@
 
 let fritzFormat = {}
 
-const csvjson = require('csvjson')
-const convert = require('xml-to-json-promise')
+import csvjson from 'csvjson'
+import convert from 'xml-to-json-promise'
 
 /**
  * Format a raw calls array to a more readable array.
@@ -186,4 +186,4 @@ fritzFormat.phonebook = (phonebook) => {
 
 // Export fritzFon.
 
-module.exports = fritzFormat
+export default fritzFormat
